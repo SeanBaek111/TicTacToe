@@ -33,11 +33,12 @@ namespace TicTacToe
         public void Play()
         {            
             Console.WriteLine("Game started");
+            gameBoard.DisplayBoard();
             while (!IsQuit() || IsWin())
             {
 
                 currentPlayer = GetCurrentPlayer();
-                gameBoard.DisplayBoard();
+              
                 currentPlayer.MakeMovement(gameBoard);
                 gameBoard.DisplayBoard();
                 SwapPlayer(); 

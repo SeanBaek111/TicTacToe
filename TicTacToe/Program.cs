@@ -69,7 +69,7 @@ public class Program
 
         // TODO: DO new game.
         //
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
 
         Game game = null;
         Player[] players = new Player[2];
