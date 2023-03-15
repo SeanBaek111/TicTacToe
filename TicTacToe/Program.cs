@@ -84,7 +84,6 @@ public class Program
         menu2.AddMenu("Quit");
         nSelection = menu2.GetUserAnswer();
 
-
         Menu menu3 = new Menu();
         if (nSelection == 1)
         {
@@ -155,6 +154,8 @@ public class Program
             menu3.AddMenu("Delete");
             menu3.AddMenu("Back");
             nSelection = menu3.GetUserAnswer();
+            // Do choise 
+            throw new NotImplementedException();
         }
         else if (nSelection == 4)
         {
@@ -163,6 +164,8 @@ public class Program
             menu3.AddMenu("Numerical TTT Help");
             menu3.AddMenu("Back");
             nSelection = menu3.GetUserAnswer();
+            // Do choise 
+            throw new NotImplementedException();
         }
     }
     static void LoadGame()
