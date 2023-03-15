@@ -13,10 +13,7 @@ namespace TicTacToe
             };
         }
 
-        public string[,] GetBoard()
-        {
-            return gameBoard;
-        }
+       
 
         public override void DisplayBoard()
         {
