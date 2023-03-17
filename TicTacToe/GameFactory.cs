@@ -20,11 +20,13 @@ namespace TicTacToe
             Player[] listPlayer;
             if (name == "numericTTT")
             {
-                game = new NumericTTT(); 
+                game = new NumericTTT();
+                game.SetBoard(new NumericTicTacToeBoard());
             }
             else if (name == "wildTTT")
             {
-                game = new WildTTT(); 
+                game = new WildTTT();
+                game.SetBoard(new WildTicTacToeBoard());
             } 
             else
             {
@@ -55,14 +57,7 @@ namespace TicTacToe
                 throw new Exception(name + " is not exsist");
             }
 
-            if (board == "TicTacToeBoard")
-            {
-                game.SetBoard(new TicTacToeBoard());
-            } 
-            else
-            {
-                throw new Exception(name + " is not exsist");
-            }
+            
 
             return game;
 

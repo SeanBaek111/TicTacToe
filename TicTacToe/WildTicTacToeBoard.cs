@@ -1,10 +1,10 @@
 ﻿using System;
 namespace TicTacToe
 {
-    public class TicTacToeBoard : Board
+    public class WildTicTacToeBoard : Board
     {
        
-        public TicTacToeBoard():base()
+        public WildTicTacToeBoard():base()
         {
             base.gameBoard = new string[3,3] {
                 { "-","-","-" },
@@ -28,6 +28,23 @@ namespace TicTacToe
             Console.WriteLine("│     │     │     │");
             Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
             Console.WriteLine("└─────┴─────┴─────┘");
+        }
+
+        public override bool IsAvailableMove(int row, int col, string mark)
+        {
+            return true;
+        }
+
+        public override bool SetBoard(int row, int col, string mark)
+        {
+            if (IsAvailableMove(row, col, mark))
+            {
+                gameBoard[row - 1, col - 1] = mark;
+                return true;
+            }
+            else
+                return false;
+          
         }
     }
 }

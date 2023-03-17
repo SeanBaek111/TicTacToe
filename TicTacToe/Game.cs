@@ -39,6 +39,7 @@ namespace TicTacToe
 
                 currentPlayer = GetCurrentPlayer();
               
+
                 currentPlayer.MakeMovement(gameBoard);
                 gameBoard.DisplayBoard();
                 SwapPlayer(); 
@@ -95,7 +96,7 @@ namespace TicTacToe
 
         private int AddHistory(BoardStatus boardStatus)
         {
-            int nHistoryCnt =    History.GetInstance().Push(boardStatus);
+            int nHistoryCnt = History.GetInstance().Push(boardStatus);
             Console.WriteLine("nHistoryCnt " + nHistoryCnt);
 
             return nHistoryCnt;
