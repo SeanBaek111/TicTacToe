@@ -32,7 +32,7 @@ namespace TicTacToe
         }
         public void Play()
         {            
-            Console.WriteLine("Game started");
+            //Console.WriteLine("Game started");
             gameBoard.DisplayBoard();
             while (!IsQuit() || IsWin())
             {
@@ -58,8 +58,9 @@ namespace TicTacToe
         }
         private bool IsQuit()
         {
-            if (nCurrentTurn >= MAX_TURN)
-                return true;
+           /* if (nCurrentTurn >= MAX_TURN)
+                return true;*/
+           //if( gameBoard.)
             return false;
         }
 
@@ -97,7 +98,7 @@ namespace TicTacToe
         private int AddHistory(BoardStatus boardStatus)
         {
             int nHistoryCnt = History.GetInstance().Push(boardStatus);
-            Console.WriteLine("nHistoryCnt " + nHistoryCnt);
+          //  Console.WriteLine("nHistoryCnt " + nHistoryCnt);
 
             return nHistoryCnt;
 

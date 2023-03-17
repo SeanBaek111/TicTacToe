@@ -7,8 +7,9 @@ namespace TicTacToe
         
         public abstract void DisplayBoard();
 
-        public abstract bool SetBoard(int row, int col, string mark);
-        public abstract bool IsAvailableMove(int row, int col, string mark);
+        public abstract bool MarkBoard(string[] arrInput);
+       // public abstract bool SetBoard(int row, int col, string mark);
+        public abstract bool IsAvailableMove(string[] arrInput);
         public string[,] GetBoard()
         {
             return gameBoard;
