@@ -8,9 +8,10 @@ namespace TicTacToe
 {
     public class Menu
     {
-        List<string> listMenu= new List<string>();
+        List<string> listMenu = new List<string>();
         private string question = "";
-        public Menu(string question) { 
+        public Menu(string question)
+        {
             this.question = question;
         }
 
@@ -19,7 +20,7 @@ namespace TicTacToe
 
         }
 
-        public void SetQuestion(string question) { this.question = question;}
+        public void SetQuestion(string question) { this.question = question; }
         public void AddMenu(string menu)
         {
             listMenu.Add(menu);
@@ -31,22 +32,22 @@ namespace TicTacToe
             Console.WriteLine(Environment.NewLine);
             for (int i = 0; i < listMenu.Count; i++)
             {
-                Console.WriteLine(i+1 + ". " + listMenu[i]);
-            } 
+                Console.WriteLine(i + 1 + ". " + listMenu[i]);
+            }
         }
 
         public int GetUserAnswer()
         {
             int nSelection = 0;
 
-            ShowMenu();            
+            ShowMenu();
             Console.Write("\n>>> ");
             Int32.TryParse(Console.ReadLine(), out nSelection);
 
-            while (nSelection < 1 || nSelection >  listMenu.Count)
+            while (nSelection < 1 || nSelection > listMenu.Count)
             {
                 Console.WriteLine("Select a valid number\n");
-                ShowMenu();                
+                ShowMenu();
                 Console.Write("\n>>> ");
                 Int32.TryParse(Console.ReadLine(), out nSelection);
             }

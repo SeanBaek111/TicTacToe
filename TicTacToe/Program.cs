@@ -10,21 +10,20 @@ public class Program
         // Check if the save file exists.
         bool saveFile = File.Exists("save.cfg");
 
-        Menu menu1 = new Menu();
+        Menu menu = new Menu();
         // Declare the user decision variable
         int nSelection;
 
         // If Save file exists, do the confirmation.
-        //
         if (saveFile)
         {
             while (true)
             {
-                menu1.SetQuestion("Load Last Save Game?");
-                menu1.AddMenu("Yes");
-                menu1.AddMenu("No");
-                menu1.AddMenu("Quit");
-                nSelection = menu1.GetUserAnswer();
+                menu.SetQuestion("Load Last Save Game?");
+                menu.AddMenu("Yes");
+                menu.AddMenu("No");
+                menu.AddMenu("Quit");
+                nSelection = menu.GetUserAnswer();
 
                 switch (nSelection)
                 {
@@ -75,25 +74,25 @@ public class Program
         Player[] players = new Player[2];
 
 
-        Menu menu2 = new Menu();
-        menu2.SetQuestion("Welcome to TTT\nSelect an Option");
-        menu2.AddMenu("Wild Tic Tac Toe");
-        menu2.AddMenu("Numerical Tic Tac Toe");
-        menu2.AddMenu("Load Last Save Game?");
-        menu2.AddMenu("Help");
-        menu2.AddMenu("Quit");
-        nSelection = menu2.GetUserAnswer();
+        Menu menu = new Menu();
+        menu.SetQuestion("Welcome to TTT\nSelect an Option");
+        menu.AddMenu("Wild Tic Tac Toe");
+        menu.AddMenu("Numerical Tic Tac Toe");
+        menu.AddMenu("Load Last Save Game?");
+        menu.AddMenu("Help");
+        menu.AddMenu("Quit");
+        nSelection = menu.GetUserAnswer();
 
         Menu menu3 = new Menu();
         if (nSelection == 1)
         {
             game = new WildTTT();
 
-            menu3.SetQuestion("Wild Tic Tac Toe\nWho is playing?");
-            menu3.AddMenu("Player vs Player");
-            menu3.AddMenu("Player vs Computer");
-            menu3.AddMenu("Back");
-            nSelection = menu3.GetUserAnswer();
+            menu.SetQuestion("Wild Tic Tac Toe\nWho is playing?");
+            menu.AddMenu("Player vs Player");
+            menu.AddMenu("Player vs Computer");
+            menu.AddMenu("Back");
+            nSelection = menu.GetUserAnswer();
 
             if (nSelection == 1)
             {
@@ -120,11 +119,11 @@ public class Program
         {
             game = new NumericTTT();
 
-            menu3.SetQuestion("Numerical Tic Tac Toe\nWho is playing?");
-            menu3.AddMenu("Player vs Player");
-            menu3.AddMenu("Player vs Computer");
-            menu3.AddMenu("Back");
-            nSelection = menu3.GetUserAnswer();
+            menu.SetQuestion("Numerical Tic Tac Toe\nWho is playing?");
+            menu.AddMenu("Player vs Player");
+            menu.AddMenu("Player vs Computer");
+            menu.AddMenu("Back");
+            nSelection = menu.GetUserAnswer();
 
             if (nSelection == 1)
             {
@@ -149,23 +148,19 @@ public class Program
         }
         else if (nSelection == 3)
         {
-            menu3.SetQuestion("Save Game\nDo you want to load your last saved game?");
-            menu3.AddMenu("Load");
-            menu3.AddMenu("Delete");
-            menu3.AddMenu("Back");
-            nSelection = menu3.GetUserAnswer();
-            // Do choise 
-            throw new NotImplementedException();
+            menu.SetQuestion("Save Game\nDo you want to load your last saved game?");
+            menu.AddMenu("Load");
+            menu.AddMenu("Delete");
+            menu.AddMenu("Back");
+            nSelection = menu.GetUserAnswer();
         }
         else if (nSelection == 4)
         {
-            menu3.SetQuestion("SaveHelp Message");
-            menu3.AddMenu("Wild Numerical TTT help");
-            menu3.AddMenu("Numerical TTT Help");
-            menu3.AddMenu("Back");
-            nSelection = menu3.GetUserAnswer();
-            // Do choise 
-            throw new NotImplementedException();
+            menu.SetQuestion("Save Help Message");
+            menu.AddMenu("Wild Numerical TTT help");
+            menu.AddMenu("Numerical TTT Help");
+            menu.AddMenu("Back");
+            nSelection = menu.GetUserAnswer();
         }
     }
     static void LoadGame()
