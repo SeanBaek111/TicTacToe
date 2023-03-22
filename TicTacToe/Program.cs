@@ -83,7 +83,7 @@ public class Program
         menu.AddMenu("Quit");
         nSelection = menu.GetUserAnswer();
 
-        Menu menu3 = new Menu();
+        menu = new Menu();
         if (nSelection == 1)
         {
             game = new WildTTT();
