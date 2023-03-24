@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using static System.Console;
 
 namespace TicTacToe;
@@ -73,6 +73,9 @@ public class Program
         Game game = null;
         Player[] players = new Player[2];
 
+        string sGame = "";
+        string sPlayers = "";
+        string sBoard = "";
 
         Menu menu = new Menu();
         menu.SetQuestion("Welcome to TTT\nSelect an Option");
@@ -86,7 +89,8 @@ public class Program
         menu = new Menu();
         if (nSelection == 1)
         {
-            game = new WildTTT();
+            sGame = "wildTTT";
+            sBoard = "TicTacToeBoard";
 
             menu.SetQuestion("Wild Tic Tac Toe\nWho is playing?");
             menu.AddMenu("Player vs Player");
@@ -96,28 +100,20 @@ public class Program
 
             if (nSelection == 1)
             {
-                players[0] = new HumanPlayer("Player 1");
-                players[1] = new HumanPlayer("Player 2");
-
-                players[0].SetTurn(true);
-                players[1].SetTurn(false);
+                sPlayers = "HumanVsHuman";
             }
             else if (nSelection == 2)
             {
-                players[0] = new HumanPlayer();
-                players[1] = new ComputerPlayer();
-
-                players[0].SetTurn(true);
-                players[1].SetTurn(false);
+                sPlayers = "HumanVsComputer";
             }
 
-            game.SetPlayers(players);
-            game.SetBoard(new TicTacToeBoard());
+            game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
             game.Play();
         }
         else if (nSelection == 2)
         {
-            game = new NumericTTT();
+            sGame = "numericTTT";
+            sBoard = "TicTacToeBoard";
 
             menu.SetQuestion("Numerical Tic Tac Toe\nWho is playing?");
             menu.AddMenu("Player vs Player");
@@ -127,23 +123,14 @@ public class Program
 
             if (nSelection == 1)
             {
-                players[0] = new HumanPlayer("Player 1");
-                players[1] = new HumanPlayer("Player 2");
-
-                players[0].SetTurn(true);
-                players[1].SetTurn(false);
+                sPlayers = "HumanVsHuman";
             }
             else if (nSelection == 2)
             {
-                players[0] = new HumanPlayer();
-                players[1] = new ComputerPlayer();
-
-                players[0].SetTurn(true);
-                players[1].SetTurn(false);
+                sPlayers = "HumanVsComputer";
             }
 
-            game.SetPlayers(players);
-            game.SetBoard(new TicTacToeBoard());
+            game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
             game.Play();
         }
         else if (nSelection == 3)
@@ -169,5 +156,4 @@ public class Program
         WriteLine("Load Game");
         throw new NotImplementedException();
     }
-}
-
+} 
