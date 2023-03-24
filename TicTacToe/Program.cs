@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using static System.Console;
 
 namespace TicTacToe;
@@ -156,4 +156,4 @@ public class Program
         WriteLine("Load Game");
         throw new NotImplementedException();
     }
-}
+} 
