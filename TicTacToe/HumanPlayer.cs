@@ -24,7 +24,7 @@ namespace TicTacToe
                 string[] arrInput = sInput.Split(' ');
 
 
-                if (  board.MarkBoard( arrInput ) )
+                if (  board.AddPiece( arrInput ) )
                 {
                     Console.Clear();
                     break;
