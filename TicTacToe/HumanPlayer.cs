@@ -12,8 +12,7 @@ namespace TicTacToe
             base.name = name;
         }
         public override void MakeMovement(Board board)
-        {
-            
+        { 
            
             while (true)
             {
