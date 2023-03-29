@@ -20,7 +20,7 @@ namespace TicTacToe
 
         }
 
-        public void SetQuestion(string question) { this.question = question; }
+        public void SetQuestion(string question) { this.question += question + "\n"; }
         public void AddMenu(string menu)
         {
             listMenu.Add(menu);
