@@ -5,6 +5,7 @@ namespace TicTacToe
     {
         Player[] players;        
         Player currentPlayer;
+        Player winPlayer;
         string currentBoardStatus;
         Board gameBoard;
 
@@ -34,12 +35,9 @@ namespace TicTacToe
         {            
             //Console.WriteLine("Game started");
             gameBoard.DisplayBoard();
-            while (!IsQuit() || IsWin())
-            {
-
-                currentPlayer = GetCurrentPlayer();
-              
-
+            while (!IsWin() && !IsQuit())
+            { 
+                currentPlayer = GetCurrentPlayer();  
                 currentPlayer.MakeMovement(gameBoard);
                 gameBoard.DisplayBoard();
                 SwapPlayer(); 
@@ -48,20 +46,40 @@ namespace TicTacToe
                 nCurrentTurn = AddHistory(boardStatus);                
             }
             
+            if( winPlayer != null )
+            {
+                Console.WriteLine("Winner is " + winPlayer.GetName());
+            }
+            else
+            {
+                Console.WriteLine("Draw!");
+            }
 
             Console.WriteLine("Game Finished");
         }
 
         private bool IsWin()
         {
-            return false;
+            bool bRes = false;
+            
+            if(gameBoard.IsWin())
+            {
+                winPlayer = currentPlayer;
+                bRes = true;
+            }
+
+            return bRes;
         }
         private bool IsQuit()
         {
-           /* if (nCurrentTurn >= MAX_TURN)
-                return true;*/
-           //if( gameBoard.)
-            return false;
+            bool bRes = false;
+
+            if (gameBoard.IsQuit())
+            { 
+                bRes = true;
+            }
+
+            return bRes;
         }
 
         private void SwapPlayer()

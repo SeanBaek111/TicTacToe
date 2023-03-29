@@ -17,7 +17,7 @@ namespace TicTacToe
             string sInput = Console.ReadLine() ;
             string[] arrInput = sInput.Split(' ');
 
-            board.MarkBoard( arrInput);
+            board.AddPiece( arrInput);
             
         }
     }

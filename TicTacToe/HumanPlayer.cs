@@ -12,8 +12,7 @@ namespace TicTacToe
             base.name = name;
         }
         public override void MakeMovement(Board board)
-        {
-            
+        { 
            
             while (true)
             {
@@ -24,7 +23,7 @@ namespace TicTacToe
                 string[] arrInput = sInput.Split(' ');
 
 
-                if (  board.MarkBoard( arrInput ) )
+                if (  board.AddPiece( arrInput ) )
                 {
                     Console.Clear();
                     break;
