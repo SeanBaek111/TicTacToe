@@ -105,22 +105,12 @@ public class Program
         menu.SetQuestion("Select an option");
         menu.AddEnumMenu(GameModeEnum.Wild_Tic_Tac_Toe);
         menu.AddEnumMenu(GameModeEnum.Numeric_Tic_Tac_Toe);
-        menu.AddMenu("Load Last Save Game?");
         menu.AddMenu("Help");
         menu.AddMenu("Quit");
         nSelection = menu.GetUserAnswer();
 
         menu = new Menu();
-        if (nSelection == 3)
-        {
-            menu.SetQuestion("Save Game\nDo you want to load your last saved game?");
-            menu.AddMenu("Load");
-            menu.AddMenu("Delete");
-            menu.AddMenu("Back");
-            nSelection = menu.GetUserAnswer();
-            throw new NotImplementedException();
-        }
-        else if (nSelection == 4)
+        if (nSelection == 4)
         {
             menu.SetQuestion("Save Help Message");
             menu.AddMenu("Wild Numerical TTT help");
