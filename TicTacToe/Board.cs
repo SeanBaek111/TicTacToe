@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace TicTacToe
 {
     public abstract class Board
