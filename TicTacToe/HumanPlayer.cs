@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace TicTacToe
 {
     public class HumanPlayer : Player
@@ -12,19 +12,16 @@ namespace TicTacToe
             base.name = name;
         }
         public override void MakeMovement(Board board)
-        {
-            
+        { 
            
             while (true)
-            {
-
-
+            { 
                 Console.Write(name + " : row col mark >>> ");
                 string sInput = Console.ReadLine();
                 string[] arrInput = sInput.Split(' ');
 
 
-                if (  board.MarkBoard( arrInput ) )
+                if (  board.AddPiece( arrInput ) )
                 {
                     Console.Clear();
                     break;
@@ -35,10 +32,7 @@ namespace TicTacToe
                     board.DisplayBoard();
                     Console.Write("\nInput Error. Try again.\n\n");
                 }
-            }
-
-
-            
+            } 
         }
     }
 }

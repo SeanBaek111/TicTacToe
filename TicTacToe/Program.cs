@@ -4,9 +4,28 @@ using static System.Console;
 namespace TicTacToe;
 
 public class Program
-{
+{ 
     public static void Main()
     {
+
+     //   Console.ForegroundColor = ConsoleColor.Green; 
+       // Console.BackgroundColor = ConsoleColor.Yellow;
+
+        //Console.Write("This ");
+        //Console.ForegroundColor = ConsoleColor.White;
+        //Console.BackgroundColor = ConsoleColor.Blue; 
+       
+        //Console.Write("is");
+        //Console.ForegroundColor = ConsoleColor.DarkBlue;
+        //Console.BackgroundColor = ConsoleColor.Gray;
+
+        //Console.Write("test");
+         
+        //Console.ResetColor();  
+        //Console.WriteLine("\nPress any key to exit...");
+        //Console.ReadKey();
+
+        //return;
         // Check if the save file exists.
         bool saveFile = File.Exists("save.cfg");
 
@@ -155,5 +174,8 @@ public class Program
         // TODO: Do load save file
         WriteLine("Load Game");
         throw new NotImplementedException();
+
+        // game = GameFactory.GetInstance().LoadGame();
+        // game.Play();
     }
 } 
