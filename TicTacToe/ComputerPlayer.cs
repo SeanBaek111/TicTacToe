@@ -20,10 +20,9 @@ namespace TicTacToe
             List<char> pieces = board.GetAvailablePieces();
 
             Random rnd = new Random();
-            string sPos = (positions[rnd.Next(positions.Count)] + 1).ToString();
-             
-            string sPiece = pieces[rnd.Next(pieces.Count)].ToString();
 
+            string sPos = (positions[rnd.Next(positions.Count)] + 1).ToString();             
+            string sPiece = pieces[rnd.Next(pieces.Count)].ToString();
 
             string[] arrInput =   { sPos, sPiece };
             Thread.Sleep(1000);
