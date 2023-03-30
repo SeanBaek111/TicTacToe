@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 
 namespace TicTacToe
 {
     public class WildTicTacToeBoard : Board
     {
         const int BOARD_SIZE = 3;
+
+        private List<char> listAvailablePieces;
         public WildTicTacToeBoard() : base()
         {
             base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
@@ -17,6 +19,8 @@ namespace TicTacToe
             }
 
             base.pieces = new char[] { 'O', 'X' };
+
+            listAvailablePieces = new List<char>(base.pieces);
         }
 
        
@@ -51,27 +55,22 @@ namespace TicTacToe
         public override bool IsValidMove(string[] arrInput)
         {
 
-            if (arrInput.Length != 3)
+            if (arrInput.Length != 2)
             {
                 return false;
             }
 
-            int nInput = 0;
-
-            if (Int32.TryParse(arrInput[0], out nInput) == false)
+            int row, col;
+            if (!Int32.TryParse(arrInput[0], out int input))
             {
                 return false;
             }
-            int row = nInput;
+            GetRowAndCol(input, out row, out col);
 
-            if (Int32.TryParse(arrInput[1], out nInput) == false)
-            {
-                return false;
-            }
-            int col = nInput;
+
 
             char cPiece = ' ';
-            if (char.TryParse(arrInput[2], out cPiece) == false)
+            if (char.TryParse(arrInput[1], out cPiece) == false)
             {
                 return false;
             }
@@ -82,26 +81,39 @@ namespace TicTacToe
                 return false;
             }
 
-           
 
-            if (row > BOARD_SIZE || col > BOARD_SIZE || row < 1 || col < 1)
+
+            if (row >= BOARD_SIZE || col >= BOARD_SIZE || row < 0 || col < 0)
             {
                 return false;
             }
-            if (gameBoard[row-1, col-1] != '-')
+            if (gameBoard[row, col] != '-')
             {
                 Console.WriteLine(row + " " + col + " already taken");
                 return false;
-            } 
+            }
             return true;
+        }
+
+        private void GetRowAndCol(int input, out int row, out int col)
+        {
+            input--;
+            row = input / BOARD_SIZE;
+
+            col = input % BOARD_SIZE;
         }
 
         public override bool AddPiece(string[] arrInput)
         {
             if (IsValidMove(arrInput))
-            {
+            { 
+                int input = Int32.Parse(arrInput[0]);
+                GetRowAndCol(input, out int row, out int col);
+                char piece = char.Parse(arrInput[1]);
+
                 Console.WriteLine("IsAvailableMove True");
-                gameBoard[Int32.Parse(arrInput[0]) - 1, Int32.Parse(arrInput[1]) - 1] = char.Parse(arrInput[2]);
+                gameBoard[row, col] = piece;
+             
                 return true;
             }
             else
@@ -170,7 +182,7 @@ namespace TicTacToe
 
         public override List<char> GetAvailablePieces()
         {
-            throw new NotImplementedException();
+            return listAvailablePieces;
         }
     }
 }
