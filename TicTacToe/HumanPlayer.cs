@@ -15,9 +15,7 @@ namespace TicTacToe
         { 
            
             while (true)
-            {
-
-
+            { 
                 Console.Write(name + " : row col mark >>> ");
                 string sInput = Console.ReadLine();
                 string[] arrInput = sInput.Split(' ');
@@ -34,10 +32,7 @@ namespace TicTacToe
                     board.DisplayBoard();
                     Console.Write("\nInput Error. Try again.\n\n");
                 }
-            }
-
-
-            
+            } 
         }
     }
 }

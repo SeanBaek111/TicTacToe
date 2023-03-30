@@ -1,9 +1,12 @@
 ﻿using System;
+
 namespace TicTacToe
 {
     public class NumericTicTacToeBoard : Board
     {
         const int BOARD_SIZE = 3;
+
+        private List<char> listAvailablePieces;
         public NumericTicTacToeBoard():base()
         {
             base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
@@ -15,9 +18,12 @@ namespace TicTacToe
                 }
             }
             base.pieces = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            
+            listAvailablePieces = new List<char>(base.pieces);
         }
 
        
+
 
         public override void DisplayBoard()
         {
@@ -34,29 +40,46 @@ namespace TicTacToe
             Console.WriteLine("└─────┴─────┴─────┘");
         }
 
+        private void GetRowAndCol(int input, out int row, out int col)
+        {
+            input--;
+            row = input / BOARD_SIZE; 
+          
+            col = input % BOARD_SIZE;
+        }
+
         public override bool IsValidMove(string[] arrInput)
         {
-            if( arrInput.Length != 3)
+            if (arrInput.Length != 2)
             {
                 return false;
             }
 
-            int nInput = 0;
+            //int nInput = 0;
 
-            if(Int32.TryParse(arrInput[0], out nInput) == false){
-                return false;
-            }
-            int row = nInput;
+            //if (Int32.TryParse(arrInput[0], out nInput) == false)
+            //{
+            //    return false;
+            //}
+            //int row = GetRow(nInput);
 
-            if (Int32.TryParse(arrInput[1], out nInput) == false)
+            //if (Int32.TryParse(arrInput[1], out nInput) == false)
+            //{
+            //    return false;
+            //}
+            //int col = GetCol(nInput);
+            int row, col;
+            if (!Int32.TryParse(arrInput[0], out int input))
             {
                 return false;
             }
-            int col = nInput;
-             
-          
+            GetRowAndCol(input, out row, out col);
+
+
+
             char cPiece = ' ';
-            if(char.TryParse(arrInput[2], out cPiece) == false ){
+            if (char.TryParse(arrInput[1], out cPiece) == false)
+            {
                 return false;
             }
 
@@ -70,7 +93,7 @@ namespace TicTacToe
             {
                 for (int j = 0; j < BOARD_SIZE; j++)
                 {
-                    if ( gameBoard[i,j]  ==  cPiece)
+                    if (gameBoard[i, j] == cPiece)
                     {
                         return false;
                     }
@@ -78,25 +101,90 @@ namespace TicTacToe
             }
 
 
-            if (row > BOARD_SIZE || col > BOARD_SIZE || row < 1 || col < 1)
+            if (row >= BOARD_SIZE || col >= BOARD_SIZE || row < 0 || col < 0)
             {
                 return false;
-            } 
-            if (gameBoard[row-1,col-1] != '-')
+            }
+            if (gameBoard[row, col] != '-')
             {
                 Console.WriteLine(row + " " + col + " already taken");
                 return false;
-            } 
+            }
 
             return true;
         }
+
+        //public override bool IsValidMove(string[] arrInput)
+        //{
+        //    if( arrInput.Length != 3)
+        //    {
+        //        return false;
+        //    }
+
+        //    int nInput = 0;
+
+        //    if(Int32.TryParse(arrInput[0], out nInput) == false){
+        //        return false;
+        //    }
+        //    int row = nInput;
+
+        //    if (Int32.TryParse(arrInput[1], out nInput) == false)
+        //    {
+        //        return false;
+        //    }
+        //    int col = nInput;
+
+
+        //    char cPiece = ' ';
+        //    if(char.TryParse(arrInput[2], out cPiece) == false ){
+        //        return false;
+        //    }
+
+
+        //    if (!IsValidPiece(cPiece))
+        //    {
+        //        return false;
+        //    }
+
+        //    for (int i = 0; i < BOARD_SIZE; i++)
+        //    {
+        //        for (int j = 0; j < BOARD_SIZE; j++)
+        //        {
+        //            if ( gameBoard[i,j]  ==  cPiece)
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+
+
+        //    if (row > BOARD_SIZE || col > BOARD_SIZE || row < 1 || col < 1)
+        //    {
+        //        return false;
+        //    } 
+        //    if (gameBoard[row-1,col-1] != '-')
+        //    {
+        //        Console.WriteLine(row + " " + col + " already taken");
+        //        return false;
+        //    } 
+
+        //    return true;
+        //}
 
         public override bool AddPiece(string[] arrInput)
         {            
             if (IsValidMove(arrInput))
             {
+                //int rowIndex = GetRow(Int32.Parse(arrInput[0])) - 1;
+                //int colIndex = GetCol(Int32.Parse(arrInput[0])) - 1;
+                //char piece = char.Parse(arrInput[1]);
+                int input = Int32.Parse(arrInput[0]);
+                GetRowAndCol(input, out int row, out int col);
+                char piece = char.Parse(arrInput[1]);
+
                 Console.WriteLine("IsAvailableMove True");
-                gameBoard[Int32.Parse(arrInput[0]) - 1, Int32.Parse(arrInput[1]) - 1] = char.Parse(arrInput[2]);
+                gameBoard[row, col] = piece;
+                listAvailablePieces.Remove(piece);
                 return true;
             }
             else
@@ -106,6 +194,7 @@ namespace TicTacToe
             }
         }
 
+        //       
         public override bool IsWin()
         {
             for (int i = 0; i < gameBoard.GetLength(0); i++)
@@ -138,6 +227,7 @@ namespace TicTacToe
             return false;
         }
 
+        // check if a line is a winning line
         private bool IsWinningLine(char a, char b, char c)
         {
             bool allNotEmpty = a != '-' && b != '-' && c != '-';
@@ -146,6 +236,8 @@ namespace TicTacToe
             return allNotEmpty && sum == 15;
  
         }
+
+        // check if the board is full
         public override bool IsQuit()
         {
             for (int i = 0; i < BOARD_SIZE; i++)
@@ -161,6 +253,11 @@ namespace TicTacToe
             }
 
             return true;
+        }
+
+        public override List<char> GetAvailablePieces()
+        {
+            return listAvailablePieces;
         }
     }
 }
