@@ -16,8 +16,7 @@ namespace TicTacToe
             // 1 2 3 4 5 6 7 8 9 로 바꾸고
             // GetAvailablePos() 로 바꾸
             List<int> positions = board.GetEmptyPositions();
-            List<int> cols = board.GetEmptyRows();
-            List<int> rows = board.GetEmptyCols();
+            
             List<char> pieces = board.GetAvailablePieces();
 
             Random rnd = new Random();
