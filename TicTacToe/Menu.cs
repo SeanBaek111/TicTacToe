@@ -21,12 +21,12 @@ namespace TicTacToe
         }
 
         public void SetQuestion(string question) { this.question += question + "\n"; }
-        public void SetEnumQuestion(Enum question) { this.question += question.ToStringExt() + "\n"; }
+        public void SetQuestionEnum(Enum question) { this.question += question.ToStringExt() + "\n"; }
         public void AddMenu(string menu)
         {
             listMenu.Add(menu);
         }
-        public void AddEnumMenu(Enum value)
+        public void AddMenuEnum(Enum value)
         {
             listMenu.Add(value.ToStringExt());
         }

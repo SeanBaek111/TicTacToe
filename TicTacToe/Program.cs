@@ -8,8 +8,8 @@ public class Program
 {
     public static void Main()
     {
-
-        //   Console.ForegroundColor = ConsoleColor.Green;
+        IFileManager fileManager = new FileManager();
+        // Console.ForegroundColor = ConsoleColor.Green;
         // Console.BackgroundColor = ConsoleColor.Yellow;
 
         //Console.Write("This ");
@@ -28,7 +28,7 @@ public class Program
 
         //return;
         // Check if the save file exists.
-        bool saveFile = File.Exists("save.cfg");
+        bool saveFile = fileManager.FileExists();
 
         Menu menu = new Menu();
 
@@ -41,9 +41,10 @@ public class Program
             while (true)
             {
                 menu.SetQuestion("Load Last Save Game?");
-                menu.AddEnumMenu(Confirmation.Yes);
-                menu.AddEnumMenu(Confirmation.No);
-                menu.AddMenu("Quit");
+                foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
+                {
+                    menu.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
+                }
                 nSelection = menu.GetUserAnswer();
 
                 switch (nSelection)
@@ -56,9 +57,10 @@ public class Program
                         confirmWipe.SetQuestion("If you choose to start a new game,");
                         confirmWipe.SetQuestion("Save file will be wiped and");
                         confirmWipe.SetQuestion("YOU WILL LOST ALL YOUR PROGRESS.");
-                        confirmWipe.AddEnumMenu(Confirmation.Yes);
-                        confirmWipe.AddEnumMenu(Confirmation.No);
-                        confirmWipe.AddMenu("Quit");
+                        foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
+                        {
+                            confirmWipe.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
+                        }
                         int confirmWipeAnswer = confirmWipe.GetUserAnswer();
 
                         if (confirmWipeAnswer == 1)
@@ -84,18 +86,17 @@ public class Program
         }
     }
 
+
     static void NewGame()
     {
         // Declare the user decision variable
         int nSelection;
 
-        // TODO: DO new game.
-        //
-        //throw new NotImplementedException();
-
+        // Define null game object
         Game game = null;
         Player[] players = new Player[2];
 
+        // Defines Variables.
         GameModeEnum sGame;
         GameTypeEnum sPlayers;
         BoardTypeEnum sBoard;
@@ -103,43 +104,61 @@ public class Program
         Menu menu = new Menu();
         menu.SetQuestion("Welcome to TTT");
         menu.SetQuestion("Select an option");
-        menu.AddEnumMenu(GameModeEnum.Wild_Tic_Tac_Toe);
-        menu.AddEnumMenu(GameModeEnum.Numeric_Tic_Tac_Toe);
+
+        // Loop all the possible options from typeof(GameModeEnum)
+        EnumExtension.Query<GameModeEnum>().All(a =>
+        {
+            menu.AddMenuEnum(a);
+            return true;
+        });
         menu.AddMenu("Help");
-        menu.AddMenu("Quit");
+        menu.AddMenuEnum(ConfirmationEnum.Quit);
         nSelection = menu.GetUserAnswer();
 
         menu = new Menu();
-        if (nSelection == 4)
+
+        switch (nSelection)
         {
-            menu.SetQuestion("Save Help Message");
-            menu.AddMenu("Wild Numerical TTT help");
-            menu.AddMenu("Numerical TTT Help");
-            menu.AddMenu("Back");
-            nSelection = menu.GetUserAnswer();
-            throw new NotImplementedException();
+            default:
+                sGame = nSelection.ToEnum<GameModeEnum>();
+                // Prefixed becasue only one game mode is being used.
+                sBoard = BoardTypeEnum.Tic_Tac_Toe_Board;
+
+                menu.SetQuestionEnum(sGame);
+                menu.SetQuestion("Who is playing?");
+
+                EnumExtension.Query<GameTypeEnum>().All(a =>
+                {
+                    menu.AddMenuEnum(a);
+                    return true;
+                });
+
+                menu.AddMenuEnum(NavigationEnum.Back);
+
+                nSelection = menu.GetUserAnswer();
+
+                sPlayers = nSelection.ToEnum<GameTypeEnum>();
+
+                game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
+                game.Play();
+                break;
+
+            case 3:
+                menu.SetQuestion("Help Message");
+                EnumExtension.Query<GameTypeEnum>().All(a =>
+                {
+                    menu.AddMenu(a.ToStringExt());
+                    return true;
+                });
+                menu.AddMenuEnum(NavigationEnum.Back);
+                nSelection = menu.GetUserAnswer();
+                throw new NotImplementedException();
+                break;
+
+            case 4:
+                Environment.Exit(0);
+                break;
         }
-        else if (nSelection == 5)
-        {
-            Environment.Exit(0);
-        }
-
-        sGame = nSelection.ToEnum<GameModeEnum>();
-        // Prefixed becasue only one game mode is being used.
-        sBoard = BoardTypeEnum.Tic_Tac_Toe_Board;
-
-        menu.SetEnumQuestion(sGame);
-        menu.SetQuestion("Who is playing?");
-        menu.AddEnumMenu(GameTypeEnum.Human_VS_Human);
-        menu.AddEnumMenu(GameTypeEnum.Human_VS_Computer);
-        menu.AddMenu("Back");
-        nSelection = menu.GetUserAnswer();
-
-        sPlayers = nSelection.ToEnum<GameTypeEnum>();
-
-        game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
-        game.Play();
-
     }
 
     static void LoadGame()

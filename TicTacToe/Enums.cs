@@ -22,9 +22,21 @@ public static class Enums
         Numeric_Tic_Tac_Toe = 2,
     }
 
-    public enum Confirmation
+    public enum ConfirmationEnum
     {
         Yes = 1,
         No = 2,
+        Quit = 3,
+    }
+
+    public enum NavigationEnum
+    {
+        Back = 1,
+        Foward = 2,
+    }
+
+    public enum HelpEnum
+    {
+
     }
 }

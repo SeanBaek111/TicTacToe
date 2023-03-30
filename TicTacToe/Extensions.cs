@@ -39,4 +39,8 @@ public static class EnumExtension
         return name.ToEnum<T>();
     }
 
+    public static IEnumerable<T> Query<T>() where T : struct, Enum
+    {
+        return Enum.GetValues(typeof(T)).Cast<T>();
+    }
 }
