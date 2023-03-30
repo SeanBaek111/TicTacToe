@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace TicTacToe
 {
     public class WildTicTacToeBoard : Board
@@ -22,17 +23,29 @@ namespace TicTacToe
 
         public override void DisplayBoard()
         {
-          //  Console.Clear();
-            Console.WriteLine("┌─────┬─────┬─────┐");
-            Console.WriteLine("│     │     │     │");
-            Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[0,0], gameBoard[0, 1], gameBoard[0, 2]);
-            Console.WriteLine("├─────┼─────┼─────┤ ");
-            Console.WriteLine("│     │     │     │");
-            Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
-            Console.WriteLine("├─────┼─────┼─────┤ ");
-            Console.WriteLine("│     │     │     │");
-            Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
-            Console.WriteLine("└─────┴─────┴─────┘");
+            //  Console.Clear();
+            /* Console.WriteLine("┌─────┬─────┬─────┐");
+             Console.WriteLine("│     │     │     │");
+             Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[0,0], gameBoard[0, 1], gameBoard[0, 2]);
+             Console.WriteLine("├─────┼─────┼─────┤ ");
+             Console.WriteLine("│     │     │     │");
+             Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
+             Console.WriteLine("├─────┼─────┼─────┤ ");
+             Console.WriteLine("│     │     │     │");
+             Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
+             Console.WriteLine("└─────┴─────┴─────┘");*/
+
+            Console.WriteLine(" **Square Number**         ");
+            Console.WriteLine("┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐");
+            Console.WriteLine("│     │     │     │        │     │     │     │");
+            Console.WriteLine("│  1  │  2  │  3  │        │  {0}  │  {1}  │  {2}  │", gameBoard[0, 0], gameBoard[0, 1], gameBoard[0, 2]);
+            Console.WriteLine("├─────┼─────┼─────┤        ├─────┼─────┼─────┤ ");
+            Console.WriteLine("│     │     │     │        │     │     │     │");
+            Console.WriteLine("│  4  │  5  │  6  │        │  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
+            Console.WriteLine("├─────┼─────┼─────┤        ├─────┼─────┼─────┤ ");
+            Console.WriteLine("│     │     │     │        │     │     │     │");
+            Console.WriteLine("│  7  │  8  │  9  │        │  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
+            Console.WriteLine("└─────┴─────┴─────┘        └─────┴─────┴─────┘");
         }
 
         public override bool IsValidMove(string[] arrInput)
@@ -153,6 +166,11 @@ namespace TicTacToe
             }
 
             return true;
+        }
+
+        public override List<char> GetAvailablePieces()
+        {
+            throw new NotImplementedException();
         }
     }
 }
