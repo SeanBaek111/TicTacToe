@@ -5,12 +5,12 @@ namespace TicTacToe
     {
         protected char[,] gameBoard;
         protected char[] pieces;
-        
+
         public abstract void DisplayBoard();
         public abstract bool IsWin();
         public abstract bool IsQuit();
         public abstract bool AddPiece(string[] arrInput);
-        
+
         public abstract List<char> GetAvailablePieces();
         // public abstract bool SetBoard(int row, int col, string mark);
         public abstract bool IsValidMove(string[] arrInput);
@@ -29,7 +29,7 @@ namespace TicTacToe
                     if (gameBoard[i, j] == '-')
                         resList.Add(GetPos(i, j));
                 }
-                
+
             }
 
             return resList;
@@ -60,7 +60,7 @@ namespace TicTacToe
         {
             return gameBoard;
         }
- 
+
         protected bool IsValidPiece(char piece)
         {
             return pieces.Contains(piece);

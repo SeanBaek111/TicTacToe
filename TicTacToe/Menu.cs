@@ -20,10 +20,15 @@ namespace TicTacToe
 
         }
 
-        public void SetQuestion(string question) { this.question = question; }
+        public void SetQuestion(string question) { this.question += question + "\n"; }
+        public void SetQuestionEnum(Enum question) { this.question += question.ToStringExt() + "\n"; }
         public void AddMenu(string menu)
         {
             listMenu.Add(menu);
+        }
+        public void AddMenuEnum(Enum value)
+        {
+            listMenu.Add(value.ToStringExt());
         }
 
         private void ShowMenu()
