@@ -1,26 +1,27 @@
 using System;
 using static System.Console;
+using static TicTacToe.Enums;
 
 namespace TicTacToe;
 
 public class Program
-{ 
+{
     public static void Main()
     {
 
-     //   Console.ForegroundColor = ConsoleColor.Green; 
-       // Console.BackgroundColor = ConsoleColor.Yellow;
+        //   Console.ForegroundColor = ConsoleColor.Green;
+        // Console.BackgroundColor = ConsoleColor.Yellow;
 
         //Console.Write("This ");
         //Console.ForegroundColor = ConsoleColor.White;
-        //Console.BackgroundColor = ConsoleColor.Blue; 
-       
+        //Console.BackgroundColor = ConsoleColor.Blue;
+
         //Console.Write("is");
         //Console.ForegroundColor = ConsoleColor.DarkBlue;
         //Console.BackgroundColor = ConsoleColor.Gray;
 
         //Console.Write("test");
-         
+
         //Console.ResetColor();  
         //Console.WriteLine("\nPress any key to exit...");
         //Console.ReadKey();
@@ -30,6 +31,7 @@ public class Program
         bool saveFile = File.Exists("save.cfg");
 
         Menu menu = new Menu();
+
         // Declare the user decision variable
         int nSelection;
 
@@ -39,8 +41,8 @@ public class Program
             while (true)
             {
                 menu.SetQuestion("Load Last Save Game?");
-                menu.AddMenu("Yes");
-                menu.AddMenu("No");
+                menu.AddEnumMenu(Confirmation.Yes);
+                menu.AddEnumMenu(Confirmation.No);
                 menu.AddMenu("Quit");
                 nSelection = menu.GetUserAnswer();
 
@@ -51,9 +53,11 @@ public class Program
                         break;
                     case 2:
                         Menu confirmWipe = new();
-                        confirmWipe.SetQuestion("If you choose to start a new game,\nSave file will be wiped and\nYOU WILL LOST ALL YOUR PROGRESS.");
-                        confirmWipe.AddMenu("Yes");
-                        confirmWipe.AddMenu("No");
+                        confirmWipe.SetQuestion("If you choose to start a new game,");
+                        confirmWipe.SetQuestion("Save file will be wiped and");
+                        confirmWipe.SetQuestion("YOU WILL LOST ALL YOUR PROGRESS.");
+                        confirmWipe.AddEnumMenu(Confirmation.Yes);
+                        confirmWipe.AddEnumMenu(Confirmation.No);
                         confirmWipe.AddMenu("Quit");
                         int confirmWipeAnswer = confirmWipe.GetUserAnswer();
 
@@ -92,73 +96,29 @@ public class Program
         Game game = null;
         Player[] players = new Player[2];
 
-        string sGame = "";
-        string sPlayers = "";
-        string sBoard = "";
+        GameModeEnum sGame;
+        GameTypeEnum sPlayers;
+        BoardTypeEnum sBoard;
 
         Menu menu = new Menu();
-        menu.SetQuestion("Welcome to TTT\nSelect an Option");
-        menu.AddMenu("Wild Tic Tac Toe");
-        menu.AddMenu("Numerical Tic Tac Toe");
+        menu.SetQuestion("Welcome to TTT");
+        menu.SetQuestion("Select an option");
+        menu.AddEnumMenu(GameModeEnum.Wild_Tic_Tac_Toe);
+        menu.AddEnumMenu(GameModeEnum.Numeric_Tic_Tac_Toe);
         menu.AddMenu("Load Last Save Game?");
         menu.AddMenu("Help");
         menu.AddMenu("Quit");
         nSelection = menu.GetUserAnswer();
 
         menu = new Menu();
-        if (nSelection == 1)
-        {
-            sGame = "wildTTT";
-            sBoard = "TicTacToeBoard";
-
-            menu.SetQuestion("Wild Tic Tac Toe\nWho is playing?");
-            menu.AddMenu("Player vs Player");
-            menu.AddMenu("Player vs Computer");
-            menu.AddMenu("Back");
-            nSelection = menu.GetUserAnswer();
-
-            if (nSelection == 1)
-            {
-                sPlayers = "HumanVsHuman";
-            }
-            else if (nSelection == 2)
-            {
-                sPlayers = "HumanVsComputer";
-            }
-
-            game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
-            game.Play();
-        }
-        else if (nSelection == 2)
-        {
-            sGame = "numericTTT";
-            sBoard = "TicTacToeBoard";
-
-            menu.SetQuestion("Numerical Tic Tac Toe\nWho is playing?");
-            menu.AddMenu("Player vs Player");
-            menu.AddMenu("Player vs Computer");
-            menu.AddMenu("Back");
-            nSelection = menu.GetUserAnswer();
-
-            if (nSelection == 1)
-            {
-                sPlayers = "HumanVsHuman";
-            }
-            else if (nSelection == 2)
-            {
-                sPlayers = "HumanVsComputer";
-            }
-
-            game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
-            game.Play();
-        }
-        else if (nSelection == 3)
+        if (nSelection == 3)
         {
             menu.SetQuestion("Save Game\nDo you want to load your last saved game?");
             menu.AddMenu("Load");
             menu.AddMenu("Delete");
             menu.AddMenu("Back");
             nSelection = menu.GetUserAnswer();
+            throw new NotImplementedException();
         }
         else if (nSelection == 4)
         {
@@ -167,8 +127,31 @@ public class Program
             menu.AddMenu("Numerical TTT Help");
             menu.AddMenu("Back");
             nSelection = menu.GetUserAnswer();
+            throw new NotImplementedException();
         }
+        else if (nSelection == 5)
+        {
+            Environment.Exit(0);
+        }
+
+        sGame = nSelection.ToEnum<GameModeEnum>();
+        // Prefixed becasue only one game mode is being used.
+        sBoard = BoardTypeEnum.Tic_Tac_Toe_Board;
+
+        menu.SetEnumQuestion(sGame);
+        menu.SetQuestion("Who is playing?");
+        menu.AddEnumMenu(GameTypeEnum.Human_VS_Human);
+        menu.AddEnumMenu(GameTypeEnum.Human_VS_Computer);
+        menu.AddMenu("Back");
+        nSelection = menu.GetUserAnswer();
+
+        sPlayers = nSelection.ToEnum<GameTypeEnum>();
+
+        game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
+        game.Play();
+
     }
+
     static void LoadGame()
     {
         // TODO: Do load save file
@@ -178,4 +161,4 @@ public class Program
         // game = GameFactory.GetInstance().LoadGame();
         // game.Play();
     }
-} 
+}
