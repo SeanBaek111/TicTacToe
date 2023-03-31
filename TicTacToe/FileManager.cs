@@ -3,16 +3,9 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe;
 
-public interface IFileManager
+public class FileManager
 {
-    /// <summary>
-    /// Check if the save file exists.
-    /// </summary>
-    public bool FileExists(string? fileName = "save.csv");
-}
-
-public class FileManager : IFileManager
-{
+    // TODO: Define class properties, turn csv save file as a object.
     public FileManager()
     {
 
@@ -26,7 +19,11 @@ public class FileManager : IFileManager
 
     public bool CreateSaveFile(string fileName = "save.csv")
     {
-        if (File.Exists(fileName))
+        try
+        {
+            File.Create(fileName).Dispose();
+        }
+        catch (IOException e)
         {
             Menu menu = new Menu();
             menu.SetQuestion("Save file detected... override?");
@@ -35,10 +32,23 @@ public class FileManager : IFileManager
                 menu.AddMenuEnum(a);
                 return true;
             });
+            switch (menu.GetUserAnswer())
+            {
+                // YES
+                case 1:
+                    File.WriteAllText(fileName, string.Empty);
+                    break;
+                // NO
+                case 2:
+                    return false;
+                // QUIT
+                case 3:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    break;
+            };
         }
-
-        File.Create(fileName).Dispose();
-
         return true;
     }
 }

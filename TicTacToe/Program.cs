@@ -45,9 +45,9 @@ public class Program
                 {
                     menu.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
                 }
-                nSelection = menu.GetUserAnswer();
+                //nSelection = menu.GetUserAnswer();
 
-                switch (nSelection)
+                switch (menu.GetUserAnswer())
                 {
                     case 1:
                         LoadGame();
@@ -113,6 +113,7 @@ public class Program
         });
         menu.AddMenu("Help");
         menu.AddMenuEnum(ConfirmationEnum.Quit);
+
         nSelection = menu.GetUserAnswer();
 
         menu = new Menu();

@@ -37,6 +37,21 @@ public static class Enums
 
     public enum HelpEnum
     {
+    }
 
+    /// <summary>
+    /// This Enum Define CSV save file rows element.
+    /// </summary>
+    public enum HistoryColEnum
+    {
+        Id,
+        Date,
+        Time,
+        Mode,
+        Type,
+        Player,
+        Row,
+        Col,
+        Mark,
     }
 }
