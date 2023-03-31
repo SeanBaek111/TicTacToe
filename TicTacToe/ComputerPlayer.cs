@@ -13,8 +13,8 @@ namespace TicTacToe
         }
         public override void MakeMovement(Board board)
         {
-            // 1 2 3 4 5 6 7 8 9 로 바꾸고
-            // GetAvailablePos() 로 바꾸
+            // 1 2 3 4 5 6 7 8 9  
+            // GetAvailablePos()  
             List<int> positions = board.GetEmptyPositions();
             
             List<char> pieces = board.GetAvailablePieces();
