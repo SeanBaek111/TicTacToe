@@ -111,14 +111,14 @@ namespace TicTacToe
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
 
-                Console.WriteLine("IsAvailableMove True");
+          //      Console.WriteLine("IsAvailableMove True");
                 gameBoard[row, col] = piece;
              
                 return true;
             }
             else
             {
-                Console.WriteLine("IsAvailableMove False");
+              //  Console.WriteLine("IsAvailableMove False");
                 return false;
             }
         }
@@ -184,6 +184,23 @@ namespace TicTacToe
         {
             return listAvailablePieces;
         }
+
+        public override Board Clone()
+        {
+            WildTicTacToeBoard cloneBoard = new WildTicTacToeBoard();
+            cloneBoard.gameBoard = (char[,])gameBoard.Clone();
+            cloneBoard.listAvailablePieces = new List<char>(listAvailablePieces);
+            return cloneBoard;
+        }
+
+        public override void RemovePiece(string[] arrInput)
+        {
+          
+            int input = Int32.Parse(arrInput[0]);
+            GetRowAndCol(input, out int row, out int col);
+            gameBoard[row, col] = '-';
+        }
     }
+
 }
 

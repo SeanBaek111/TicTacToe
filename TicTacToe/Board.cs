@@ -10,6 +10,8 @@ namespace TicTacToe
         public abstract bool IsWin();
         public abstract bool IsQuit();
         public abstract bool AddPiece(string[] arrInput);
+        public abstract void RemovePiece(string[] arrInput);
+        public abstract Board Clone();
 
         public abstract List<char> GetAvailablePieces();
         // public abstract bool SetBoard(int row, int col, string mark);
