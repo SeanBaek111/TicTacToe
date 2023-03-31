@@ -15,8 +15,18 @@ namespace TicTacToe
         { 
            
             while (true)
-            { 
-                Console.Write(name + " : row col mark >>> ");
+            {
+                Console.Write("Available Pieces : ");
+                for (int i = 0; i < board.GetAvailablePieces().Count; i++)
+                {
+                    Console.Write(board.GetAvailablePieces()[i]);
+                    if (i < board.GetAvailablePieces().Count - 1)
+                        Console.Write(", ");
+                }
+                Console.WriteLine();
+                
+                Console.Write(name + " : (Position Piece) >>> ");
+                
                 string sInput = Console.ReadLine();
                 string[] arrInput = sInput.Split(' ');
 
@@ -24,6 +34,7 @@ namespace TicTacToe
                 if (  board.AddPiece( arrInput ) )
                 {
                     Console.Clear();
+                    Console.WriteLine(name + " chose position " + arrInput[0] + " with piece " + arrInput[1]);
                     break;
                 }
                 else

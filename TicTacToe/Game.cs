@@ -33,7 +33,7 @@ namespace TicTacToe
         }
         public void Play()
         {            
-            //Console.WriteLine("Game started");
+            Console.WriteLine("Game started");
             gameBoard.DisplayBoard();
             while (!IsWin() && !IsQuit())
             { 
@@ -56,6 +56,8 @@ namespace TicTacToe
             }
 
             Console.WriteLine("Game Finished");
+            Console.WriteLine ("Press any key to continue...");
+            Console.ReadKey();
         }
 
         private bool IsWin()
