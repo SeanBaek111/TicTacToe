@@ -115,9 +115,9 @@ namespace TicTacToe
             this.players = players;
         }
 
-        private int AddHistory(GameStatus boardStatus)
+        private int AddHistory(GameStatus gameStatus)
         {
-            int nHistoryCnt = History.GetInstance().Push(boardStatus);
+            int nHistoryCnt = History.GetInstance().Push(gameStatus);
           //  Console.WriteLine("nHistoryCnt " + nHistoryCnt);
 
             return nHistoryCnt;

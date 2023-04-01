@@ -8,7 +8,7 @@ public class Program
 {
     public static void Main()
     {
-        FileManager fm = FileManager.GetInstance();
+        FileManager fm = FileManager.Instance;
 
         // Console.ForegroundColor = ConsoleColor.Green;
         // Console.BackgroundColor = ConsoleColor.Yellow;

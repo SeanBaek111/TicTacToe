@@ -32,7 +32,7 @@ namespace TicTacToe
                     if (arrInput[0] == "S")
                     {
                         // Save game
-                        if (FileManager.GetInstance().SaveProgress(History.GetInstance().GetLastStack()))
+                        if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
                         {
                             Console.WriteLine("File Saved");
                         }
