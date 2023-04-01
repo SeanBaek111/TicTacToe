@@ -94,7 +94,6 @@ public class Program
         // Define null game object
         Game game = null;
         Player[] players = new Player[2];
-
         // Defines Variables.
         GameModeEnum sGame;
         GameTypeEnum sPlayers;

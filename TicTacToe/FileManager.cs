@@ -8,19 +8,36 @@ namespace TicTacToe;
 
 public class FileManager
 {
+    /// <summary>
+    /// It's the default file name.
+    /// </summary>
     const string DEFAULT_FILENAME = "save.csv";
-    // TODO: Define class properties, turn csv save file as a object.
-    public FileManager()
+
+    /// <summary>
+    /// private static readonly Lazy<FileManager> lazy =
+    ///     new Lazy<FileManager>(() => new FileManager());
+    /// </summary>
+    private static readonly Lazy<FileManager> lazy = new(() => new());
+
+    public static FileManager Instance { get { return lazy.Value; } }
+
+    private FileManager()
     {
 
     }
 
+    /// <summary>
+    /// Check if the file is exists.
+    /// </summary>
     public bool FileExists(string fileName = DEFAULT_FILENAME)
     {
         // Suppose to return if the file exists.
         return File.Exists(fileName);
     }
 
+    /// <summary>
+    /// Create a save file.
+    /// </summary>
     public bool CreateSaveFile(string fileName = DEFAULT_FILENAME)
     {
         try
@@ -57,15 +74,24 @@ public class FileManager
         return true;
     }
 
+    /// <summary>
+    /// Save the game progress.
+    /// </summary>
     public bool SaveProgress(Stack<BoardStatus> logs, string fileName = DEFAULT_FILENAME)
     {
+        // Use local method to create a save file.
         bool create = this.CreateSaveFile(fileName);
 
+        // Use extenion method to save the progress to file.
         bool saveResult = logs.SaveToCsv<BoardStatus>(fileName);
 
+        // Return true or false based on how file are saved.
         return saveResult;
     }
 
+    /// <summary>
+    /// Load the game progress from csv file and return the Stack object
+    /// </summary>
     public Stack<BoardStatus> LoadProgress(string fileName = DEFAULT_FILENAME)
     {
         if (!this.FileExists())
