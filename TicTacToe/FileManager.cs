@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel;
+using System.Globalization;
+using CsvHelper;
 using static TicTacToe.Enums;
 
 namespace TicTacToe;
@@ -59,40 +61,28 @@ public class FileManager
     {
         bool create = this.CreateSaveFile(fileName);
 
-        bool saveResult = this.SaveToCsv<BoardStatus>(logs, fileName);
-        return true;
+        bool saveResult = logs.SaveToCsv<BoardStatus>(fileName);
+
+        return saveResult;
     }
 
-    private bool SaveToCsv<T>(Stack<BoardStatus> gameData, string path)
+    public Stack<BoardStatus> LoadProgress(string fileName = DEFAULT_FILENAME)
     {
-        try
+        if (!this.FileExists())
         {
-            // Reverse it because the list coming from Stack
-            List<BoardStatus> bs = this.ConvertToList(gameData);
-            var lines = new List<string>();
-            IEnumerable<PropertyDescriptor> props = TypeDescriptor.GetProperties(typeof(T)).OfType<PropertyDescriptor>();
-            var header = string.Join(",", props.ToList().Select(x => x.Name));
-            lines.Add(header);
-            var valueLines = bs.Select(row => string.Join(",", header.Split(',').Select(a => row.GetType().GetProperty(a).GetValue(row, null))));
-            lines.AddRange(valueLines);
-            File.WriteAllLines(path, lines.ToArray());
-            return true;
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-
-    private List<BoardStatus> ConvertToList(Stack<BoardStatus> logs)
-    {
-        List<BoardStatus> newList = new();
-        foreach (BoardStatus i in logs)
-        {
-            newList.Add(i);
+            // File doesn't exists.
+            throw new FileLoadException();
         }
 
-        newList.Reverse();
-        return newList;
+        Stack<BoardStatus> logs = new();
+        using StreamReader streamReader = new(fileName);
+        using CsvReader csvReader = new(streamReader, CultureInfo.InvariantCulture);
+        List<BoardStatus> records = csvReader.GetRecords<BoardStatus>().ToList();
+
+        foreach (BoardStatus item in records)
+        {
+            logs.Push(item);
+        }
+        return logs;
     }
 }

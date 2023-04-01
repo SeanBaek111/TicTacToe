@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 
 namespace TicTacToe;
 
@@ -39,8 +40,59 @@ public static class EnumExtension
         return name.ToEnum<T>();
     }
 
+    /// <summary>
+    /// Allow Enum to use LINQ
+    /// </summary>
     public static IEnumerable<T> Query<T>() where T : struct, Enum
     {
         return Enum.GetValues(typeof(T)).Cast<T>();
+    }
+
+    /// <summary>
+    /// Convert Stack to List.
+    /// </summary>
+    public static List<T> ConvertToList<T>(this Stack<T> value)
+    {
+        List<T> newList = new();
+        foreach (T i in value)
+        {
+            newList.Add(i);
+        }
+
+        newList.Reverse();
+        return newList;
+    }
+
+    public static bool SaveToCsv<T>(this Stack<T> gameData, string path)
+    {
+        try
+        {
+            // Reverse it because the list coming from Stack
+            List<T> bs = gameData.ConvertToList<T>();
+            List<string> lines = new();
+
+            IEnumerable<PropertyDescriptor> props = TypeDescriptor
+                .GetProperties(typeof(T))
+                .OfType<PropertyDescriptor>();
+
+            string header = string.Join(",", props.ToList().Select(x => x.Name));
+
+            lines.Add(header);
+
+            IEnumerable<string> valueLines = bs
+                .Select(row => string.Join(",", header.Split(',')
+                                                   .Select(a =>
+                                                           row.GetType()
+                                                           .GetProperty(a)
+                                                           .GetValue(row, null))));
+
+            lines.AddRange(valueLines);
+            File.WriteAllLines(path, lines.ToArray());
+            return true;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
     }
 }
