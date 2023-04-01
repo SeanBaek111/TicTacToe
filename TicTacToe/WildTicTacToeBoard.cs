@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace TicTacToe
 {
@@ -89,7 +90,7 @@ namespace TicTacToe
             }
             if (gameBoard[row, col] != '-')
             {
-                Console.WriteLine(row + " " + col + " already taken");
+               // Console.WriteLine(row + " " + col + " already taken");
                 return false;
             }
             return true;
@@ -199,6 +200,30 @@ namespace TicTacToe
             int input = Int32.Parse(arrInput[0]);
             GetRowAndCol(input, out int row, out int col);
             gameBoard[row, col] = '-';
+        }
+
+        public override string GetCurrentStatus()
+        {
+            StringBuilder sStatus = new StringBuilder();
+
+            for (int i = 0; i < BOARD_SIZE; i++)
+            {
+                for (int j = 0; j < BOARD_SIZE; j++)
+                {
+                    sStatus.Append(gameBoard[i, j]);
+
+                    if (j < BOARD_SIZE - 1)
+                    {
+                        sStatus.Append(",");
+                    }
+                }
+                if (i < BOARD_SIZE - 1)
+                {
+                    sStatus.Append(",");
+                }
+            }
+
+            return sStatus.ToString();
         }
     }
 

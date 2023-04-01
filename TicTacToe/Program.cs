@@ -8,7 +8,8 @@ public class Program
 {
     public static void Main()
     {
-        FileManager fm = new();
+        FileManager fm = FileManager.GetInstance();
+
         // Console.ForegroundColor = ConsoleColor.Green;
         // Console.BackgroundColor = ConsoleColor.Yellow;
 
@@ -94,6 +95,7 @@ public class Program
         // Define null game object
         Game game = null;
         Player[] players = new Player[2];
+
         // Defines Variables.
         GameModeEnum sGame;
         GameTypeEnum sPlayers;
