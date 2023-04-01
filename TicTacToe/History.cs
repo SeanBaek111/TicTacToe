@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace TicTacToe
 {
     public class History
@@ -23,10 +24,10 @@ namespace TicTacToe
             return gameHistory.Count;
         }
 
-        
+
         public int Pop()
         {
-            if( gameHistory.Count > 0)
+            if (gameHistory.Count > 0)
                 gameHistory.Pop();
             else
             {
@@ -34,8 +35,6 @@ namespace TicTacToe
             }
             return gameHistory.Count;
         }
-       
-
     }
 }
 
