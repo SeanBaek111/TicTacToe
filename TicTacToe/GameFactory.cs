@@ -45,7 +45,9 @@ namespace TicTacToe
             {
                 listPlayer = new Player[2];
                 listPlayer[0] = new HumanPlayer();
-                listPlayer[1] = new ComputerPlayer();
+              //listPlayer[1] = new ComputerPlayer();
+                listPlayer[1] = new MonteCarloComputerPlayer();
+                
             }
             else
             {
