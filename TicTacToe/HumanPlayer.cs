@@ -1,4 +1,6 @@
 ﻿using System;
+using static TicTacToe.Enums;
+
 namespace TicTacToe
 {
     public class HumanPlayer : Player
@@ -11,7 +13,7 @@ namespace TicTacToe
         {
             base.name = name;
         }
-        public override void MakeMovement(Board board)
+        public override Command MakeMovement(Board board)
         {
             while (true)
             {
@@ -19,7 +21,7 @@ namespace TicTacToe
                 Console.Write("Available Pieces: ");
                 Console.WriteLine(string.Join(", ", availablePieces));
 
-                Console.WriteLine("Save game: S, Quit game: Q");
+                Console.WriteLine("Undo: U, Redo: R, Save game: S, Quit game: Q");
                 Console.Write($"{name}: (Position Piece) >>> ");
 
                 string sInput = Console.ReadLine();
@@ -29,19 +31,7 @@ namespace TicTacToe
 
                 if (arrInput.Length == 1)
                 {
-                    if (arrInput[0] == "S")
-                    {
-                        // Save game
-                        if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
-                        {
-                            Console.WriteLine("File Saved");
-                        }
-                    }
-                    else if (arrInput[0] == "Q")
-                    {
-                        // Quit
-                        Environment.Exit(0);
-                    }
+                    return ParseCommand(arrInput[0]); 
                 }
 
                 if (arrInput.Length != 2)
@@ -62,6 +52,25 @@ namespace TicTacToe
                     board.DisplayBoard();
                     Console.WriteLine("\nInput Error. Try again.\n");
                 }
+            }
+            return Command.None;
+        }
+
+        private Command ParseCommand(string input)
+        {
+            switch (input.ToUpper())
+            {
+                case "S":
+                    return Command.Save;
+                case "U":
+                    return Command.Undo;
+                case "R":
+                    return Command.Redo;
+                case "Q":
+                    return Command.Quit;
+                default:
+                    Console.WriteLine("Invalid command. Please enter a valid command (S: Save, U: Undo, R: Redo, Q: Quit).");
+                    return Command.Invalid;
             }
         }
     }

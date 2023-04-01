@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Xml.Linq;
+using static TicTacToe.Enums;
+
 namespace TicTacToe
 {
     public class Game
@@ -8,6 +12,8 @@ namespace TicTacToe
         Player winPlayer;
         
         Board gameBoard;
+
+
 
         private int nCurrentTurn;
         const int MAX_TURN = 9;
@@ -31,22 +37,109 @@ namespace TicTacToe
             Console.WriteLine("Current Player : " + player.GetName());
             return player;
         }
-        public void Play()
-        {            
-            Console.WriteLine("Game started");
-            gameBoard.DisplayBoard();
-            while (!IsWin() && !IsQuit())
-            { 
-                currentPlayer = GetCurrentPlayer();  
-                currentPlayer.MakeMovement(gameBoard);
-                gameBoard.DisplayBoard();
-                SwapPlayer(); 
 
-                GameStatus gameStatus = new GameStatus(currentPlayer, gameBoard.GetCurrentStatus());
-                nCurrentTurn = AddHistory(gameStatus);                
+        private bool IsHumanVsHuman()
+        {
+            return players.All(p => p is HumanPlayer);
+        }
+
+        public void Play()
+        {
+            Console.WriteLine("Game started");
+            DisplayCurrentBoard();
+            UpdateBoardAndHistory();
+            while (!IsGameOver())
+            {
+                currentPlayer = GetCurrentPlayer();
+                Command command = currentPlayer.MakeMovement(gameBoard);
+
+                 
+                if (command == Command.Save)
+                {
+                    // Save game
+                    if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
+                    {
+                        Console.WriteLine("File Saved");
+                    }
+                }
+                else if (command == Command.Undo)
+                {
+                    // Undo 
+                    // if it's Human vs Human mode -> Undo only 1 step
+                    // else Undo 2 steps
+                 
+                    int steps = IsHumanVsHuman() ? 1 : 2;
+                    Console.WriteLine("Undo");
+                    for (int i = 0; i < steps; i++)
+                    {
+                        if (History.GetInstance().Undo(gameBoard))
+                        {
+                            
+                            SwapPlayer();
+                        }
+                        
+
+                    }
+
+                }
+                else if (command == Command.Redo)
+                {
+                    // Redo
+                    // if it's Human vs Human mode -> Redo only 1 step
+                    // else Redo 2 steps
+                    
+                    int steps = IsHumanVsHuman() ? 1 : 2;
+                    Console.WriteLine("Redo");
+                    for (int i = 0; i < steps; i++)
+                    {
+                        if(History.GetInstance().Redo(gameBoard))
+                        { 
+                            SwapPlayer();
+                        }
+                        
+                    }
+
+                }
+                else if (command == Command.Quit)
+                {
+                    // Quit
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    UpdateBoardAndHistory();
+                   
+                    SwapPlayer();
+                }
+
+                DisplayCurrentBoard();
+
             }
-            
-            if( winPlayer != null )
+
+            DisplayGameOverMessage();
+            WaitForUserInputBeforeExiting();
+        }
+
+        private void DisplayCurrentBoard()
+        {
+            gameBoard.DisplayBoard();
+        }
+
+        private void UpdateBoardAndHistory()
+        {
+            GameStatus gameStatus = new GameStatus(currentPlayer, gameBoard.GetCurrentStatus());
+            gameStatus.SetLastPiece(gameBoard.LastPlacedPiece);
+            nCurrentTurn = AddHistory(gameStatus);
+        }
+
+        private bool IsGameOver()
+        {
+            return IsWin() || IsQuit();
+        }
+
+        private void DisplayGameOverMessage()
+        {
+            if (winPlayer != null)
             {
                 Console.WriteLine("Winner is " + winPlayer.GetName());
             }
@@ -56,7 +149,11 @@ namespace TicTacToe
             }
 
             Console.WriteLine("Game Finished");
-            Console.WriteLine ("Press any key to continue...");
+        }
+
+        private void WaitForUserInputBeforeExiting()
+        {
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
 

@@ -5,12 +5,14 @@ namespace TicTacToe
     {
         protected char[,] gameBoard;
         protected char[] pieces;
-
+        public char LastPlacedPiece { get; protected set; }
         public abstract void DisplayBoard();
         public abstract bool IsWin();
         public abstract bool IsQuit();
         public abstract bool AddPiece(string[] arrInput);
-        public abstract void RemovePiece(string[] arrInput); 
+        public abstract void RemovePiece(string[] arrInput);
+        public abstract void AddAvailablePiece(char piece);
+        public abstract void RemoveAvailablePiece(char piece);
         public abstract string GetCurrentStatus();
         public abstract Board Clone();
 
@@ -72,6 +74,21 @@ namespace TicTacToe
         //{
         //    gameBoard[row-1,col-1] = mark;
         //}
+
+        // Set the board status based on the provided string
+        public void SetStatus(string status)
+        {
+            string[] positions = status.Split(',');
+            int index = 0;
+            for (int row = 0; row < gameBoard.GetLength(0); row++)
+            {
+                for (int col = 0; col < gameBoard.GetLength(1); col++)
+                {
+                    gameBoard[row, col] = char.Parse(positions[index]);
+                    index++;
+                }
+            }
+        }
     }
 }
 

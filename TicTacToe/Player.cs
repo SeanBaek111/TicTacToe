@@ -1,11 +1,13 @@
 ﻿using System;
+using static TicTacToe.Enums;
+
 namespace TicTacToe
 {
     public abstract class Player
     {
         private bool bTurn;
         protected string name;
-        public abstract void MakeMovement(Board board);
+        public abstract Command MakeMovement(Board board);
         public void SetTurn(bool turn)
         {
             bTurn = turn;

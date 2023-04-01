@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
@@ -18,7 +19,7 @@ namespace TicTacToe
             base.name = name;
         }
 
-        public override void MakeMovement(Board board)
+        public override Command MakeMovement(Board board)
         {
             bTempTurn = true;
 
@@ -68,6 +69,8 @@ namespace TicTacToe
             board.AddPiece(bestMove);
             Console.Clear();
             Console.WriteLine(name + " chose position " + bestMove[0] + " with piece " + bestMove[1]);
+
+            return Command.None;
         }
 
         private int MonteCarloSimulation(Board board)
