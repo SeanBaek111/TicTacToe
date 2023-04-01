@@ -34,7 +34,7 @@ namespace TicTacToe
         }
         public void Play()
         {
-            //Console.WriteLine("Game started");
+            Console.WriteLine("Game started");
             gameBoard.DisplayBoard();
             while (!IsWin() && !IsQuit())
             {
