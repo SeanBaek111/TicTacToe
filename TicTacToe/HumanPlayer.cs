@@ -12,38 +12,57 @@ namespace TicTacToe
             base.name = name;
         }
         public override void MakeMovement(Board board)
-        { 
-           
+        {
             while (true)
             {
-                Console.Write("Available Pieces : ");
-                for (int i = 0; i < board.GetAvailablePieces().Count; i++)
-                {
-                    Console.Write(board.GetAvailablePieces()[i]);
-                    if (i < board.GetAvailablePieces().Count - 1)
-                        Console.Write(", ");
-                }
-                Console.WriteLine();
-                
-                Console.Write(name + " : (Position Piece) >>> ");
-                
+                var availablePieces = board.GetAvailablePieces();
+                Console.Write("Available Pieces: ");
+                Console.WriteLine(string.Join(", ", availablePieces));
+
+                Console.WriteLine("Save game: S, Quit game: Q");
+                Console.Write($"{name}: (Position Piece) >>> ");
+
                 string sInput = Console.ReadLine();
                 string[] arrInput = sInput.Split(' ');
 
+                Console.Clear();
 
-                if (  board.AddPiece( arrInput ) )
+                if (arrInput.Length == 1)
                 {
-                    Console.Clear();
-                    Console.WriteLine(name + " chose position " + arrInput[0] + " with piece " + arrInput[1]);
+                    if (arrInput[0] == "S")
+                    {
+                        // Save game
+                        if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
+                        {
+                            Console.WriteLine("File Saved");
+                        }
+                    }
+                    else if (arrInput[0] == "Q")
+                    {
+                        // Quit
+                        Environment.Exit(0);
+                    }
+                }
+
+                if (arrInput.Length != 2)
+                {
+                    board.DisplayBoard();
+                    Console.WriteLine("\nInput Error. Try again.\n");
+                    continue;
+                }
+
+                Console.WriteLine($"{name} chose position {arrInput[0]} with piece {arrInput[1]}");
+
+                if (board.AddPiece(arrInput))
+                {
                     break;
                 }
                 else
                 {
-                    Console.Clear(); 
                     board.DisplayBoard();
-                    Console.Write("\nInput Error. Try again.\n\n");
+                    Console.WriteLine("\nInput Error. Try again.\n");
                 }
-            } 
+            }
         }
     }
 }

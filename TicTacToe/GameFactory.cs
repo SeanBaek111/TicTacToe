@@ -5,11 +5,11 @@ namespace TicTacToe
 {
     public class GameFactory
     {
-        public static GameFactory gameFactory = new GameFactory();
+        public static GameFactory _instance = new GameFactory();
 
         public static GameFactory GetInstance()
         {
-            return gameFactory;
+            return _instance;
         }
 
         private GameFactory()

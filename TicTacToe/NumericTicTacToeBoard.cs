@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace TicTacToe
 {
@@ -43,8 +44,8 @@ namespace TicTacToe
         private void GetRowAndCol(int input, out int row, out int col)
         {
             input--;
-            row = input / BOARD_SIZE; 
-          
+
+            row = input / BOARD_SIZE;  
             col = input % BOARD_SIZE;
         }
 
@@ -54,20 +55,7 @@ namespace TicTacToe
             {
                 return false;
             }
-
-            //int nInput = 0;
-
-            //if (Int32.TryParse(arrInput[0], out nInput) == false)
-            //{
-            //    return false;
-            //}
-            //int row = GetRow(nInput);
-
-            //if (Int32.TryParse(arrInput[1], out nInput) == false)
-            //{
-            //    return false;
-            //}
-            //int col = GetCol(nInput);
+ 
             int row, col;
             if (!Int32.TryParse(arrInput[0], out int input))
             {
@@ -107,70 +95,13 @@ namespace TicTacToe
             }
             if (gameBoard[row, col] != '-')
             {
-                Console.WriteLine(row + " " + col + " already taken");
+              //  Console.WriteLine(row + " " + col + " already taken");
                 return false;
             }
 
             return true;
         }
-
-        //public override bool IsValidMove(string[] arrInput)
-        //{
-        //    if( arrInput.Length != 3)
-        //    {
-        //        return false;
-        //    }
-
-        //    int nInput = 0;
-
-        //    if(Int32.TryParse(arrInput[0], out nInput) == false){
-        //        return false;
-        //    }
-        //    int row = nInput;
-
-        //    if (Int32.TryParse(arrInput[1], out nInput) == false)
-        //    {
-        //        return false;
-        //    }
-        //    int col = nInput;
-
-
-        //    char cPiece = ' ';
-        //    if(char.TryParse(arrInput[2], out cPiece) == false ){
-        //        return false;
-        //    }
-
-
-        //    if (!IsValidPiece(cPiece))
-        //    {
-        //        return false;
-        //    }
-
-        //    for (int i = 0; i < BOARD_SIZE; i++)
-        //    {
-        //        for (int j = 0; j < BOARD_SIZE; j++)
-        //        {
-        //            if ( gameBoard[i,j]  ==  cPiece)
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-
-
-        //    if (row > BOARD_SIZE || col > BOARD_SIZE || row < 1 || col < 1)
-        //    {
-        //        return false;
-        //    } 
-        //    if (gameBoard[row-1,col-1] != '-')
-        //    {
-        //        Console.WriteLine(row + " " + col + " already taken");
-        //        return false;
-        //    } 
-
-        //    return true;
-        //}
-
+ 
         public override bool AddPiece(string[] arrInput)
         {            
             if (IsValidMove(arrInput))
@@ -274,6 +205,30 @@ namespace TicTacToe
             GetRowAndCol(input, out int row, out int col);
             gameBoard[row, col] = '-';
             listAvailablePieces.Add(char.Parse(arrInput[1]));
+        }
+
+        public override string GetCurrentStatus()
+        {
+            StringBuilder sStatus = new StringBuilder();
+
+            for (int i = 0; i < BOARD_SIZE; i++)
+            {
+                for (int j = 0; j < BOARD_SIZE; j++)
+                {
+                    sStatus.Append(gameBoard[i, j]);
+
+                    if (j < BOARD_SIZE - 1)
+                    {
+                        sStatus.Append(",");
+                    }
+                }
+                if (i < BOARD_SIZE - 1)
+                {
+                    sStatus.Append(",");
+                }
+            }
+
+            return sStatus.ToString();
         }
     }
 }

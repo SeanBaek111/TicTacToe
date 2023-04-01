@@ -77,13 +77,13 @@ public class FileManager
     /// <summary>
     /// Save the game progress.
     /// </summary>
-    public bool SaveProgress(Stack<BoardStatus> logs, string fileName = DEFAULT_FILENAME)
+    public bool SaveProgress(Stack<GameStatus> logs, string fileName = DEFAULT_FILENAME)
     {
         // Use local method to create a save file.
         bool create = this.CreateSaveFile(fileName);
 
         // Use extenion method to save the progress to file.
-        bool saveResult = logs.SaveToCsv<BoardStatus>(fileName);
+        bool saveResult = logs.SaveToCsv<GameStatus>(fileName);
 
         // Return true or false based on how file are saved.
         return saveResult;
@@ -92,7 +92,7 @@ public class FileManager
     /// <summary>
     /// Load the game progress from csv file and return the Stack object
     /// </summary>
-    public Stack<BoardStatus> LoadProgress(string fileName = DEFAULT_FILENAME)
+    public Stack<GameStatus> LoadProgress(string fileName = DEFAULT_FILENAME)
     {
         if (!this.FileExists())
         {
@@ -100,12 +100,12 @@ public class FileManager
             throw new FileLoadException();
         }
 
-        Stack<BoardStatus> logs = new();
+        Stack<GameStatus> logs = new();
         using StreamReader streamReader = new(fileName);
         using CsvReader csvReader = new(streamReader, CultureInfo.InvariantCulture);
-        List<BoardStatus> records = csvReader.GetRecords<BoardStatus>().ToList();
+        List<GameStatus> records = csvReader.GetRecords<GameStatus>().ToList();
 
-        foreach (BoardStatus item in records)
+        foreach (GameStatus item in records)
         {
             logs.Push(item);
         }

@@ -16,18 +16,19 @@ namespace TicTacToe
             // 1 2 3 4 5 6 7 8 9  
             // GetAvailablePos()  
             List<int> positions = board.GetEmptyPositions();
-
+            
             List<char> pieces = board.GetAvailablePieces();
 
             Random rnd = new Random();
 
-            string sPos = (positions[rnd.Next(positions.Count)] + 1).ToString();
+            string sPos = (positions[rnd.Next(positions.Count)] + 1).ToString();             
             string sPiece = pieces[rnd.Next(pieces.Count)].ToString();
 
-            string[] arrInput = { sPos, sPiece };
+            string[] arrInput =   { sPos, sPiece };
             Thread.Sleep(1000);
-            board.AddPiece(arrInput);
+            board.AddPiece( arrInput);
             Console.Clear();
+            
         }
     }
 }
