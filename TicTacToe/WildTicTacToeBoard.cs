@@ -76,7 +76,7 @@ namespace TicTacToe
                 return false;
             }
 
-
+                        
             if (!IsValidPiece(cPiece))
             {
                 return false;
@@ -224,6 +224,22 @@ namespace TicTacToe
             }
 
             return sStatus.ToString();
+        }
+
+        public override void AddAvailablePiece(char piece)
+        {
+            if (IsValidPiece(piece) && !listAvailablePieces.Contains(piece))
+            {
+                listAvailablePieces.Add(piece);
+            }
+        }
+
+        public override void RemoveAvailablePiece(char piece)
+        {
+            if (listAvailablePieces.Contains(piece))
+            {
+                listAvailablePieces.Remove(piece);
+            }
         }
     }
 

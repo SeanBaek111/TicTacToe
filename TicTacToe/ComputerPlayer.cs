@@ -1,4 +1,6 @@
 ﻿using System;
+using static TicTacToe.Enums;
+
 namespace TicTacToe
 {
     public class ComputerPlayer : Player
@@ -11,7 +13,7 @@ namespace TicTacToe
         {
             base.name = name;
         }
-        public override void MakeMovement(Board board)
+        public override Command MakeMovement(Board board)
         {
             // 1 2 3 4 5 6 7 8 9  
             // GetAvailablePos()  
@@ -28,7 +30,8 @@ namespace TicTacToe
             Thread.Sleep(1000);
             board.AddPiece( arrInput);
             Console.Clear();
-            
+
+            return Command.None;
         }
     }
 }

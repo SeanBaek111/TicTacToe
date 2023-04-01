@@ -116,6 +116,7 @@ namespace TicTacToe
               //  Console.WriteLine("IsAvailableMove True");
                 gameBoard[row, col] = piece;
                 listAvailablePieces.Remove(piece);
+                LastPlacedPiece = piece; // Store the last placed piece
                 return true;
             }
             else
@@ -188,7 +189,9 @@ namespace TicTacToe
 
         public override List<char> GetAvailablePieces()
         {
-            return listAvailablePieces;
+            List<char> sortedAvailablePieces = new List<char>(listAvailablePieces);
+            sortedAvailablePieces.Sort(); // Sort the list in ascending order
+            return sortedAvailablePieces;
         }
 
         public override Board Clone()
@@ -230,6 +233,24 @@ namespace TicTacToe
 
             return sStatus.ToString();
         }
+
+        public override void AddAvailablePiece(char piece)
+        {
+            if (IsValidPiece(piece) && !listAvailablePieces.Contains(piece))
+            {
+                listAvailablePieces.Insert(0, piece);
+            }
+        }
+
+        public override void RemoveAvailablePiece(char piece)
+        {
+            if ( listAvailablePieces.Contains(piece))
+            {
+                listAvailablePieces.Remove(piece);
+            }
+        }
+
+        
     }
 }
 

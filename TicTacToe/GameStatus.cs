@@ -15,10 +15,27 @@ namespace TicTacToe
         GameTypeEnum players;
         BoardTypeEnum board;
 
-        public GameStatus(Player player, string status)
+        char lastPiece;
+
+        public GameStatus(Player player, string status )
         {
             currentPlayer = player;
             boardStatus = status;
+        }
+
+        public string GetBoardStatus()
+        {
+            return boardStatus;
+        }
+
+        public void SetLastPiece(char piece)
+        {
+            lastPiece = piece;
+        }
+
+        public char GetLastPiece()
+        {
+            return lastPiece;
         }
     }
 }
