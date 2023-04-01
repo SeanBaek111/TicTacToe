@@ -34,9 +34,4 @@ public static class Enums
         Back = 1,
         Foward = 2,
     }
-
-    public enum HelpEnum
-    {
-
-    }
 }

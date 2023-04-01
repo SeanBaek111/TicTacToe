@@ -8,7 +8,7 @@ public class Program
 {
     public static void Main()
     {
-        IFileManager fileManager = new FileManager();
+        FileManager fm = new();
         // Console.ForegroundColor = ConsoleColor.Green;
         // Console.BackgroundColor = ConsoleColor.Yellow;
 
@@ -28,12 +28,9 @@ public class Program
 
         //return;
         // Check if the save file exists.
-        bool saveFile = fileManager.FileExists();
+        bool saveFile = fm.FileExists();
 
         Menu menu = new Menu();
-
-        // Declare the user decision variable
-        int nSelection;
 
         // If Save file exists, do the confirmation.
         if (saveFile)
@@ -45,9 +42,9 @@ public class Program
                 {
                     menu.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
                 }
-                nSelection = menu.GetUserAnswer();
+                //nSelection = menu.GetUserAnswer();
 
-                switch (nSelection)
+                switch (menu.GetUserAnswer())
                 {
                     case 1:
                         LoadGame();
@@ -72,6 +69,8 @@ public class Program
                         {
                             // back to first section. 
                             continue;
+
+
                         }
                         break;
                     case 3:
@@ -113,6 +112,7 @@ public class Program
         });
         menu.AddMenu("Help");
         menu.AddMenuEnum(ConfirmationEnum.Quit);
+
         nSelection = menu.GetUserAnswer();
 
         menu = new Menu();
@@ -153,7 +153,6 @@ public class Program
                 menu.AddMenuEnum(NavigationEnum.Back);
                 nSelection = menu.GetUserAnswer();
                 throw new NotImplementedException();
-                break;
 
             case 4:
                 Environment.Exit(0);
