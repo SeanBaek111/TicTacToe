@@ -3,7 +3,7 @@ namespace TicTacToe
 {
     public class Game
     {
-        Player[] players;        
+        Player[] players;
         Player currentPlayer;
         Player winPlayer;
         string currentBoardStatus;
@@ -11,18 +11,19 @@ namespace TicTacToe
 
         private int nCurrentTurn;
         const int MAX_TURN = 9;
+
         public Game()
         {
-            nCurrentTurn = 0; 
+            nCurrentTurn = 0;
         }
 
         private Player GetCurrentPlayer()
         {
             Player player = null;
 
-            foreach(Player p in players)
+            foreach (Player p in players)
             {
-                if( p.IsTurn() )
+                if (p.IsTurn())
                 {
                     player = p;
                     break;
@@ -36,17 +37,17 @@ namespace TicTacToe
             Console.WriteLine("Game started");
             gameBoard.DisplayBoard();
             while (!IsWin() && !IsQuit())
-            { 
-                currentPlayer = GetCurrentPlayer();  
+            {
+                currentPlayer = GetCurrentPlayer();
                 currentPlayer.MakeMovement(gameBoard);
                 gameBoard.DisplayBoard();
-                SwapPlayer(); 
+                SwapPlayer();
 
                 BoardStatus boardStatus = new BoardStatus(currentPlayer, currentBoardStatus);
-                nCurrentTurn = AddHistory(boardStatus);                
+                nCurrentTurn = AddHistory(boardStatus);
             }
-            
-            if( winPlayer != null )
+
+            if (winPlayer != null)
             {
                 Console.WriteLine("Winner is " + winPlayer.GetName());
             }
@@ -63,8 +64,8 @@ namespace TicTacToe
         private bool IsWin()
         {
             bool bRes = false;
-            
-            if(gameBoard.IsWin())
+
+            if (gameBoard.IsWin())
             {
                 winPlayer = currentPlayer;
                 bRes = true;
@@ -77,7 +78,7 @@ namespace TicTacToe
             bool bRes = false;
 
             if (gameBoard.IsQuit())
-            { 
+            {
                 bRes = true;
             }
 
@@ -85,30 +86,30 @@ namespace TicTacToe
         }
 
         private void SwapPlayer()
-        {            
-            for(int i = 0; i < players.Length; i++)
+        {
+            for (int i = 0; i < players.Length; i++)
             {
                 if (players[i].IsTurn())
                 {
                     players[i].SetTurn(false);
-                    if( i == players.Length -1)
+                    if (i == players.Length - 1)
                     {
                         players[0].SetTurn(true);
                     }
                     else
                     {
-                        players[i+1].SetTurn(true);
+                        players[i + 1].SetTurn(true);
                     }
                     break;
                 }
-                
+
             }
 
         }
 
         public void SetBoard(Board board)
         {
-            this.gameBoard= board;
+            this.gameBoard = board;
         }
         internal void SetPlayers(Player[] players)
         {
@@ -118,7 +119,7 @@ namespace TicTacToe
         private int AddHistory(BoardStatus boardStatus)
         {
             int nHistoryCnt = History.GetInstance().Push(boardStatus);
-          //  Console.WriteLine("nHistoryCnt " + nHistoryCnt);
+            //  Console.WriteLine("nHistoryCnt " + nHistoryCnt);
 
             return nHistoryCnt;
 

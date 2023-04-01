@@ -63,11 +63,14 @@ public static class EnumExtension
         return newList;
     }
 
+    /// <summary>
+    /// Save the Stack data into a CSV file.
+    /// </summary>
     public static bool SaveToCsv<T>(this Stack<T> gameData, string path)
     {
         try
         {
-            // Reverse it because the list coming from Stack
+            // Convert stack to list.
             List<T> bs = gameData.ConvertToList<T>();
             List<string> lines = new();
 
@@ -75,10 +78,12 @@ public static class EnumExtension
                 .GetProperties(typeof(T))
                 .OfType<PropertyDescriptor>();
 
+            // Fillin the header.
             string header = string.Join(",", props.ToList().Select(x => x.Name));
 
             lines.Add(header);
 
+            // Fillin the content.
             IEnumerable<string> valueLines = bs
                 .Select(row => string.Join(",", header.Split(',')
                                                    .Select(a =>
@@ -90,6 +95,7 @@ public static class EnumExtension
             File.WriteAllLines(path, lines.ToArray());
             return true;
         }
+        // Well, incase something went wrong.
         catch (Exception e)
         {
             throw e;
