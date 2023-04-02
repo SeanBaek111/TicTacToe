@@ -67,7 +67,7 @@ public static class EnumExtension
         newList.Reverse();
         return newList;
     }
-
+    
     /// <summary>
     /// Save the Stack data into a CSV file.
     /// </summary>

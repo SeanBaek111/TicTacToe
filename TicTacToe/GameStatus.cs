@@ -9,13 +9,15 @@ namespace TicTacToe
         /* char[,] boardStatus2= {{'-','-','3'},
                                  {'-','-','6'},
                                  {'-','2','-'}};*/
-        public string BoardStatus { get; }
-        public Player CurrentPlayer { get; }
+        public string BoardStatus { get; set; }
+        public Player CurrentPlayer { get; set; }
         public GameModeEnum GameMode { get; set; }
         public GameTypeEnum GameType { get; set; }
         public BoardTypeEnum BoardType { get; set; }
 
         char lastPiece;
+        
+        public GameStatus() {}
 
         public GameStatus(Player player, string status)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Reflection;
 using CsvHelper;
 using static TicTacToe.Enums;
 
@@ -85,6 +86,7 @@ public class FileManager
         // Use extenion method to save the progress to file.
         bool saveResult = logs.SaveToCsv<GameStatus>(fileName);
 
+        LoadProgress(fileName);
         // Return true or false based on how file are saved.
         return saveResult;
     }
@@ -100,15 +102,130 @@ public class FileManager
             throw new FileLoadException();
         }
 
-        Stack<GameStatus> logs = new();
-        using StreamReader streamReader = new(fileName);
-        using CsvReader csvReader = new(streamReader, CultureInfo.InvariantCulture);
-        List<GameStatus> records = csvReader.GetRecords<GameStatus>().ToList();
-
-        foreach (GameStatus item in records)
-        {
-            logs.Push(item);
-        }
+        Stack<GameStatus> logs = ConvertToObject<GameStatus>(fileName);
         return logs;
+    }
+    
+public static Stack<T> ConvertToObject<T>(string filePath) where T : new()
+    {
+        Stack<T> objects = new Stack<T>();
+
+        using (StreamReader reader = new StreamReader(filePath))
+        {
+            string headerLine = reader.ReadLine();
+            if (headerLine == null)
+            {
+                throw new Exception("CSV file is empty");
+            }
+            string[] headers = headerLine.Split(',');
+
+            while (!reader.EndOfStream)
+            {
+                string dataLine = reader.ReadLine();
+                if (dataLine == null)
+                {
+                    continue;
+                }
+                string[] values = dataLine.Split(',');
+
+                T obj = new T();
+                SetPropertyValues(obj, headers, values);
+
+                objects.Push(obj);
+            }
+        }
+
+        return objects;
+    }
+
+    /// <summary>
+    ///  recursive-able method to set properties.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="headers"></param>
+    /// <param name="values"></param>
+    /// <param name="startIndex"></param>
+    /// <typeparam name="T"></typeparam>
+    private static void SetPropertyValues<T>(T obj, string[] headers, string[] values, int startIndex = 0) where T : new()
+    {
+        Type objType = obj.GetType();
+        PropertyInfo[] properties = objType.GetProperties();
+
+        for (int i = startIndex; i < headers.Length; i++)
+        {
+            string header = headers[i];
+            string value = values[i];
+
+            if (header.Contains("_"))
+            {
+                string[] subHeaders = header.Split('_');
+                PropertyInfo property = properties.FirstOrDefault(p => p.Name == subHeaders[0]);
+                if (property == null)
+                {
+                    continue;
+                }
+                if (property.PropertyType.IsValueType || property.PropertyType == typeof(string))
+                {
+                    // If the property is a value type or string, we can set the value directly
+                    object subObj = property.GetValue(obj) ?? Activator.CreateInstance(property.PropertyType);
+                    SetPropertyValues(subObj, subHeaders.Skip(1).ToArray(), new[] { value }, 0);
+                    property.SetValue(obj, subObj);
+                }
+                else
+                {
+                    // If the property is a complex type, we need to recursively set its sub-properties
+                    object subObj = property.GetValue(obj);
+                    if (subObj == null)
+                    {
+                        Type subType = property.PropertyType;
+                        if (subType.IsAbstract)
+                        {
+                            // If the property type is abstract, find a concrete subclass that can be instantiated
+                            Assembly assembly = Assembly.GetAssembly(objType);
+                            subType = assembly.GetTypes().FirstOrDefault(t => !t.IsAbstract && subType.IsAssignableFrom(t));
+                            if (subType == null)
+                            {
+                                // If no concrete subclass was found, skip this property
+                                continue;
+                            }
+                        }
+                        subObj = Activator.CreateInstance(subType);
+                        property.SetValue(obj, subObj);
+                    }
+                    SetPropertyValues(subObj, subHeaders.Skip(1).ToArray(), new[] { value }, 0);
+                }
+            }
+            else
+            {
+                // If the header does not contain an underscore, we can set the property value directly
+                PropertyInfo property = properties.FirstOrDefault(p => p.Name == header);
+                if (property == null)
+                {
+                    continue;
+                }
+                object convertedValue;
+                if (property.PropertyType.IsEnum)
+                {
+                    // If the property is an enumeration, use the Enum.Parse method to convert the string value to the enumeration value
+                    convertedValue = Enum.Parse(property.PropertyType, value);
+                }
+                else
+                {
+                    // If the property is not an enumeration, use the Convert.ChangeType method to convert the string value to the property type
+                    convertedValue = Convert.ChangeType(value, property.PropertyType);
+                }
+                property.SetValue(obj, convertedValue);
+            }
+        }
+    }
+    
+    /// <summary>
+    /// check if the property is simple type. (nested)
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    private static bool IsSimpleType(Type type)
+    {
+        return type.IsPrimitive || type.IsValueType || type == typeof(string);
     }
 }
