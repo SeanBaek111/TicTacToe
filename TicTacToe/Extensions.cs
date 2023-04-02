@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace TicTacToe;
 
@@ -77,6 +78,12 @@ public static class EnumExtension
             IEnumerable<PropertyDescriptor> props = TypeDescriptor
                 .GetProperties(typeof(T))
                 .OfType<PropertyDescriptor>();
+            
+            PropertyInfo[] properties = typeof(T).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                Console.WriteLine(property.Name);
+            }
 
             // Fillin the header.
             string header = string.Join(",", props.ToList().Select(x => x.Name));
