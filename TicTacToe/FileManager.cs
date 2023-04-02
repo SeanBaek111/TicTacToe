@@ -83,7 +83,7 @@ public class FileManager
         bool create = this.CreateSaveFile(fileName);
 
         // Use extenion method to save the progress to file.
-        bool saveResult = logs.SaveToCsvExt<GameStatus>(fileName);
+        bool saveResult = logs.SaveToCsv<GameStatus>(fileName);
 
         // Return true or false based on how file are saved.
         return saveResult;
