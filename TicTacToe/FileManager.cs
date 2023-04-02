@@ -106,7 +106,7 @@ public class FileManager
         return logs;
     }
     
-public static Stack<T> ConvertToObject<T>(string filePath) where T : new()
+    public static Stack<T> ConvertToObject<T>(string filePath) where T : new()
     {
         Stack<T> objects = new Stack<T>();
 
@@ -139,7 +139,7 @@ public static Stack<T> ConvertToObject<T>(string filePath) where T : new()
     }
 
     /// <summary>
-    ///  recursive-able method to set properties.
+    ///  Recursive-able method to set properties.
     /// </summary>
     /// <param name="obj"></param>
     /// <param name="headers"></param>

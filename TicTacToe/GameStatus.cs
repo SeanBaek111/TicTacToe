@@ -15,7 +15,7 @@ namespace TicTacToe
         public GameTypeEnum GameType { get; set; }
         public BoardTypeEnum BoardType { get; set; }
 
-        char lastPiece;
+        public char lastPiece { get; set; }
         
         public GameStatus() {}
 
