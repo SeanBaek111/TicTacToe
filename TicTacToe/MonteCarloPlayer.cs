@@ -11,10 +11,10 @@ namespace TicTacToe
 
         public MonteCarloComputerPlayer()
         {
-            base.name = "Monte Carlo Computer Player";
+            base.name = PlayerTypeEnum.Monte_Carlo_Computer_Player;
         }
 
-        public MonteCarloComputerPlayer(string name)
+        public MonteCarloComputerPlayer(PlayerTypeEnum name)
         {
             base.name = name;
         }

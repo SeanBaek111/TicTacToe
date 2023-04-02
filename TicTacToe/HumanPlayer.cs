@@ -7,9 +7,9 @@ namespace TicTacToe
     {
 
         public HumanPlayer() {
-            base.name = "Human Player";
+            base.name = PlayerTypeEnum.Human_Player;
         }
-        public HumanPlayer(string name)
+        public HumanPlayer(PlayerTypeEnum name)
         {
             base.name = name;
         }

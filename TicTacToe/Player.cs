@@ -6,7 +6,7 @@ namespace TicTacToe
     public abstract class Player
     {
         public bool bTurn { get; set; }
-        public string name { get; set; }
+        public PlayerTypeEnum name { get; set; }
         public abstract Command MakeMovement(Board board);
         public void SetTurn(bool turn)
         {
@@ -18,7 +18,7 @@ namespace TicTacToe
             return bTurn;
         }
 
-        public string GetName() { return name; }
+        public PlayerTypeEnum GetName() { return name; }
        // abstract char[] Get
     }
 }

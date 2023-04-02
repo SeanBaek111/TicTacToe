@@ -6,6 +6,14 @@ namespace TicTacToe;
 public static class Enums
 {
 
+    public enum PlayerTypeEnum
+    {
+        Player_A,
+        Player_B,
+        Computer_Player,
+        Monte_Carlo_Computer_Player,
+        Human_Player,
+    }
     public enum BoardTypeEnum
     {
         Tic_Tac_Toe_Board = 1,
@@ -15,7 +23,7 @@ public static class Enums
         Human_VS_Computer = 1,
         Human_VS_Human = 2,
     }
-
+    
     public enum GameModeEnum
     {
         Wild_Tic_Tac_Toe = 1,
