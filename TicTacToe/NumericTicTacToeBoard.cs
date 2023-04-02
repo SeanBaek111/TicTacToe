@@ -222,12 +222,12 @@ namespace TicTacToe
 
                     if (j < BOARD_SIZE - 1)
                     {
-                        sStatus.Append(",");
+                        sStatus.Append(".");
                     }
                 }
                 if (i < BOARD_SIZE - 1)
                 {
-                    sStatus.Append(",");
+                    sStatus.Append(".");
                 }
             }
 
