@@ -140,9 +140,7 @@ namespace TicTacToe
                 {
                     // Undo 
                     // if it's Human vs Human mode -> Undo only 1 step
-                    // else Undo 2 steps
-
-                    
+                    // else Undo 2 steps 
                    
 
                     if( historyCount > 2)
@@ -183,6 +181,11 @@ namespace TicTacToe
                 {
                     // Quit
                     Environment.Exit(0);
+                }
+                else if (command == Command.Invalid)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid Move");
                 }
                 else
                 {
