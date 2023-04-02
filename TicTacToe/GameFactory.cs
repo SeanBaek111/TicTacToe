@@ -37,8 +37,8 @@ namespace TicTacToe
             if (players == GameTypeEnum.Human_VS_Human)
             {
                 listPlayer = new Player[2];
-                listPlayer[0] = new HumanPlayer("Player 1"); 
-                listPlayer[1] = new HumanPlayer("Player 2");
+                listPlayer[0] = new HumanPlayer(PlayerTypeEnum.Player_A);
+                listPlayer[1] = new HumanPlayer(PlayerTypeEnum.Player_B);
 
                 listPlayer[0].SetIsFirstTurn(true);
                 listPlayer[1].SetIsFirstTurn(false);

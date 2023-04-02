@@ -7,9 +7,9 @@ namespace TicTacToe
     {
         public ComputerPlayer()
         {
-            base.name = "Computer Player";
+            base.name = PlayerTypeEnum.Computer_Player;
         }
-        public ComputerPlayer(string name)
+        public ComputerPlayer(PlayerTypeEnum name)
         {
             base.name = name;
         }
@@ -26,7 +26,7 @@ namespace TicTacToe
             string sPos = (positions[rnd.Next(positions.Count)] + 1).ToString();             
             string sPiece = pieces[rnd.Next(pieces.Count)].ToString();
 
-            string[] arrInput =   { sPos, sPiece };
+            string[] arrInput = { sPos, sPiece };
             Thread.Sleep(1000);
             board.AddPiece( arrInput);
             Console.Clear();

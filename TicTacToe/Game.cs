@@ -34,7 +34,7 @@ namespace TicTacToe
                     break;
                 }
             }
-            Console.WriteLine("Current Player : " + player.GetName());
+            Console.WriteLine("Current Player : " + player.GetName().ToStringExt());
             return player;
         }
 
@@ -253,7 +253,7 @@ namespace TicTacToe
         {
             if (winPlayer != null)
             {
-                Console.WriteLine("Winner is " + winPlayer.GetName());
+                Console.WriteLine("Winner is " + winPlayer.GetName().ToStringExt());
             }
             else
             {
