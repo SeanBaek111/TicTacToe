@@ -147,7 +147,7 @@ namespace TicTacToe
 
                     if( historyCount > 2)
                     {
-                        int steps = IsHumanVsHuman() ? 2 : 2;
+                        int steps = 2; // IsHumanVsHuman() ? 2 : 2;
                         Console.WriteLine("Undo");
 
                         for (int i = 0; i < steps; i++)
@@ -168,10 +168,8 @@ namespace TicTacToe
                 else if (command == Command.Redo)
                 {
                     // Redo
-                    // if it's Human vs Human mode -> Redo only 1 step
-                    // else Redo 2 steps
 
-                    int steps = IsHumanVsHuman() ? 2 : 2;
+                    int steps = 2;// IsHumanVsHuman() ? 2 : 2;
                     Console.WriteLine("Redo");
                     for (int i = 0; i < steps; i++)
                     {
