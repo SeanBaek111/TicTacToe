@@ -99,8 +99,8 @@ namespace TicTacToe
         private void GetRowAndCol(int input, out int row, out int col)
         {
             input--;
-            row = input / BOARD_SIZE;
 
+            row = input / BOARD_SIZE;
             col = input % BOARD_SIZE;
         }
 
@@ -240,6 +240,16 @@ namespace TicTacToe
             {
                 listAvailablePieces.Remove(piece);
             }
+        }
+
+        public override List<char> GetAvailablePieces(bool isFirstTurn)
+        {
+            return GetAvailablePieces();
+        }
+
+        public override bool AddPiece(string[] arrInput, bool isFirstTurn)
+        {
+            return AddPiece(arrInput);
         }
     }
 

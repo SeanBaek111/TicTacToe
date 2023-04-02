@@ -25,7 +25,7 @@ namespace TicTacToe
 
             // Make copies of the available positions and pieces
             List<int> emptyPositions = new List<int>(board.GetEmptyPositions());
-            List<char> availablePieces = new List<char>(board.GetAvailablePieces());
+            List<char> availablePieces = new List<char>(board.GetAvailablePieces(GetIsFirstTurn()));
 
             int maxScore = int.MinValue;
             string[] bestMove = null;

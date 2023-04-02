@@ -20,6 +20,11 @@ namespace TicTacToe
             redoStack = new Stack<GameStatus>();
         }
 
+        public void Init()
+        {
+            gameHistory = new Stack<GameStatus>();
+            redoStack = new Stack<GameStatus>();
+        }
         public int Push(GameStatus status)
         {
             gameHistory.Push(status);
@@ -71,7 +76,7 @@ namespace TicTacToe
         public bool Undo(Board board)
         {
             bool bRes = false;
-            if (gameHistory.Count > 1)
+            if (gameHistory.Count >1)
             {
                 // Save the current state to the Redo stack
                 redoStack.Push(gameHistory.Pop());

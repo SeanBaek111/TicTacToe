@@ -19,7 +19,7 @@ namespace TicTacToe
             // GetAvailablePos()  
             List<int> positions = board.GetEmptyPositions();
             
-            List<char> pieces = board.GetAvailablePieces();
+            List<char> pieces = board.GetAvailablePieces(GetIsFirstTurn());
 
             Random rnd = new Random();
 

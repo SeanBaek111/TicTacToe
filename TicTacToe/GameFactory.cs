@@ -40,14 +40,21 @@ namespace TicTacToe
                 listPlayer[0] = new HumanPlayer(PlayerTypeEnum.Player_A);
                 listPlayer[1] = new HumanPlayer(PlayerTypeEnum.Player_B);
 
+                listPlayer[0].SetIsFirstTurn(true);
+                listPlayer[1].SetIsFirstTurn(false);
+
             }
             else if (players == GameTypeEnum.Human_VS_Computer)
             {
                 listPlayer = new Player[2];
-                listPlayer[0] = new HumanPlayer();
+                 listPlayer[0] = new HumanPlayer();
               //listPlayer[1] = new ComputerPlayer();
                 listPlayer[1] = new MonteCarloComputerPlayer();
-                
+
+                listPlayer[0].SetIsFirstTurn(true);
+                listPlayer[1].SetIsFirstTurn(false);
+
+
             }
             else
             {

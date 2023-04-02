@@ -10,6 +10,7 @@ namespace TicTacToe
         public abstract bool IsWin();
         public abstract bool IsQuit();
         public abstract bool AddPiece(string[] arrInput);
+        public abstract bool AddPiece(string[] arrInput, bool isFirstTurn);
         public abstract void RemovePiece(string[] arrInput);
         public abstract void AddAvailablePiece(char piece);
         public abstract void RemoveAvailablePiece(char piece);
@@ -17,6 +18,7 @@ namespace TicTacToe
         public abstract Board Clone();
 
         public abstract List<char> GetAvailablePieces();
+        public abstract List<char> GetAvailablePieces(bool isFirstTurn);
         // public abstract bool SetBoard(int row, int col, string mark);
         public abstract bool IsValidMove(string[] arrInput);
 
@@ -69,7 +71,8 @@ namespace TicTacToe
         protected bool IsValidPiece(char piece)
         {
             return pieces.Contains(piece);
-        }
+        } 
+      
         //public void SetBoard(int row, int col, string mark)
         //{
         //    gameBoard[row-1,col-1] = mark;
@@ -78,7 +81,7 @@ namespace TicTacToe
         // Set the board status based on the provided string
         public void SetStatus(string status)
         {
-            string[] positions = status.Split(',');
+            string[] positions = status.Split('.');
             int index = 0;
             for (int row = 0; row < gameBoard.GetLength(0); row++)
             {
