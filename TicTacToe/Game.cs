@@ -15,11 +15,11 @@ namespace TicTacToe
 
 
 
-        private int nCurrentTurn;
+        private int historyCount;
         const int MAX_TURN = 9;
         public Game()
         {
-            nCurrentTurn = 0; 
+            historyCount = 0; 
         }
 
         private Player GetCurrentPlayer()
@@ -142,16 +142,28 @@ namespace TicTacToe
                     // if it's Human vs Human mode -> Undo only 1 step
                     // else Undo 2 steps
 
-                    int steps = IsHumanVsHuman() ? 1 : 2;
-                    Console.WriteLine("Undo");
-                    for (int i = 0; i < steps; i++)
-                    {
-                        if (History.GetInstance().Undo(gameBoard))
-                        {
+                    
+                   
 
-                            SwapPlayer();
+                    if( historyCount > 2)
+                    {
+                        int steps = IsHumanVsHuman() ? 2 : 2;
+                        Console.WriteLine("Undo");
+
+                        for (int i = 0; i < steps; i++)
+                        {
+                            if (History.GetInstance().Undo(gameBoard))
+                            {
+
+                                SwapPlayer();
+                            }
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("Undo is not available");
+                    }
+                   
                 }
                 else if (command == Command.Redo)
                 {
@@ -159,7 +171,7 @@ namespace TicTacToe
                     // if it's Human vs Human mode -> Redo only 1 step
                     // else Redo 2 steps
 
-                    int steps = IsHumanVsHuman() ? 1 : 2;
+                    int steps = IsHumanVsHuman() ? 2 : 2;
                     Console.WriteLine("Redo");
                     for (int i = 0; i < steps; i++)
                     {
@@ -228,7 +240,7 @@ namespace TicTacToe
         {
             GameStatus gameStatus = new GameStatus(currentPlayer, gameBoard.GetCurrentStatus());
             gameStatus.SetLastPiece(gameBoard.LastPlacedPiece);
-            nCurrentTurn = AddHistory(gameStatus);
+            historyCount = AddHistory(gameStatus);
         }
 
         private bool IsGameOver()
