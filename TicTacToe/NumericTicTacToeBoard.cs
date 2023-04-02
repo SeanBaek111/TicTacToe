@@ -48,14 +48,24 @@ namespace TicTacToe
             row = input / BOARD_SIZE;  
             col = input % BOARD_SIZE;
         }
-
-        public override bool IsValidMove(string[] arrInput)
+        protected bool IsValidPiece(char piece, bool isFirst)
+        {
+            if (isFirst)
+            {
+                return (piece - '0') % 2 != 0 && pieces.Contains(piece); // Check if the piece is odd and contained in pieces
+            }
+            else
+            {
+                return (piece - '0') % 2 == 0 && pieces.Contains(piece); // Check if the piece is even and contained in pieces
+            }
+        }
+        public override bool IsValidMove(string[] arrInput )
         {
             if (arrInput.Length != 2)
             {
                 return false;
             }
- 
+
             int row, col;
             if (!Int32.TryParse(arrInput[0], out int input))
             {
@@ -95,6 +105,58 @@ namespace TicTacToe
             }
             if (gameBoard[row, col] != '-')
             {
+                //  Console.WriteLine(row + " " + col + " already taken");
+                return false;
+            }
+
+            return true;
+        }
+        public bool IsValidMove(string[] arrInput, bool isFirst)
+        {
+            if (arrInput.Length != 2)
+            {
+                return false;
+            }
+ 
+            int row, col;
+            if (!Int32.TryParse(arrInput[0], out int input))
+            {
+                return false;
+            }
+            GetRowAndCol(input, out row, out col);
+
+
+
+            char cPiece = ' ';
+            if (char.TryParse(arrInput[1], out cPiece) == false)
+            {
+                return false;
+            }
+
+
+            if (!IsValidPiece(cPiece, isFirst))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < BOARD_SIZE; i++)
+            {
+                for (int j = 0; j < BOARD_SIZE; j++)
+                {
+                    if (gameBoard[i, j] == cPiece)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+
+            if (row >= BOARD_SIZE || col >= BOARD_SIZE || row < 0 || col < 0)
+            {
+                return false;
+            }
+            if (gameBoard[row, col] != '-')
+            {
               //  Console.WriteLine(row + " " + col + " already taken");
                 return false;
             }
@@ -104,7 +166,7 @@ namespace TicTacToe
  
         public override bool AddPiece(string[] arrInput)
         {            
-            if (IsValidMove(arrInput))
+            if (IsValidMove(arrInput  ))
             {
                 //int rowIndex = GetRow(Int32.Parse(arrInput[0])) - 1;
                 //int colIndex = GetCol(Int32.Parse(arrInput[0])) - 1;
@@ -125,6 +187,31 @@ namespace TicTacToe
                 return false;
             }
         }
+
+        public override bool AddPiece(string[] arrInput, bool isFirstTurn)
+        {
+            if (IsValidMove(arrInput, isFirstTurn))
+            {
+                //int rowIndex = GetRow(Int32.Parse(arrInput[0])) - 1;
+                //int colIndex = GetCol(Int32.Parse(arrInput[0])) - 1;
+                //char piece = char.Parse(arrInput[1]);
+                int input = Int32.Parse(arrInput[0]);
+                GetRowAndCol(input, out int row, out int col);
+                char piece = char.Parse(arrInput[1]);
+
+                //  Console.WriteLine("IsAvailableMove True");
+                gameBoard[row, col] = piece;
+                listAvailablePieces.Remove(piece);
+                LastPlacedPiece = piece; // Store the last placed piece
+                return true;
+            }
+            else
+            {
+                //         Console.WriteLine("IsAvailableMove False");
+                return false;
+            }
+        }
+
 
         //       
         public override bool IsWin()
@@ -188,10 +275,30 @@ namespace TicTacToe
         }
 
         public override List<char> GetAvailablePieces()
-        {
+        { 
             List<char> sortedAvailablePieces = new List<char>(listAvailablePieces);
             sortedAvailablePieces.Sort(); // Sort the list in ascending order
             return sortedAvailablePieces;
+        }
+        public override List<char> GetAvailablePieces(bool isFirstTurn)
+        {
+            List<char> sortedAvailablePieces = new List<char>(listAvailablePieces);
+            sortedAvailablePieces.Sort(); // Sort the list in ascending order
+
+            List<char> filteredAvailablePieces = new List<char>();
+            foreach (char piece in sortedAvailablePieces)
+            {
+                if (isFirstTurn && (piece - '0') % 2 != 0) // isFirstTurn is true and the piece is odd
+                {
+                    filteredAvailablePieces.Add(piece);
+                }
+                else if (!isFirstTurn && (piece - '0') % 2 == 0) // isFirstTurn is false and the piece is even
+                {
+                    filteredAvailablePieces.Add(piece);
+                }
+            }
+
+            return filteredAvailablePieces;
         }
 
         public override Board Clone()
@@ -250,7 +357,7 @@ namespace TicTacToe
             }
         }
 
-        
+       
     }
 }
 

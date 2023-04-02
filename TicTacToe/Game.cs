@@ -28,7 +28,7 @@ namespace TicTacToe
 
             foreach(Player p in players)
             {
-                if( p.IsTurn() )
+                if( p.IsPlayerTurn() )
                 {
                     player = p;
                     break;
@@ -77,10 +77,7 @@ namespace TicTacToe
                             
                             SwapPlayer();
                         }
-                        
-
                     }
-
                 }
                 else if (command == Command.Redo)
                 {
@@ -95,10 +92,8 @@ namespace TicTacToe
                         if(History.GetInstance().Redo(gameBoard))
                         { 
                             SwapPlayer();
-                        }
-                        
-                    }
-
+                        } 
+                    } 
                 }
                 else if (command == Command.Quit)
                 {
@@ -185,7 +180,7 @@ namespace TicTacToe
         {            
             for(int i = 0; i < players.Length; i++)
             {
-                if (players[i].IsTurn())
+                if (players[i].IsPlayerTurn())
                 {
                     players[i].SetTurn(false);
                     if( i == players.Length -1)
