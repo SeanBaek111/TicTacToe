@@ -114,7 +114,8 @@ namespace TicTacToe
 
           //      Console.WriteLine("IsAvailableMove True");
                 gameBoard[row, col] = piece;
-             
+                LastPlacedPiece = piece; // Store the last placed piece
+
                 return true;
             }
             else
