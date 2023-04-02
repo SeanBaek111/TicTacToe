@@ -11,6 +11,8 @@ namespace TicTacToe
                                  {'-','2','-'}};*/
         public string BoardStatus { get; set; }
         public Player CurrentPlayer { get; set; }
+
+        public PlayerTypeEnum PlayerTypeEnum { get; set; }
         public GameModeEnum GameMode { get; set; }
         public GameTypeEnum GameType { get; set; }
         public BoardTypeEnum BoardType { get; set; }
@@ -23,9 +25,9 @@ namespace TicTacToe
         {
             CurrentPlayer = player;
             BoardStatus = status;
-            GameMode = GameModeEnum.Wild_Tic_Tac_Toe;
+           /* GameMode = GameModeEnum.Wild_Tic_Tac_Toe;
             GameType = GameTypeEnum.Human_VS_Computer;
-            BoardType = BoardTypeEnum.Tic_Tac_Toe_Board;
+            BoardType = BoardTypeEnum.Tic_Tac_Toe_Board;*/
         }
 
         public string GetBoardStatus()
