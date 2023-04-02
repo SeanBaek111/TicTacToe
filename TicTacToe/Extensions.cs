@@ -71,37 +71,98 @@ public static class EnumExtension
     /// <summary>
     /// Save the Stack data into a CSV file.
     /// </summary>
-    public static bool SaveToCsvExt<T>(this Stack<T> gameData, string path)
+    public static bool SaveToCsv<T>(this Stack<T> gameData, string path)
     {
         try
         {
             // Convert stack to list.
             List<T> bs = gameData.ConvertToList<T>();
-            //List<string> lines = new();
+            
+            // Define general type
+            Type type = typeof(T);
+            // Get the properties of general type
+            PropertyInfo[] properties = type.GetProperties();
 
-            //IEnumerable<PropertyDescriptor> props = TypeDescriptor
-            //    .GetProperties(typeof(T))
-            //    .OfType<PropertyDescriptor>();
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                // Write header row
+                List<string> header = new List<string>();
+                // loop through all the properties.
+                foreach (PropertyInfo property in properties)
+                {
+                    // Check if the property are nest-class
+                    if (IsSimpleType(property.PropertyType))
+                    {
+                        header.Add(property.Name);
+                    }
+                    else
+                    {
+                        // add the header with nest-class prefix
+                        PropertyInfo[] subProperties = property.PropertyType.GetProperties();
+                        foreach (PropertyInfo subProperty in subProperties)
+                        {
+                            header.Add(property.Name + "_" + subProperty.Name);
+                        }
+                    }
+                }
 
-            //// Fillin the header.
-            //string header = string.Join(",", props.ToList().Select(x => x.Name));
+                writer.WriteLine(string.Join(",", header));
 
-            //lines.Add(header);
+                // Write data rows
+                foreach (T obj in bs)
+                {
+                    // Define empty string list.
+                    List<string> values = new List<string>();
+                    // Loop through all the properties
+                    foreach (PropertyInfo property in properties)
+                    {
+                        // Check if the property are nest-class
+                        if (IsSimpleType(property.PropertyType))
+                        {
+                            object value = property.GetValue(obj);
+                            if (value != null)
+                            {
+                                values.Add(value.ToString());
+                            }
+                            else
+                            {
+                                values.Add("");
+                            }
+                        }
+                        else
+                        {
+                            object subObject = property.GetValue(obj);
+                            if (subObject != null)
+                            {
+                                PropertyInfo[] subProperties = property.PropertyType.GetProperties();
+                                foreach (PropertyInfo subProperty in subProperties)
+                                {
+                                    object subValue = subProperty.GetValue(subObject);
+                                    if (subValue != null)
+                                    {
+                                        values.Add(subValue.ToString());
+                                    }
+                                    else
+                                    {
+                                        values.Add("");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                PropertyInfo[] subProperties = property.PropertyType.GetProperties();
+                                foreach (PropertyInfo subProperty in subProperties)
+                                {
+                                    values.Add("");
+                                }
+                            }
+                        }
+                    }
 
-            //// Fillin the content.
-            //// Since most of the properties are not general string.
-            //// This brainless code will not work.
-            ////IEnumerable<string> valueLines = bs
-            ////    .Select(row => string.Join(",", header.Split(',')
-            ////                                       .Select(a =>
-            ////                                               row.GetType()
-            ////                                               .GetProperty(a)
-            ////                                               .GetValue(row, null))));
-
-            //lines.AddRange(valueLines);
-            //File.WriteAllLines(path, lines.ToArray());
-            ConvertToCsv(bs, path);
-            return true;
+                    writer.WriteLine(string.Join(",", values));
+                }
+                return true;
+            }
         }
         // Well, incase something went wrong.
         catch (Exception e)
@@ -109,84 +170,12 @@ public static class EnumExtension
             throw e;
         }
     }
-    public static void ConvertToCsv<T>(IEnumerable<T> objects, string filePath)
-    {
-        Type type = typeof(T);
-        PropertyInfo[] properties = type.GetProperties();
 
-        using (StreamWriter writer = new StreamWriter(filePath))
-        {
-            // Write header row
-            List<string> header = new List<string>();
-            foreach (PropertyInfo property in properties)
-            {
-                if (IsSimpleType(property.PropertyType))
-                {
-                    header.Add(property.Name);
-                }
-                else
-                {
-                    PropertyInfo[] subProperties = property.PropertyType.GetProperties();
-                    foreach (PropertyInfo subProperty in subProperties)
-                    {
-                        header.Add(property.Name + "_" + subProperty.Name);
-                    }
-                }
-            }
-            writer.WriteLine(string.Join(",", header));
-
-            // Write data rows
-            foreach (T obj in objects)
-            {
-                List<string> values = new List<string>();
-                foreach (PropertyInfo property in properties)
-                {
-                    if (IsSimpleType(property.PropertyType))
-                    {
-                        object value = property.GetValue(obj);
-                        if (value != null)
-                        {
-                            values.Add(value.ToString());
-                        }
-                        else
-                        {
-                            values.Add("");
-                        }
-                    }
-                    else
-                    {
-                        object subObject = property.GetValue(obj);
-                        if (subObject != null)
-                        {
-                            PropertyInfo[] subProperties = property.PropertyType.GetProperties();
-                            foreach (PropertyInfo subProperty in subProperties)
-                            {
-                                object subValue = subProperty.GetValue(subObject);
-                                if (subValue != null)
-                                {
-                                    values.Add(subValue.ToString());
-                                }
-                                else
-                                {
-                                    values.Add("");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            PropertyInfo[] subProperties = property.PropertyType.GetProperties();
-                            foreach (PropertyInfo subProperty in subProperties)
-                            {
-                                values.Add("");
-                            }
-                        }
-                    }
-                }
-                writer.WriteLine(string.Join(",", values));
-            }
-        }
-    }
-
+    /// <summary>
+    /// check if the property is simple type. (nested)
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     private static bool IsSimpleType(Type type)
     {
         return type.IsPrimitive || type.IsValueType || type == typeof(string);
