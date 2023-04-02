@@ -20,6 +20,11 @@ namespace TicTacToe
             redoStack = new Stack<GameStatus>();
         }
 
+        public void Init()
+        {
+            gameHistory = new Stack<GameStatus>();
+            redoStack = new Stack<GameStatus>();
+        }
         public int Push(GameStatus status)
         {
             gameHistory.Push(status);

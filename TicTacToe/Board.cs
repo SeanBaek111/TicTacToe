@@ -81,7 +81,7 @@ namespace TicTacToe
         // Set the board status based on the provided string
         public void SetStatus(string status)
         {
-            string[] positions = status.Split(',');
+            string[] positions = status.Split('.');
             int index = 0;
             for (int row = 0; row < gameBoard.GetLength(0); row++)
             {

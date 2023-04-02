@@ -43,17 +43,91 @@ namespace TicTacToe
             return players.All(p => p is HumanPlayer);
         }
 
+        /* public void Play()
+         {
+             Console.WriteLine("Game started");
+             DisplayCurrentBoard();
+             UpdateBoardAndHistory();
+             while (!IsGameOver())
+             {
+                 currentPlayer = GetCurrentPlayer();
+                 Command command = currentPlayer.MakeMovement(gameBoard);
+
+
+                 if (command == Command.Save)
+                 {
+                     // Save game
+                     if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
+                     {
+                         Console.WriteLine("File Saved");
+                     }
+                 }
+                 else if (command == Command.Undo)
+                 {
+                     // Undo 
+                     // if it's Human vs Human mode -> Undo only 1 step
+                     // else Undo 2 steps
+
+                     int steps = IsHumanVsHuman() ? 1 : 2;
+                     Console.WriteLine("Undo");
+                     for (int i = 0; i < steps; i++)
+                     {
+                         if (History.GetInstance().Undo(gameBoard))
+                         {
+
+                             SwapPlayer();
+                         }
+                     }
+                 }
+                 else if (command == Command.Redo)
+                 {
+                     // Redo
+                     // if it's Human vs Human mode -> Redo only 1 step
+                     // else Redo 2 steps
+
+                     int steps = IsHumanVsHuman() ? 1 : 2;
+                     Console.WriteLine("Redo");
+                     for (int i = 0; i < steps; i++)
+                     {
+                         if(History.GetInstance().Redo(gameBoard))
+                         { 
+                             SwapPlayer();
+                         } 
+                     } 
+                 }
+                 else if (command == Command.Quit)
+                 {
+                     // Quit
+                     Environment.Exit(0);
+                 }
+                 else
+                 {
+                     UpdateBoardAndHistory();
+
+                     SwapPlayer();
+                 }
+
+                 DisplayCurrentBoard();
+
+             }
+
+             DisplayGameOverMessage();
+             WaitForUserInputBeforeExiting();
+         }*/
+
         public void Play()
         {
+            History.GetInstance().Init();
             Console.WriteLine("Game started");
             DisplayCurrentBoard();
             UpdateBoardAndHistory();
-            while (!IsGameOver())
-            {
-                currentPlayer = GetCurrentPlayer();
-                Command command = currentPlayer.MakeMovement(gameBoard);
+            currentPlayer = GetCurrentPlayer();
+            Command command = currentPlayer.MakeMovement(gameBoard);
 
-                 
+            while (true)
+            {
+               
+
                 if (command == Command.Save)
                 {
                     // Save game
@@ -67,14 +141,14 @@ namespace TicTacToe
                     // Undo 
                     // if it's Human vs Human mode -> Undo only 1 step
                     // else Undo 2 steps
-                 
+
                     int steps = IsHumanVsHuman() ? 1 : 2;
                     Console.WriteLine("Undo");
                     for (int i = 0; i < steps; i++)
                     {
                         if (History.GetInstance().Undo(gameBoard))
                         {
-                            
+
                             SwapPlayer();
                         }
                     }
@@ -84,16 +158,16 @@ namespace TicTacToe
                     // Redo
                     // if it's Human vs Human mode -> Redo only 1 step
                     // else Redo 2 steps
-                    
+
                     int steps = IsHumanVsHuman() ? 1 : 2;
                     Console.WriteLine("Redo");
                     for (int i = 0; i < steps; i++)
                     {
-                        if(History.GetInstance().Redo(gameBoard))
-                        { 
+                        if (History.GetInstance().Redo(gameBoard))
+                        {
                             SwapPlayer();
-                        } 
-                    } 
+                        }
+                    }
                 }
                 else if (command == Command.Quit)
                 {
@@ -103,11 +177,41 @@ namespace TicTacToe
                 else
                 {
                     UpdateBoardAndHistory();
-                   
+
                     SwapPlayer();
                 }
 
                 DisplayCurrentBoard();
+
+                if (IsGameOver())
+                {
+                    DisplayGameOverMessage();
+                    currentPlayer = GetCurrentPlayer();
+
+                    if( currentPlayer is HumanPlayer)
+                    {
+                        command = currentPlayer.MakeMovement(gameBoard);
+                    }
+                    else
+                    {
+                        command  = Command.Quit;
+                    }
+                  
+
+                    if (command == Command.Quit)
+                    {
+                       
+                        // Quit
+                        Environment.Exit(0);
+                        break;
+                    }
+                   
+                }
+                else
+                {
+                    currentPlayer = GetCurrentPlayer();
+                    command = currentPlayer.MakeMovement(gameBoard); 
+                }
 
             }
 

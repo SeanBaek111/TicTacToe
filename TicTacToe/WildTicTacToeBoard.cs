@@ -244,12 +244,12 @@ namespace TicTacToe
 
         public override List<char> GetAvailablePieces(bool isFirstTurn)
         {
-            throw new NotImplementedException();
+            return GetAvailablePieces();
         }
 
         public override bool AddPiece(string[] arrInput, bool isFirstTurn)
         {
-            throw new NotImplementedException();
+            return AddPiece(arrInput);
         }
     }
 
