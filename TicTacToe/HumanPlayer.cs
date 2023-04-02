@@ -17,7 +17,7 @@ namespace TicTacToe
         {
             while (true)
             {
-                var availablePieces = board.GetAvailablePieces();
+                var availablePieces = board.GetAvailablePieces(GetIsFirstTurn());
                 Console.Write("Available Pieces: ");
                 Console.WriteLine(string.Join(", ", availablePieces));
 
@@ -43,7 +43,7 @@ namespace TicTacToe
 
                 Console.WriteLine($"{name} chose position {arrInput[0]} with piece {arrInput[1]}");
 
-                if (board.AddPiece(arrInput))
+                if (board.AddPiece(arrInput, GetIsFirstTurn()))
                 {
                     break;
                 }

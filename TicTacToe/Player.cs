@@ -5,17 +5,28 @@ namespace TicTacToe
 {
     public abstract class Player
     {
-        private bool bTurn;
+        private bool isPlayerTurn;
+        private bool isFirstTurn;
         protected string name;
         public abstract Command MakeMovement(Board board);
         public void SetTurn(bool turn)
         {
-            bTurn = turn;
+            isPlayerTurn = turn;
         }
 
-        public bool IsTurn()
+        public bool IsPlayerTurn()
         {
-            return bTurn;
+            return isPlayerTurn;
+        }
+
+        public bool GetIsFirstTurn()
+        {
+            return isFirstTurn;
+        }
+
+        public void SetIsFirstTurn(bool value)
+        {
+            isFirstTurn = value;
         }
 
         public string GetName() { return name; }
