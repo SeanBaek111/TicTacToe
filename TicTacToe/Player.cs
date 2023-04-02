@@ -5,8 +5,8 @@ namespace TicTacToe
 {
     public abstract class Player
     {
-        private bool bTurn;
-        protected string name;
+        public bool bTurn { get; set; }
+        public string name { get; set; }
         public abstract Command MakeMovement(Board board);
         public void SetTurn(bool turn)
         {

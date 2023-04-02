@@ -9,23 +9,26 @@ namespace TicTacToe
         /* char[,] boardStatus2= {{'-','-','3'},
                                  {'-','-','6'},
                                  {'-','2','-'}};*/
-        public string boardStatus { get; }
-        public Player currentPlayer { get; }
-        public GameModeEnum name { get; set; }
-        public GameTypeEnum players { get; set; }
-        public BoardTypeEnum board { get; set; }
+        public string BoardStatus { get; }
+        public Player CurrentPlayer { get; }
+        public GameModeEnum GameMode { get; set; }
+        public GameTypeEnum GameType { get; set; }
+        public BoardTypeEnum BoardType { get; set; }
 
         char lastPiece;
 
-        public GameStatus(Player player, string status )
+        public GameStatus(Player player, string status)
         {
-            currentPlayer = player;
-            boardStatus = status;
+            CurrentPlayer = player;
+            BoardStatus = status;
+            GameMode = GameModeEnum.Wild_Tic_Tac_Toe;
+            GameType = GameTypeEnum.Human_VS_Computer;
+            BoardType = BoardTypeEnum.Tic_Tac_Toe_Board;
         }
 
         public string GetBoardStatus()
         {
-            return boardStatus;
+            return BoardStatus;
         }
 
         public void SetLastPiece(char piece)

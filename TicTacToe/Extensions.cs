@@ -1,6 +1,10 @@
+using CsvHelper.Configuration;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Reflection;
+using CsvHelper;
+using CsvHelper.TypeConversion;
 
 namespace TicTacToe;
 
@@ -67,33 +71,36 @@ public static class EnumExtension
     /// <summary>
     /// Save the Stack data into a CSV file.
     /// </summary>
-    public static bool SaveToCsv<T>(this Stack<T> gameData, string path)
+    public static bool SaveToCsvExt<T>(this Stack<T> gameData, string path)
     {
         try
         {
             // Convert stack to list.
             List<T> bs = gameData.ConvertToList<T>();
-            List<string> lines = new();
+            //List<string> lines = new();
 
-            IEnumerable<PropertyDescriptor> props = TypeDescriptor
-                .GetProperties(typeof(T))
-                .OfType<PropertyDescriptor>();
+            //IEnumerable<PropertyDescriptor> props = TypeDescriptor
+            //    .GetProperties(typeof(T))
+            //    .OfType<PropertyDescriptor>();
 
-            // Fillin the header.
-            string header = string.Join(",", props.ToList().Select(x => x.Name));
+            //// Fillin the header.
+            //string header = string.Join(",", props.ToList().Select(x => x.Name));
 
-            lines.Add(header);
+            //lines.Add(header);
 
-            // Fillin the content.
-            IEnumerable<string> valueLines = bs
-                .Select(row => string.Join(",", header.Split(',')
-                                                   .Select(a =>
-                                                           row.GetType()
-                                                           .GetProperty(a)
-                                                           .GetValue(row, null))));
+            //// Fillin the content.
+            //// Since most of the properties are not general string.
+            //// This brainless code will not work.
+            ////IEnumerable<string> valueLines = bs
+            ////    .Select(row => string.Join(",", header.Split(',')
+            ////                                       .Select(a =>
+            ////                                               row.GetType()
+            ////                                               .GetProperty(a)
+            ////                                               .GetValue(row, null))));
 
-            lines.AddRange(valueLines);
-            File.WriteAllLines(path, lines.ToArray());
+            //lines.AddRange(valueLines);
+            //File.WriteAllLines(path, lines.ToArray());
+            ConvertToCsv(bs, path);
             return true;
         }
         // Well, incase something went wrong.
@@ -101,5 +108,87 @@ public static class EnumExtension
         {
             throw e;
         }
+    }
+    public static void ConvertToCsv<T>(IEnumerable<T> objects, string filePath)
+    {
+        Type type = typeof(T);
+        PropertyInfo[] properties = type.GetProperties();
+
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            // Write header row
+            List<string> header = new List<string>();
+            foreach (PropertyInfo property in properties)
+            {
+                if (IsSimpleType(property.PropertyType))
+                {
+                    header.Add(property.Name);
+                }
+                else
+                {
+                    PropertyInfo[] subProperties = property.PropertyType.GetProperties();
+                    foreach (PropertyInfo subProperty in subProperties)
+                    {
+                        header.Add(property.Name + "_" + subProperty.Name);
+                    }
+                }
+            }
+            writer.WriteLine(string.Join(",", header));
+
+            // Write data rows
+            foreach (T obj in objects)
+            {
+                List<string> values = new List<string>();
+                foreach (PropertyInfo property in properties)
+                {
+                    if (IsSimpleType(property.PropertyType))
+                    {
+                        object value = property.GetValue(obj);
+                        if (value != null)
+                        {
+                            values.Add(value.ToString());
+                        }
+                        else
+                        {
+                            values.Add("");
+                        }
+                    }
+                    else
+                    {
+                        object subObject = property.GetValue(obj);
+                        if (subObject != null)
+                        {
+                            PropertyInfo[] subProperties = property.PropertyType.GetProperties();
+                            foreach (PropertyInfo subProperty in subProperties)
+                            {
+                                object subValue = subProperty.GetValue(subObject);
+                                if (subValue != null)
+                                {
+                                    values.Add(subValue.ToString());
+                                }
+                                else
+                                {
+                                    values.Add("");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            PropertyInfo[] subProperties = property.PropertyType.GetProperties();
+                            foreach (PropertyInfo subProperty in subProperties)
+                            {
+                                values.Add("");
+                            }
+                        }
+                    }
+                }
+                writer.WriteLine(string.Join(",", values));
+            }
+        }
+    }
+
+    private static bool IsSimpleType(Type type)
+    {
+        return type.IsPrimitive || type.IsValueType || type == typeof(string);
     }
 }

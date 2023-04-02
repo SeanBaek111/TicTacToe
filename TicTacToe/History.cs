@@ -79,7 +79,7 @@ namespace TicTacToe
                 GameStatus previousState = gameHistory.Peek();
 
                 board.AddAvailablePiece(redoStack.Peek().GetLastPiece());
-                // Apply the previous state to the game board                
+                // Apply the previous state to the game board
                 board.SetStatus(previousState.GetBoardStatus());
                 bRes = true;
 

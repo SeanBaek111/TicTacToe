@@ -9,7 +9,7 @@ namespace TicTacToe;
 public class FileManager
 {
     /// <summary>
-    /// It's the default file name.
+    /// It's the default file manager.
     /// </summary>
     const string DEFAULT_FILENAME = "save.csv";
 
@@ -83,7 +83,7 @@ public class FileManager
         bool create = this.CreateSaveFile(fileName);
 
         // Use extenion method to save the progress to file.
-        bool saveResult = logs.SaveToCsv<GameStatus>(fileName);
+        bool saveResult = logs.SaveToCsvExt<GameStatus>(fileName);
 
         // Return true or false based on how file are saved.
         return saveResult;
