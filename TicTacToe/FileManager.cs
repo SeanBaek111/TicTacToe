@@ -90,7 +90,7 @@ public class FileManager
 
         saveResult = logs.SaveToBin<GameStatus>(fileName);
          
-        LoadProgress(fileName);
+        //LoadProgress(fileName);
 
         Stack<GameStatus> logs2 = (Stack<GameStatus>) EnumExtension.LoadFromBin(fileName);
         // Return true or false based on how file are saved.
