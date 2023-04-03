@@ -31,10 +31,7 @@ namespace TicTacToe
         public GameStatus(Player player, string status)
         {
             CurrentPlayer = player;
-            BoardStatus = status;
-           /* GameMode = GameModeEnum.Wild_Tic_Tac_Toe;
-            GameType = GameTypeEnum.Human_VS_Computer;
-            BoardType = BoardTypeEnum.Tic_Tac_Toe_Board;*/
+            BoardStatus = status; 
         }
 
         public string GetBoardStatus()

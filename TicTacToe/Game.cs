@@ -34,7 +34,7 @@ namespace TicTacToe
                     break;
                 }
             }
-            Console.WriteLine("Current Player : " + player.GetName().ToStringExt());
+        //    Console.WriteLine("Current Player : " + player.GetName().ToStringExt());
             return player;
         }
 
@@ -199,7 +199,11 @@ namespace TicTacToe
                 }
                 else
                 {
-                  
+
+                    if(IsWin())
+                    {
+                        winPlayer = currentPlayer;
+                    }
 
                     SwapPlayer();
                     currentPlayer = GetCurrentPlayer();
@@ -304,7 +308,7 @@ namespace TicTacToe
             
             if(gameBoard.IsWin())
             {
-                winPlayer = currentPlayer;
+               // winPlayer = currentPlayer;
                 bRes = true;
             }
 
