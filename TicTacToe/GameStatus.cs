@@ -13,6 +13,9 @@ namespace TicTacToe
         public string BoardStatus { get; set; }
         public Player CurrentPlayer { get; set; }
 
+        public Player[] Players { get; set; }
+        public Board Board { get; set; }
+
         public PlayerTypeEnum PlayerTypeEnum { get; set; }
         public GameModeEnum GameMode { get; set; }
         public GameTypeEnum GameType { get; set; }
@@ -20,7 +23,7 @@ namespace TicTacToe
 
         public char lastPiece { get; set; }
 
-        public List<char> listAvailablePieces;
+        private List<char> listAvailablePieces;
 
 
         public GameStatus() {}
@@ -39,6 +42,13 @@ namespace TicTacToe
             return BoardStatus;
         }
 
+        // set listAvailablePieces
+        public void SetAvailablePieces(List<char> list)
+        {
+            listAvailablePieces = list;
+        }
+
+        public List<char> GetAvailablePieces() { return listAvailablePieces;}
         public void SetLastPiece(char piece)
         {
             lastPiece = piece;

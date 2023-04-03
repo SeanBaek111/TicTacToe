@@ -3,6 +3,7 @@ using System.Text;
 
 namespace TicTacToe
 {
+    [Serializable]
     public class WildTicTacToeBoard : Board
     {
         const int BOARD_SIZE = 3;
