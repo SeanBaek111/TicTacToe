@@ -3,6 +3,7 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
+    [Serializable]
     public abstract class Player
     {
         public bool isPlayerTurn { get; set; }

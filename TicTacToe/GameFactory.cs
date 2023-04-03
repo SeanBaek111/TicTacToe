@@ -258,7 +258,7 @@ namespace TicTacToe
             }
 
 
-            Data.GetInstance().GameMode  =  gameStatus.GameMode;
+            Data.GetInstance().GameMode =  gameStatus.GameMode;
             Data.GetInstance().GameType =  gameStatus.GameType;
             Data.GetInstance().CurrentPlayer = currentPlayer;
             game.SetPlayers(listPlayer);

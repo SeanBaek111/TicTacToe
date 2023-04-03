@@ -3,6 +3,7 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
+    [Serializable]
     public class GameStatus
     {
         //  string pieceStatus = "-,-,3,-,-,6,-,9,-";
@@ -18,7 +19,10 @@ namespace TicTacToe
         public BoardTypeEnum BoardType { get; set; }
 
         public char lastPiece { get; set; }
-        
+
+        public List<char> listAvailablePieces;
+
+
         public GameStatus() {}
 
         public GameStatus(Player player, string status)

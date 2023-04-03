@@ -4,6 +4,7 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
+    [Serializable]
     public class MonteCarloComputerPlayer : Player
     {
         // Keep track of whose turn it is in simulation

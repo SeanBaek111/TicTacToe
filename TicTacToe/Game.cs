@@ -268,7 +268,7 @@ namespace TicTacToe
             }
            
             gameStatus.SetLastPiece(gameBoard.LastPlacedPiece);
-          
+           // gameStatus.ListAvailablePieces = gameBoard.GetAvailablePieces();
             historyCount = AddHistory(gameStatus);
         }
 

@@ -7,7 +7,7 @@ namespace TicTacToe
     {
         const int BOARD_SIZE = 3;
 
-        private List<char> listAvailablePieces;
+        public List<char> listAvailablePieces { get; set; }
         public NumericTicTacToeBoard():base()
         {
             base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
