@@ -150,16 +150,13 @@ namespace TicTacToe
                 }
                 else if (command == Command.Undo)
                 {
-                    // Undo 
-                    // if it's Human vs Human mode -> Undo only 1 step
-                    // else Undo 2 steps 
-                   
-
+                    // Undo  
                     if( historyCount > 2)
                     {
-                        int steps = 2; // IsHumanVsHuman() ? 2 : 2;
                         Console.WriteLine("Undo");
 
+                        int steps = 2;  
+                  
                         for (int i = 0; i < steps; i++)
                         {
                             if (History.GetInstance().Undo(gameBoard))
@@ -177,10 +174,11 @@ namespace TicTacToe
                 }
                 else if (command == Command.Redo)
                 {
-                    // Redo
-
-                    int steps = 2;// IsHumanVsHuman() ? 2 : 2;
+                    // Redo 
                     Console.WriteLine("Redo");
+
+                    int steps = 2; 
+                   
                     for (int i = 0; i < steps; i++)
                     {
                         if (History.GetInstance().Redo(gameBoard))
@@ -237,8 +235,7 @@ namespace TicTacToe
                 {
                     currentPlayer = GetCurrentPlayer();
                     command = currentPlayer.MakeMovement(gameBoard); 
-                }
-
+                } 
             }
 
           //  DisplayGameOverMessage();
