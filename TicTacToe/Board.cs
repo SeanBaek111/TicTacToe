@@ -1,6 +1,7 @@
 ﻿using System;
 namespace TicTacToe
 {
+    [Serializable]
     public abstract class Board
     {
         protected char[,] gameBoard;

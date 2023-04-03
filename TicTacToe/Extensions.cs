@@ -199,7 +199,7 @@ public static class EnumExtension
         bool bRes = false;
         try
         {
-            FileStream fileStream = new FileStream(path, FileMode.Create);
+            FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate);
             new BinaryFormatter().Serialize(fileStream, gameData);
             fileStream.Close();
             bRes = true;

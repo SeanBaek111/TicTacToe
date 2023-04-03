@@ -263,12 +263,13 @@ namespace TicTacToe
                 gameStatus = status;
                 gameStatus.GameMode = Data.GetInstance().GameStatus.GameMode;
                 gameStatus.GameType = Data.GetInstance().GameStatus.GameType;
-                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum;
-
+                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum; 
             }
-           
+
+            gameStatus.Board = gameBoard;
+            gameStatus.Players = players;
             gameStatus.SetLastPiece(gameBoard.LastPlacedPiece);
-           // gameStatus.ListAvailablePieces = gameBoard.GetAvailablePieces();
+            gameStatus.SetAvailablePieces(gameBoard.GetAvailablePieces());
             historyCount = AddHistory(gameStatus);
         }
 

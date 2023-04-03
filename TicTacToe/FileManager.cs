@@ -107,9 +107,8 @@ public class FileManager
             // File doesn't exists.
             throw new FileLoadException();
         }
-
-        Stack<GameStatus> logs = ConvertToObject<GameStatus>(fileName);
-
+                
+        Stack<GameStatus> logs = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
         
         return logs;
     }
