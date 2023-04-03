@@ -165,9 +165,13 @@ public class Program
     {
         // TODO: Do load save file
         WriteLine("Load Game");
-        throw new NotImplementedException();
 
-        // game = GameFactory.GetInstance().LoadGame();
-        // game.Play();
+
+        Game game = GameFactory.GetInstance().LoadGame();
+        if( game != null)
+        {
+            game.Play(Data.GetInstance().GameStatus);
+        }
+        
     }
 }

@@ -115,13 +115,25 @@ namespace TicTacToe
              WaitForUserInputBeforeExiting();
          }*/
 
-        public void Play()
+        
+        public void Play(GameStatus gameStatus = null)
         {
             History.GetInstance().Init();
             Console.WriteLine("Game started");
             DisplayCurrentBoard();
-            UpdateBoardAndHistory();
-            currentPlayer = GetCurrentPlayer();
+           
+            if(gameStatus != null )
+            {
+                currentPlayer = gameStatus.CurrentPlayer;
+                UpdateBoardAndHistory(gameStatus);
+            }
+            else
+            {
+                currentPlayer = GetCurrentPlayer();
+                UpdateBoardAndHistory();
+            }
+            
+        
             Command command = currentPlayer.MakeMovement(gameBoard);
 
             while (true)
@@ -138,16 +150,13 @@ namespace TicTacToe
                 }
                 else if (command == Command.Undo)
                 {
-                    // Undo 
-                    // if it's Human vs Human mode -> Undo only 1 step
-                    // else Undo 2 steps 
-                   
-
+                    // Undo  
                     if( historyCount > 2)
                     {
-                        int steps = 2; // IsHumanVsHuman() ? 2 : 2;
                         Console.WriteLine("Undo");
 
+                        int steps = 2;  
+                  
                         for (int i = 0; i < steps; i++)
                         {
                             if (History.GetInstance().Undo(gameBoard))
@@ -165,10 +174,11 @@ namespace TicTacToe
                 }
                 else if (command == Command.Redo)
                 {
-                    // Redo
-
-                    int steps = 2;// IsHumanVsHuman() ? 2 : 2;
+                    // Redo 
                     Console.WriteLine("Redo");
+
+                    int steps = 2; 
+                   
                     for (int i = 0; i < steps; i++)
                     {
                         if (History.GetInstance().Redo(gameBoard))
@@ -189,9 +199,11 @@ namespace TicTacToe
                 }
                 else
                 {
-                    UpdateBoardAndHistory();
+                  
 
                     SwapPlayer();
+                    currentPlayer = GetCurrentPlayer();
+                    UpdateBoardAndHistory();
                 }
 
                 DisplayCurrentBoard();
@@ -206,16 +218,15 @@ namespace TicTacToe
                         command = currentPlayer.MakeMovement(gameBoard);
                     }
                     else
-                    {
+                    { 
                         command  = Command.Quit;
                     }
                   
 
                     if (command == Command.Quit)
-                    {
-                       
+                    { 
                         // Quit
-                        Environment.Exit(0);
+                       // Environment.Exit(0);
                         break;
                     }
                    
@@ -224,11 +235,10 @@ namespace TicTacToe
                 {
                     currentPlayer = GetCurrentPlayer();
                     command = currentPlayer.MakeMovement(gameBoard); 
-                }
-
+                } 
             }
 
-            DisplayGameOverMessage();
+          //  DisplayGameOverMessage();
             WaitForUserInputBeforeExiting();
         }
 
@@ -237,10 +247,28 @@ namespace TicTacToe
             gameBoard.DisplayBoard();
         }
 
-        private void UpdateBoardAndHistory()
+        private void UpdateBoardAndHistory(GameStatus status=null)
         {
-            GameStatus gameStatus = new GameStatus(currentPlayer, gameBoard.GetCurrentStatus());
+            GameStatus gameStatus = null;
+            
+            if(gameStatus == null) 
+            {
+                gameStatus =  new GameStatus(currentPlayer, gameBoard.GetCurrentStatus());
+                gameStatus.GameMode = Data.GetInstance().GameMode;
+                gameStatus.GameType = Data.GetInstance().GameType;
+                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum;
+            }
+            else
+            {
+                gameStatus = status;
+                gameStatus.GameMode = Data.GetInstance().GameStatus.GameMode;
+                gameStatus.GameType = Data.GetInstance().GameStatus.GameType;
+                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum;
+
+            }
+           
             gameStatus.SetLastPiece(gameBoard.LastPlacedPiece);
+          
             historyCount = AddHistory(gameStatus);
         }
 

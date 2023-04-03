@@ -167,23 +167,16 @@ namespace TicTacToe
         public override bool AddPiece(string[] arrInput)
         {            
             if (IsValidMove(arrInput  ))
-            {
-                //int rowIndex = GetRow(Int32.Parse(arrInput[0])) - 1;
-                //int colIndex = GetCol(Int32.Parse(arrInput[0])) - 1;
-                //char piece = char.Parse(arrInput[1]);
+            { 
                 int input = Int32.Parse(arrInput[0]);
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
 
-              //  Console.WriteLine("IsAvailableMove True");
-                gameBoard[row, col] = piece;
-                listAvailablePieces.Remove(piece);
-                LastPlacedPiece = piece; // Store the last placed piece
+                UpdateGameBoard(row, col, piece);
                 return true;
             }
             else
-            {
-       //         Console.WriteLine("IsAvailableMove False");
+            { 
                 return false;
             }
         }
@@ -192,26 +185,27 @@ namespace TicTacToe
         {
             if (IsValidMove(arrInput, isFirstTurn))
             {
-                //int rowIndex = GetRow(Int32.Parse(arrInput[0])) - 1;
-                //int colIndex = GetCol(Int32.Parse(arrInput[0])) - 1;
-                //char piece = char.Parse(arrInput[1]);
+                
                 int input = Int32.Parse(arrInput[0]);
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
 
-                //  Console.WriteLine("IsAvailableMove True");
-                gameBoard[row, col] = piece;
-                listAvailablePieces.Remove(piece);
-                LastPlacedPiece = piece; // Store the last placed piece
+                UpdateGameBoard(row, col, piece);
                 return true;
             }
             else
-            {
-                //         Console.WriteLine("IsAvailableMove False");
+            { 
                 return false;
             }
         }
 
+
+        private void UpdateGameBoard(int row, int col, char piece)
+        {
+            gameBoard[row, col] = piece;
+            listAvailablePieces.Remove(piece);
+            LastPlacedPiece = piece; // Store the last placed piece
+        }
 
         //       
         public override bool IsWin()
