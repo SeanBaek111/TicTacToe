@@ -82,10 +82,7 @@ namespace TicTacToe
 
         public Game LoadGame()
         {
-            Game game = null;
-            Player[] listPlayer;
-
-            Player currentPlayer = null;
+            Game game = null; 
 
             Stack<GameStatus> gameStatuses = FileManager.Instance.LoadProgress();
 
