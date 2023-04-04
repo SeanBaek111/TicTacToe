@@ -239,8 +239,8 @@ public class FileManager
 
     public string[] LoadTXT(string fileName)
     {
-        return File.ReadAllLines(fileName.Contains(".txt") ? fileName : fileName
-    + ".txt");
+        return File.ReadAllLines(fileName.Contains(".txt") ?
+                                 fileName : fileName + ".txt");
     }
 
     /// <summary>
