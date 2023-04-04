@@ -6,6 +6,7 @@ namespace TicTacToe;
 
 public class Program
 {
+
     public static void Main()
     {
         FileManager fm = FileManager.Instance;
@@ -29,21 +30,20 @@ public class Program
 
         //return;
         // Check if the save file exists.
-        bool saveFile = fm.FileExists();
 
         Menu menu = new Menu();
 
         // If Save file exists, do the confirmation.
-        if (saveFile)
+        if (fm.IsFileExists() && fm.IsFileEmpty())
         {
             while (true)
             {
-                menu.SetQuestion("Load Last Save Game?");
+                menu.SetQuestion("Save file detected!");
+                menu.SetQuestion("Load game?");
                 foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
                 {
                     menu.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
                 }
-                //nSelection = menu.GetUserAnswer();
 
                 switch (menu.GetUserAnswer())
                 {
@@ -163,15 +163,13 @@ public class Program
 
     static void LoadGame()
     {
-        // TODO: Do load save file
         WriteLine("Load Game");
 
-
         Game game = GameFactory.GetInstance().LoadGame();
-        if( game != null)
+        if (game != null)
         {
             game.Play(Data.GetInstance().GameStatus);
         }
-        
+
     }
 }

@@ -31,10 +31,15 @@ public class FileManager
     /// <summary>
     /// Check if the file is exists.
     /// </summary>
-    public bool FileExists(string fileName = DEFAULT_FILENAME)
+    public bool IsFileExists(string fileName = DEFAULT_FILENAME)
     {
         // Suppose to return if the file exists.
         return File.Exists(fileName);
+    }
+
+    public bool IsFileEmpty(string fileName = DEFAULT_FILENAME)
+    {
+        return new FileInfo(fileName).Length == 0;
     }
 
     /// <summary>
@@ -89,10 +94,10 @@ public class FileManager
 
 
         saveResult = logs.SaveToBin<GameStatus>(fileName);
-         
+
         //LoadProgress(fileName);
 
-        Stack<GameStatus> logs2 = (Stack<GameStatus>) EnumExtension.LoadFromBin(fileName);
+        Stack<GameStatus> logs2 = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
         // Return true or false based on how file are saved.
         return saveResult;
     }
@@ -102,17 +107,17 @@ public class FileManager
     /// </summary>
     public Stack<GameStatus> LoadProgress(string fileName = DEFAULT_FILENAME)
     {
-        if (!this.FileExists())
+        if (!this.IsFileExists())
         {
             // File doesn't exists.
-            throw new FileLoadException();
+            throw new FileNotFoundException();
         }
-                
+
         Stack<GameStatus> logs = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
-        
+
         return logs;
     }
-    
+
     public static Stack<T> ConvertToObject<T>(string filePath) where T : new()
     {
         Stack<T> objects = new Stack<T>();
@@ -225,7 +230,7 @@ public class FileManager
             }
         }
     }
-    
+
     /// <summary>
     /// check if the property is simple type. (nested)
     /// </summary>
