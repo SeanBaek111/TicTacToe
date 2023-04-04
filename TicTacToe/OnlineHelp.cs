@@ -20,7 +20,6 @@ namespace TicTacToe
 
         /// <summary>
         /// Show game mode help, if no parametes is inputted, show general help
-        /// text file.
         /// </summary>
         public void ShowHelp(Enum? helpType)
         {
