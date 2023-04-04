@@ -1,11 +1,13 @@
 ﻿using System;
 namespace TicTacToe
 {
+    [Serializable]
     public abstract class Board
     {
         protected char[,] gameBoard;
         protected char[] pieces;
         public char LastPlacedPiece { get; protected set; }
+        public int LastPosition { get; protected set; }
         public abstract void DisplayBoard();
         public abstract bool IsWin();
         public abstract bool IsQuit();

@@ -3,6 +3,7 @@ using System.Text;
 
 namespace TicTacToe
 {
+    [Serializable]
     public class WildTicTacToeBoard : Board
     {
         const int BOARD_SIZE = 3;
@@ -115,7 +116,7 @@ namespace TicTacToe
           //      Console.WriteLine("IsAvailableMove True");
                 gameBoard[row, col] = piece;
                 LastPlacedPiece = piece; // Store the last placed piece
-
+                LastPosition = row * BOARD_SIZE + col + 1;
                 return true;
             }
             else

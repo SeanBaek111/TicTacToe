@@ -3,11 +3,12 @@ using System.Text;
 
 namespace TicTacToe
 {
+    [Serializable]
     public class NumericTicTacToeBoard : Board
     {
         const int BOARD_SIZE = 3;
 
-        private List<char> listAvailablePieces;
+        public List<char> listAvailablePieces { get; set; }
         public NumericTicTacToeBoard():base()
         {
             base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
@@ -28,17 +29,30 @@ namespace TicTacToe
 
         public override void DisplayBoard()
         {
-        //    Console.Clear();
-            Console.WriteLine("┌─────┬─────┬─────┐");
-            Console.WriteLine("│     │     │     │");
-            Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[0,0], gameBoard[0, 1], gameBoard[0, 2]);
-            Console.WriteLine("├─────┼─────┼─────┤ ");
-            Console.WriteLine("│     │     │     │");
-            Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
-            Console.WriteLine("├─────┼─────┼─────┤ ");
-            Console.WriteLine("│     │     │     │");
-            Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
-            Console.WriteLine("└─────┴─────┴─────┘");
+            //    Console.Clear();
+            /*
+                Console.WriteLine("┌─────┬─────┬─────┐");
+                Console.WriteLine("│     │     │     │");
+                Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[0,0], gameBoard[0, 1], gameBoard[0, 2]);
+                Console.WriteLine("├─────┼─────┼─────┤ ");
+                Console.WriteLine("│     │     │     │");
+                Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
+                Console.WriteLine("├─────┼─────┼─────┤ ");
+                Console.WriteLine("│     │     │     │");
+                Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
+                Console.WriteLine("└─────┴─────┴─────┘");
+            */
+            Console.WriteLine(" **Square Number**         ");
+            Console.WriteLine("┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐");
+            Console.WriteLine("│     │     │     │        │     │     │     │");
+            Console.WriteLine("│  1  │  2  │  3  │        │  {0}  │  {1}  │  {2}  │", gameBoard[0, 0], gameBoard[0, 1], gameBoard[0, 2]);
+            Console.WriteLine("├─────┼─────┼─────┤        ├─────┼─────┼─────┤ ");
+            Console.WriteLine("│     │     │     │        │     │     │     │");
+            Console.WriteLine("│  4  │  5  │  6  │        │  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
+            Console.WriteLine("├─────┼─────┼─────┤        ├─────┼─────┼─────┤ ");
+            Console.WriteLine("│     │     │     │        │     │     │     │");
+            Console.WriteLine("│  7  │  8  │  9  │        │  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
+            Console.WriteLine("└─────┴─────┴─────┘        └─────┴─────┴─────┘");
         }
 
         private void GetRowAndCol(int input, out int row, out int col)
@@ -167,23 +181,16 @@ namespace TicTacToe
         public override bool AddPiece(string[] arrInput)
         {            
             if (IsValidMove(arrInput  ))
-            {
-                //int rowIndex = GetRow(Int32.Parse(arrInput[0])) - 1;
-                //int colIndex = GetCol(Int32.Parse(arrInput[0])) - 1;
-                //char piece = char.Parse(arrInput[1]);
+            { 
                 int input = Int32.Parse(arrInput[0]);
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
 
-              //  Console.WriteLine("IsAvailableMove True");
-                gameBoard[row, col] = piece;
-                listAvailablePieces.Remove(piece);
-                LastPlacedPiece = piece; // Store the last placed piece
+                UpdateGameBoard(row, col, piece);
                 return true;
             }
             else
-            {
-       //         Console.WriteLine("IsAvailableMove False");
+            { 
                 return false;
             }
         }
@@ -192,26 +199,28 @@ namespace TicTacToe
         {
             if (IsValidMove(arrInput, isFirstTurn))
             {
-                //int rowIndex = GetRow(Int32.Parse(arrInput[0])) - 1;
-                //int colIndex = GetCol(Int32.Parse(arrInput[0])) - 1;
-                //char piece = char.Parse(arrInput[1]);
+                
                 int input = Int32.Parse(arrInput[0]);
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
 
-                //  Console.WriteLine("IsAvailableMove True");
-                gameBoard[row, col] = piece;
-                listAvailablePieces.Remove(piece);
-                LastPlacedPiece = piece; // Store the last placed piece
+                UpdateGameBoard(row, col, piece);
                 return true;
             }
             else
-            {
-                //         Console.WriteLine("IsAvailableMove False");
+            { 
                 return false;
             }
         }
 
+
+        private void UpdateGameBoard(int row, int col, char piece)
+        {
+            gameBoard[row, col] = piece;
+            listAvailablePieces.Remove(piece);
+            LastPlacedPiece = piece; // Store the last placed piece
+            LastPosition = row * BOARD_SIZE + col + 1;
+        }
 
         //       
         public override bool IsWin()

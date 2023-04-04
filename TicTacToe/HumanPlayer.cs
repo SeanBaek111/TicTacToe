@@ -3,6 +3,7 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
+    [Serializable]
     public class HumanPlayer : Player
     {
 
@@ -21,7 +22,7 @@ namespace TicTacToe
                 Console.Write("Available Pieces: ");
                 Console.WriteLine(string.Join(", ", availablePieces));
 
-                Console.WriteLine("Undo: U, Redo: R, Save game: S, Quit game: Q");
+                Console.WriteLine("Help: H, Undo: U, Redo: R, Save game: S, Quit game: Q");
                 Console.Write($"{name}: (Position Piece) >>> ");
 
                 string sInput = Console.ReadLine();
@@ -41,7 +42,7 @@ namespace TicTacToe
                     continue;
                 }
 
-                Console.WriteLine($"{name} chose position {arrInput[0]} with piece {arrInput[1]}");
+             //   Console.WriteLine($"{name} chose position {arrInput[0]} with piece {arrInput[1]}");
 
                 if (board.AddPiece(arrInput, GetIsFirstTurn()))
                 {
@@ -60,6 +61,8 @@ namespace TicTacToe
         {
             switch (input.ToUpper())
             {
+                case "H":
+                    return Command.Help;
                 case "S":
                     return Command.Save;
                 case "U":

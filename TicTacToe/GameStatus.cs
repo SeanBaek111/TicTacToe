@@ -3,6 +3,7 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
+    [Serializable]
     public class GameStatus
     {
         //  string pieceStatus = "-,-,3,-,-,6,-,9,-";
@@ -11,13 +12,21 @@ namespace TicTacToe
                                  {'-','2','-'}};*/
         public string BoardStatus { get; set; }
         public Player CurrentPlayer { get; set; }
+
+        public Player[] Players { get; set; }
+        public Board Board { get; set; }
+
+        public PlayerTypeEnum PlayerTypeEnum { get; set; }
         public GameModeEnum GameMode { get; set; }
         public GameTypeEnum GameType { get; set; }
         public BoardTypeEnum BoardType { get; set; }
 
         public char lastPiece { get; set; }
-        
-        public GameStatus() {}
+
+        private List<char> listAvailablePieces;
+
+
+        public GameStatus() { }
 
         public GameStatus(Player player, string status)
         {
@@ -27,6 +36,9 @@ namespace TicTacToe
             GameMode = GameModeEnum.Wild_Tic_Tac_Toe;
             GameType = GameTypeEnum.Human_VS_Computer;
             BoardType = BoardTypeEnum.Tic_Tac_Toe_Board;
+=======
+            BoardStatus = status; 
+>>>>>>> main
         }
 
         public string GetBoardStatus()
@@ -34,6 +46,13 @@ namespace TicTacToe
             return BoardStatus;
         }
 
+        // set listAvailablePieces
+        public void SetAvailablePieces(List<char> list)
+        {
+            listAvailablePieces = list;
+        }
+
+        public List<char> GetAvailablePieces() { return listAvailablePieces; }
         public void SetLastPiece(char piece)
         {
             lastPiece = piece;

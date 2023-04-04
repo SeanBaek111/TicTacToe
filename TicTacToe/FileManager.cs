@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
+using System.Xml.Linq;
 using CsvHelper;
 using static TicTacToe.Enums;
 
@@ -86,7 +87,12 @@ public class FileManager
         // Use extenion method to save the progress to file.
         bool saveResult = logs.SaveToCsv<GameStatus>(fileName);
 
-        LoadProgress(fileName);
+
+        saveResult = logs.SaveToBin<GameStatus>(fileName);
+         
+        //LoadProgress(fileName);
+
+        Stack<GameStatus> logs2 = (Stack<GameStatus>) EnumExtension.LoadFromBin(fileName);
         // Return true or false based on how file are saved.
         return saveResult;
     }
@@ -101,8 +107,9 @@ public class FileManager
             // File doesn't exists.
             throw new FileLoadException();
         }
-
-        Stack<GameStatus> logs = ConvertToObject<GameStatus>(fileName);
+                
+        Stack<GameStatus> logs = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
+        
         return logs;
     }
     

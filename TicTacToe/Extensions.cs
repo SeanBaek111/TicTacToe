@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Reflection;
 using CsvHelper;
 using CsvHelper.TypeConversion;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TicTacToe;
 
@@ -90,6 +91,18 @@ public static class EnumExtension
                 // loop through all the properties.
                 foreach (PropertyInfo property in properties)
                 {
+                    if (property.PropertyType.IsSubclassOf(typeof(Player))) 
+                    {
+                        //
+                        int a = 0;
+                        a++;
+                    }
+                    else if (property.PropertyType.IsSubclassOf(typeof(Player))) 
+                    {
+
+                        int a = 0;
+                        a++;
+                    }
                     // Check if the property are nest-class
                     if (IsSimpleType(property.PropertyType))
                     {
@@ -180,4 +193,40 @@ public static class EnumExtension
     {
         return type.IsPrimitive || type.IsValueType || type == typeof(string);
     }
+
+    public static bool SaveToBin<T>(this Stack<T> gameData, string path)
+    {
+        bool bRes = false;
+        try
+        {
+            FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate);
+            new BinaryFormatter().Serialize(fileStream, gameData);
+            fileStream.Close();
+            bRes = true;
+        }
+        catch (SystemException e)
+        {
+            throw e;
+        }
+        return bRes;
+    }
+
+    
+
+    public static object LoadFromBin(string path)
+    {
+        object obj = (object)null;
+        try
+        {
+            FileStream fileStream = new FileStream(path, FileMode.Open);
+            obj = new BinaryFormatter().Deserialize((Stream)fileStream);
+            fileStream.Close();
+        }
+        catch (SystemException e)
+        {
+            throw e;
+        }
+        return obj;
+    }
+
 }
