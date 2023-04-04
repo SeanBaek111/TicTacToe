@@ -38,7 +38,8 @@ public class Program
         {
             while (true)
             {
-                menu.SetQuestion("Load Last Save Game?");
+                menu.SetQuestion("Save file detected!");
+                menu.SetQuestion("Load game?");
                 foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
                 {
                     menu.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
