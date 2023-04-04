@@ -10,7 +10,7 @@ namespace TicTacToe
         Player[] players;
         Player currentPlayer;
         Player winPlayer;
-
+        Player latestPlayer;
         Board gameBoard;
 
 
@@ -129,7 +129,7 @@ namespace TicTacToe
             History.GetInstance().Init();
             Console.WriteLine("Game started");
             DisplayCurrentBoard();
-
+           
             if (gameStatus != null)
             {
                 currentPlayer = gameStatus.CurrentPlayer;
@@ -141,6 +141,7 @@ namespace TicTacToe
                 UpdateBoardAndHistory();
             }
 
+           
 
             Command command = currentPlayer.MakeMovement(gameBoard);
 
@@ -212,7 +213,7 @@ namespace TicTacToe
                 }
                 else
                 {
-
+                    latestPlayer = currentPlayer;
                     if (IsWin())
                     {
                         winPlayer = currentPlayer;
@@ -265,8 +266,8 @@ namespace TicTacToe
 
         private void DisplayCurrentBoard()
         {
-            if (gameBoard.LastPosition != 0)
-                Console.WriteLine($"{currentPlayer.GetNameStr()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
+            if (latestPlayer != null && gameBoard.LastPosition != 0)
+                Console.WriteLine($"{latestPlayer.GetNameStr()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
             gameBoard.DisplayBoard();
         }
 

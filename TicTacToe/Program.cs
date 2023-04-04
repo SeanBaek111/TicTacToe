@@ -34,7 +34,7 @@ public class Program
         Menu menu = new Menu();
 
         // If Save file exists, do the confirmation.
-        if (fm.IsFileExists() && fm.IsFileEmpty())
+        if (fm.IsFileExists() && !fm.IsFileEmpty())
         {
             while (true)
             {
