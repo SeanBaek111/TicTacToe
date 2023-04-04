@@ -14,8 +14,11 @@ public class FileManager
     /// It's the default file manager.
     /// </summary>
     const string DEFAULT_FILENAME = "save.csv";
+    const string DEFAULT_HELPNAME = "help.txt";
 
-    /// <summary>
+    /// <summary
+
+>
     /// private static readonly Lazy<FileManager> lazy =
     ///     new Lazy<FileManager>(() => new FileManager());
     /// </summary>
@@ -40,6 +43,11 @@ public class FileManager
     public bool IsFileEmpty(string fileName = DEFAULT_FILENAME)
     {
         return new FileInfo(fileName).Length == 0;
+    }
+
+    public string[] LoadFileContext(string fileName = DEFAULT_HELPNAME)
+    {
+        return File.ReadAllLines(fileName);
     }
 
     /// <summary>
@@ -229,6 +237,11 @@ public class FileManager
                 property.SetValue(obj, convertedValue);
             }
         }
+    }
+
+    public string[] LoadTXT(string fileName)
+    {
+        return File.ReadAllLines(fileName);
     }
 
     /// <summary>
