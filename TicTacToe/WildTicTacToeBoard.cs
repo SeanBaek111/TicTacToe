@@ -8,15 +8,17 @@ namespace TicTacToe
     public class WildTicTacToeBoard : Board
     {
         const int BOARD_SIZE = 3;
+        const int BOARD_ROWS = 3;
+        const int BOARD_COLS = 3;
 
         private List<char> listAvailablePieces;
         public WildTicTacToeBoard() : base()
         {
-            base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
+            base.gameBoard = new char[BOARD_ROWS, BOARD_COLS];
 
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     gameBoard[i, j] = '-';
                 }
@@ -90,7 +92,7 @@ namespace TicTacToe
 
 
 
-            if (row >= BOARD_SIZE || col >= BOARD_SIZE || row < 0 || col < 0)
+            if (row >= BOARD_ROWS || col >= BOARD_COLS || row < 0 || col < 0)
             {
                 return false;
             }
@@ -106,8 +108,8 @@ namespace TicTacToe
         {
             input--;
 
-            row = input / BOARD_SIZE;
-            col = input % BOARD_SIZE;
+            row = input / BOARD_ROWS;
+            col = input % BOARD_COLS;
         }
 
         public override bool AddPiece(string[] arrInput)
@@ -121,7 +123,7 @@ namespace TicTacToe
                 //      Console.WriteLine("IsAvailableMove True");
                 gameBoard[row, col] = piece;
                 LastPlacedPiece = piece; // Store the last placed piece
-                LastPosition = row * BOARD_SIZE + col + 1;
+                LastPosition = row * BOARD_ROWS + col + 1;
                 return true;
             }
             else
@@ -173,9 +175,9 @@ namespace TicTacToe
 
         public override bool IsQuit()
         {
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     if (gameBoard[i, j] == '-')
                     {
@@ -213,18 +215,18 @@ namespace TicTacToe
         {
             StringBuilder sStatus = new StringBuilder();
 
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     sStatus.Append(gameBoard[i, j]);
 
-                    if (j < BOARD_SIZE - 1)
+                    if (j < BOARD_COLS - 1)
                     {
                         sStatus.Append(".");
                     }
                 }
-                if (i < BOARD_SIZE - 1)
+                if (i < BOARD_ROWS - 1)
                 {
                     sStatus.Append(".");
                 }
