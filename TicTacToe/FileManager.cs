@@ -239,6 +239,11 @@ public class FileManager
         }
     }
 
+    public string[] LoadTXT(string fileName)
+    {
+        return File.ReadAllLines(fileName);
+    }
+
     /// <summary>
     /// check if the property is simple type. (nested)
     /// </summary>
