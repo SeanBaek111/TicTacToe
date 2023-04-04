@@ -14,6 +14,7 @@ public class FileManager
     /// It's the default file manager.
     /// </summary>
     const string DEF_FILENAME = "save.csv";
+    const string DEF_HELPNAME = "help.txt";
 
     /// <summary
     /// private static readonly Lazy<FileManager> lazy =
@@ -238,7 +239,8 @@ public class FileManager
 
     public string[] LoadTXT(string fileName)
     {
-        return File.ReadAllLines(fileName);
+        return File.ReadAllLines(fileName.Contains(".txt") ? fileName : fileName
+    + ".txt");
     }
 
     /// <summary>

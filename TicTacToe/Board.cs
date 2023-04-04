@@ -1,4 +1,6 @@
 ﻿using System;
+using static TicTacToe.Enums;
+
 namespace TicTacToe
 {
     [Serializable]
@@ -18,6 +20,7 @@ namespace TicTacToe
         public abstract void RemoveAvailablePiece(char piece);
         public abstract string GetCurrentStatus();
         public abstract Board Clone();
+        public abstract GameModeEnum GetMode();
 
         public abstract List<char> GetAvailablePieces();
         public abstract List<char> GetAvailablePieces(bool isFirstTurn);
@@ -73,8 +76,8 @@ namespace TicTacToe
         protected bool IsValidPiece(char piece)
         {
             return pieces.Contains(piece);
-        } 
-      
+        }
+
         //public void SetBoard(int row, int col, string mark)
         //{
         //    gameBoard[row-1,col-1] = mark;

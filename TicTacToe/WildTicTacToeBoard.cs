@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
@@ -13,8 +14,9 @@ namespace TicTacToe
         {
             base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
 
-            for (int i = 0; i < BOARD_SIZE;i++) { 
-                for(int j = 0; j < BOARD_SIZE;j++)
+            for (int i = 0; i < BOARD_SIZE; i++)
+            {
+                for (int j = 0; j < BOARD_SIZE; j++)
                 {
                     gameBoard[i, j] = '-';
                 }
@@ -25,7 +27,10 @@ namespace TicTacToe
             listAvailablePieces = new List<char>(base.pieces);
         }
 
-       
+        public override GameModeEnum GetMode()
+        {
+            return GameModeEnum.Numeric_Tic_Tac_Toe;
+        }
 
         public override void DisplayBoard()
         {
@@ -77,7 +82,7 @@ namespace TicTacToe
                 return false;
             }
 
-                        
+
             if (!IsValidPiece(cPiece))
             {
                 return false;
@@ -91,7 +96,7 @@ namespace TicTacToe
             }
             if (gameBoard[row, col] != '-')
             {
-               // Console.WriteLine(row + " " + col + " already taken");
+                // Console.WriteLine(row + " " + col + " already taken");
                 return false;
             }
             return true;
@@ -108,12 +113,12 @@ namespace TicTacToe
         public override bool AddPiece(string[] arrInput)
         {
             if (IsValidMove(arrInput))
-            { 
+            {
                 int input = Int32.Parse(arrInput[0]);
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
 
-          //      Console.WriteLine("IsAvailableMove True");
+                //      Console.WriteLine("IsAvailableMove True");
                 gameBoard[row, col] = piece;
                 LastPlacedPiece = piece; // Store the last placed piece
                 LastPosition = row * BOARD_SIZE + col + 1;
@@ -121,14 +126,14 @@ namespace TicTacToe
             }
             else
             {
-              //  Console.WriteLine("IsAvailableMove False");
+                //  Console.WriteLine("IsAvailableMove False");
                 return false;
             }
         }
 
         public override bool IsWin()
         {
-            for(int i = 0; i < gameBoard.GetLength(0); i++)
+            for (int i = 0; i < gameBoard.GetLength(0); i++)
             {
                 if (IsWinningLine(gameBoard[i, 0], gameBoard[i, 1], gameBoard[i, 2]))
                 {
@@ -167,16 +172,16 @@ namespace TicTacToe
         }
 
         public override bool IsQuit()
-        { 
+        {
             for (int i = 0; i < BOARD_SIZE; i++)
             {
                 for (int j = 0; j < BOARD_SIZE; j++)
                 {
-                    if(gameBoard[i, j] == '-')
+                    if (gameBoard[i, j] == '-')
                     {
                         return false;
                     }
-                    
+
                 }
             }
 
@@ -198,7 +203,7 @@ namespace TicTacToe
 
         public override void RemovePiece(string[] arrInput)
         {
-          
+
             int input = Int32.Parse(arrInput[0]);
             GetRowAndCol(input, out int row, out int col);
             gameBoard[row, col] = '-';

@@ -117,20 +117,9 @@ namespace TicTacToe
 
         private void ShowHelp()
         {
-
-            if (gameBoard is NumericTicTacToeBoard)
-            {
-                OnlineHelp.GetInstance().ShowNumericTTTHelp();
-
-            }
-            else if (gameBoard is WildTicTacToeBoard)
-            {
-                OnlineHelp.GetInstance().ShowWildTTTHelp();
-
-            }
+            OnlineHelp.GetInstance().ShowHelp(gameBoard.GetMode());
 
             WaitForUserInputBeforeExiting();
-
         }
 
 

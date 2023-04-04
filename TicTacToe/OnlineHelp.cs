@@ -1,11 +1,10 @@
 ﻿using System;
-using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
     public class OnlineHelp
     {
-        const string DEF_HELPTXT = "help.txt";
+        const string DEF_HELPNAME = "help.txt";
 
         public static OnlineHelp _instance = new OnlineHelp();
 
@@ -31,7 +30,7 @@ namespace TicTacToe
             }
             else
             {
-                fileName = DEF_HELPTXT;
+                fileName = DEF_HELPNAME;
             }
 
             this.Display(fileName);
@@ -39,7 +38,7 @@ namespace TicTacToe
 
         private void Display(string fileName)
         {
-            string[] helpContext = FileManager.Instance.LoadTXT(fileName ??
+            string[] helpContext = FileManager.Instance.LoadTXT(fileName + ".txt" ??
             throw new FileLoadException());
             Console.Clear();
             helpContext.All(a =>
