@@ -26,12 +26,12 @@ namespace TicTacToe
         private List<char> listAvailablePieces;
 
 
-        public GameStatus() {}
+        public GameStatus() { }
 
         public GameStatus(Player player, string status)
         {
             CurrentPlayer = player;
-            BoardStatus = status; 
+            BoardStatus = status;
         }
 
         public string GetBoardStatus()
@@ -45,7 +45,7 @@ namespace TicTacToe
             listAvailablePieces = list;
         }
 
-        public List<char> GetAvailablePieces() { return listAvailablePieces;}
+        public List<char> GetAvailablePieces() { return listAvailablePieces; }
         public void SetLastPiece(char piece)
         {
             lastPiece = piece;
