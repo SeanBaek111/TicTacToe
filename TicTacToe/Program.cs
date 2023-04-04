@@ -111,7 +111,7 @@ public class Program
             menu.AddMenuEnum(a);
             return true;
         });
-        menu.AddMenu("Help");
+        menu.AddMenuEnum(Command.Help);
         menu.AddMenuEnum(ConfirmationEnum.Quit);
 
         nSelection = menu.GetUserAnswer();
