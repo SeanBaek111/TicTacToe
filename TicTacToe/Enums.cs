@@ -45,6 +45,7 @@ public static class Enums
 
     public enum Command
     {
+        Help,
         Save,
         Undo,
         Redo,

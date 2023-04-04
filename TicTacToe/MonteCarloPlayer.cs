@@ -69,7 +69,7 @@ namespace TicTacToe
             // Place the piece at the best position
             board.AddPiece(bestMove);
             Console.Clear();
-            Console.WriteLine(name + " chose position " + bestMove[0] + " with piece " + bestMove[1]);
+        //    Console.WriteLine(name + " chose position " + bestMove[0] + " with piece " + bestMove[1]);
 
             return Command.None;
         }

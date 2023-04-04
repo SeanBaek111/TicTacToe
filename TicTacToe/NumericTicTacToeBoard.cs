@@ -219,6 +219,7 @@ namespace TicTacToe
             gameBoard[row, col] = piece;
             listAvailablePieces.Remove(piece);
             LastPlacedPiece = piece; // Store the last placed piece
+            LastPosition = row * BOARD_SIZE + col + 1;
         }
 
         //       
