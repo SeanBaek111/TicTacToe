@@ -5,7 +5,11 @@ namespace TicTacToe
 {
     public class OnlineHelp
     {
+<<<<<<< HEAD
         const string DEF_HELPNAME = "help.txt";
+=======
+        const string DEF_HELPTXT = "help.txt";
+>>>>>>> 06ec3de (Modify help)
 
         public static OnlineHelp _instance = new OnlineHelp();
 
@@ -35,6 +39,11 @@ namespace TicTacToe
                 fileName = DEF_HELPNAME;
             }
 
+            this.Display(fileName);
+        }
+
+        private void Display(string fileName)
+        {
             string[] helpContext = FileManager.Instance.LoadTXT(fileName ??
             throw new FileLoadException());
             Console.Clear();
