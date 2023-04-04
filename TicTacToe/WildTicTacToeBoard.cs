@@ -29,7 +29,7 @@ namespace TicTacToe
 
         public override GameModeEnum GetMode()
         {
-            return GameModeEnum.Numeric_Tic_Tac_Toe;
+            return GameModeEnum.Wild_Tic_Tac_Toe;
         }
 
         public override void DisplayBoard()

@@ -117,6 +117,7 @@ namespace TicTacToe
 
         private void ShowHelp()
         {
+            Console.WriteLine(gameBoard.GetMode());
             OnlineHelp.GetInstance().ShowHelp(gameBoard.GetMode());
 
             WaitForUserInputBeforeExiting();

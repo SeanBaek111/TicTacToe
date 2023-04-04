@@ -38,8 +38,7 @@ namespace TicTacToe
 
         private void Display(string fileName)
         {
-            string[] helpContext = FileManager.Instance.LoadTXT(fileName + ".txt" ??
-            throw new FileLoadException());
+            string[] helpContext = FileManager.Instance.LoadTXT(fileName + ".txt");
             Console.Clear();
             helpContext.All(a =>
             {
