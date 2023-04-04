@@ -8,12 +8,12 @@ namespace TicTacToe
     {
         public bool isPlayerTurn { get; set; }
         public bool isFirstTurn { get; set; }
-        
+
         public bool bTurn { get; set; }
         public PlayerTypeEnum name { get; set; }
         public abstract Command MakeMovement(Board board);
 
-        public Player() {}
+        public Player() { }
         public void SetTurn(bool turn)
         {
             isPlayerTurn = turn;
@@ -35,7 +35,11 @@ namespace TicTacToe
         }
 
         public PlayerTypeEnum GetName() { return name; }
-       // abstract char[] Get
+        public string GetNameStr()
+        {
+            return name.ToStringExt();
+        }
+        // abstract char[] Get
     }
 }
 

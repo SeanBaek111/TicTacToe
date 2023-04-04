@@ -32,13 +32,6 @@ namespace TicTacToe
         {
             CurrentPlayer = player;
             BoardStatus = status;
-            // TODO: Prefixed, need to modify
-            GameMode = GameModeEnum.Wild_Tic_Tac_Toe;
-            GameType = GameTypeEnum.Human_VS_Computer;
-            BoardType = BoardTypeEnum.Tic_Tac_Toe_Board;
-=======
-            BoardStatus = status; 
->>>>>>> main
         }
 
         public string GetBoardStatus()
