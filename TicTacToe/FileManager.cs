@@ -60,7 +60,7 @@ public class FileManager
         catch (IOException e)
         {
             Menu menu = new Menu();
-            menu.SetQuestion("Save file detected... override?");
+            menu.SetQuestions("Save file detected... override?");
             EnumExtension.Query<ConfirmationEnum>().All(a =>
             {
                 menu.AddMenuEnum(a);

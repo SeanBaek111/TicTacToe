@@ -12,6 +12,20 @@ namespace TicTacToe;
 public static class EnumExtension
 {
     /// <summary>
+    /// Set the text position at the very center of the terminal.
+    /// </summary>
+    public static void PrintCenter(this string value, int ms = 50)
+    {
+        Console.SetCursorPosition((Console.WindowWidth - value.Length) / 2, Console.CursorTop);
+        foreach (var i in value.Replace(Environment.NewLine, ""))
+        {
+            Console.Write(i);
+            Thread.Sleep(ms);
+        }
+        Console.WriteLine(Environment.NewLine);
+        //Console.WriteLine(value);
+    }
+    /// <summary>
     /// Extension method to return an formatted string of type T for the given enum.
     /// </summary>
     public static string ToStringExt(this Enum value)
@@ -68,7 +82,7 @@ public static class EnumExtension
         newList.Reverse();
         return newList;
     }
-    
+
     /// <summary>
     /// Save the Stack data into a CSV file.
     /// </summary>
@@ -78,7 +92,7 @@ public static class EnumExtension
         {
             // Convert stack to list.
             List<T> bs = gameData.ConvertToList<T>();
-            
+
             // Define general type
             Type type = typeof(T);
             // Get the properties of general type
@@ -91,13 +105,13 @@ public static class EnumExtension
                 // loop through all the properties.
                 foreach (PropertyInfo property in properties)
                 {
-                    if (property.PropertyType.IsSubclassOf(typeof(Player))) 
+                    if (property.PropertyType.IsSubclassOf(typeof(Player)))
                     {
                         //
                         int a = 0;
                         a++;
                     }
-                    else if (property.PropertyType.IsSubclassOf(typeof(Player))) 
+                    else if (property.PropertyType.IsSubclassOf(typeof(Player)))
                     {
 
                         int a = 0;
@@ -211,7 +225,7 @@ public static class EnumExtension
         return bRes;
     }
 
-    
+
 
     public static object LoadFromBin(string path)
     {
