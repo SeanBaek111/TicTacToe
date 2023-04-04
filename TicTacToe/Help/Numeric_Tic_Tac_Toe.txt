@@ -22,7 +22,7 @@ Second Player Numbers = 2, 4, 6, 8
 Human_Player: (Position Piece) >>> 3 1
 
 ╔══════════════════════════════════════════════════════════════╗
-║Human_Player chose position 3 with number 1                    ║
+║Human_Player chose position 3 with number 1                   ║
 ║**Square Number**	    **GameBoard**                      ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
