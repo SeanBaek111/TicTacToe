@@ -110,7 +110,7 @@ public class FileManager
         if (!this.IsFileExists())
         {
             // File doesn't exists.
-            throw new FileLoadException();
+            throw new FileNotFoundException();
         }
 
         Stack<GameStatus> logs = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);

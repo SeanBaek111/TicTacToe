@@ -163,9 +163,7 @@ public class Program
 
     static void LoadGame()
     {
-        // TODO: Do load save file
         WriteLine("Load Game");
-
 
         Game game = GameFactory.GetInstance().LoadGame();
         if (game != null)
