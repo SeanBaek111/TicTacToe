@@ -1,5 +1,4 @@
 ﻿using System;
-using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
