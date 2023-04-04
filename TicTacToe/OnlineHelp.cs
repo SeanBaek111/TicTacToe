@@ -5,6 +5,7 @@ namespace TicTacToe
 {
     public class OnlineHelp
     {
+        const string DEF_HELPTXT = "help.txt";
 
         public static OnlineHelp _instance = new OnlineHelp();
 
@@ -21,19 +22,24 @@ namespace TicTacToe
         /// Show game mode help, if no parametes is inputted, show general help
         /// text file.
         /// </summary>
-        public void ShowHelp(GameModeEnum? gameMode)
+        public void ShowHelp(Enum? helpType)
         {
             string fileName = String.Empty;
 
-            if (gameMode is not null)
+            if (helpType is not null)
             {
-                fileName = gameMode.ToString();
+                fileName = helpType.ToString();
             }
             else
             {
-                fileName = "GeneralHelp.txt";
+                fileName = DEF_HELPTXT;
             }
 
+            this.Display(fileName);
+        }
+
+        private void Display(string fileName)
+        {
             string[] helpContext = FileManager.Instance.LoadTXT(fileName ??
             throw new FileLoadException());
             Console.Clear();
@@ -44,5 +50,4 @@ namespace TicTacToe
             });
         }
     }
-}
 }
