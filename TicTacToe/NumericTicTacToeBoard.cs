@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
@@ -9,7 +10,7 @@ namespace TicTacToe
         const int BOARD_SIZE = 3;
 
         public List<char> listAvailablePieces { get; set; }
-        public NumericTicTacToeBoard():base()
+        public NumericTicTacToeBoard() : base()
         {
             base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
             for (int i = 0; i < BOARD_SIZE; i++)
@@ -20,11 +21,14 @@ namespace TicTacToe
                 }
             }
             base.pieces = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-            
+
             listAvailablePieces = new List<char>(base.pieces);
         }
 
-       
+        public override GameModeEnum GetMode()
+        {
+            return GameModeEnum.Numeric_Tic_Tac_Toe;
+        }
 
 
         public override void DisplayBoard()
@@ -59,7 +63,7 @@ namespace TicTacToe
         {
             input--;
 
-            row = input / BOARD_SIZE;  
+            row = input / BOARD_SIZE;
             col = input % BOARD_SIZE;
         }
         protected bool IsValidPiece(char piece, bool isFirst)
@@ -73,7 +77,7 @@ namespace TicTacToe
                 return (piece - '0') % 2 == 0 && pieces.Contains(piece); // Check if the piece is even and contained in pieces
             }
         }
-        public override bool IsValidMove(string[] arrInput )
+        public override bool IsValidMove(string[] arrInput)
         {
             if (arrInput.Length != 2)
             {
@@ -131,7 +135,7 @@ namespace TicTacToe
             {
                 return false;
             }
- 
+
             int row, col;
             if (!Int32.TryParse(arrInput[0], out int input))
             {
@@ -171,17 +175,17 @@ namespace TicTacToe
             }
             if (gameBoard[row, col] != '-')
             {
-              //  Console.WriteLine(row + " " + col + " already taken");
+                //  Console.WriteLine(row + " " + col + " already taken");
                 return false;
             }
 
             return true;
         }
- 
+
         public override bool AddPiece(string[] arrInput)
-        {            
-            if (IsValidMove(arrInput  ))
-            { 
+        {
+            if (IsValidMove(arrInput))
+            {
                 int input = Int32.Parse(arrInput[0]);
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
@@ -190,7 +194,7 @@ namespace TicTacToe
                 return true;
             }
             else
-            { 
+            {
                 return false;
             }
         }
@@ -199,7 +203,7 @@ namespace TicTacToe
         {
             if (IsValidMove(arrInput, isFirstTurn))
             {
-                
+
                 int input = Int32.Parse(arrInput[0]);
                 GetRowAndCol(input, out int row, out int col);
                 char piece = char.Parse(arrInput[1]);
@@ -208,7 +212,7 @@ namespace TicTacToe
                 return true;
             }
             else
-            { 
+            {
                 return false;
             }
         }
@@ -262,7 +266,7 @@ namespace TicTacToe
             int sum = (a - '0') + (b - '0') + (c - '0');
 
             return allNotEmpty && sum == 15;
- 
+
         }
 
         // check if the board is full
@@ -284,7 +288,7 @@ namespace TicTacToe
         }
 
         public override List<char> GetAvailablePieces()
-        { 
+        {
             List<char> sortedAvailablePieces = new List<char>(listAvailablePieces);
             sortedAvailablePieces.Sort(); // Sort the list in ascending order
             return sortedAvailablePieces;
@@ -319,7 +323,7 @@ namespace TicTacToe
         }
 
         public override void RemovePiece(string[] arrInput)
-        { 
+        {
             int input = Int32.Parse(arrInput[0]);
             GetRowAndCol(input, out int row, out int col);
             gameBoard[row, col] = '-';
@@ -360,13 +364,13 @@ namespace TicTacToe
 
         public override void RemoveAvailablePiece(char piece)
         {
-            if ( listAvailablePieces.Contains(piece))
+            if (listAvailablePieces.Contains(piece))
             {
                 listAvailablePieces.Remove(piece);
             }
         }
 
-       
+
     }
 }
 

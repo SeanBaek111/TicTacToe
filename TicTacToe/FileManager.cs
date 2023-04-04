@@ -13,9 +13,10 @@ public class FileManager
     /// <summary>
     /// It's the default file manager.
     /// </summary>
-    const string DEFAULT_FILENAME = "save.csv";
+    const string DEF_FILENAME = "save.csv";
+    const string DEF_HELPNAME = "help.txt";
 
-    /// <summary>
+    /// <summary
     /// private static readonly Lazy<FileManager> lazy =
     ///     new Lazy<FileManager>(() => new FileManager());
     /// </summary>
@@ -31,16 +32,26 @@ public class FileManager
     /// <summary>
     /// Check if the file is exists.
     /// </summary>
-    public bool FileExists(string fileName = DEFAULT_FILENAME)
+    public bool IsFileExists(string fileName = DEF_FILENAME)
     {
         // Suppose to return if the file exists.
         return File.Exists(fileName);
     }
 
+    public bool IsFileEmpty(string fileName = DEF_FILENAME)
+    {
+        return new FileInfo(fileName).Length == 0;
+    }
+
+    public string[] LoadFileContext(string fileName = DEF_HELPNAME)
+    {
+        return File.ReadAllLines(fileName);
+    }
+
     /// <summary>
     /// Create a save file.
     /// </summary>
-    public bool CreateSaveFile(string fileName = DEFAULT_FILENAME)
+    public bool CreateSaveFile(string fileName = DEF_FILENAME)
     {
         try
         {
@@ -79,7 +90,7 @@ public class FileManager
     /// <summary>
     /// Save the game progress.
     /// </summary>
-    public bool SaveProgress(Stack<GameStatus> logs, string fileName = DEFAULT_FILENAME)
+    public bool SaveProgress(Stack<GameStatus> logs, string fileName = DEF_FILENAME)
     {
         // Use local method to create a save file.
         bool create = this.CreateSaveFile(fileName);
@@ -89,10 +100,10 @@ public class FileManager
 
 
         saveResult = logs.SaveToBin<GameStatus>(fileName);
-         
+
         //LoadProgress(fileName);
 
-        Stack<GameStatus> logs2 = (Stack<GameStatus>) EnumExtension.LoadFromBin(fileName);
+        Stack<GameStatus> logs2 = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
         // Return true or false based on how file are saved.
         return saveResult;
     }
@@ -100,19 +111,19 @@ public class FileManager
     /// <summary>
     /// Load the game progress from csv file and return the Stack object
     /// </summary>
-    public Stack<GameStatus> LoadProgress(string fileName = DEFAULT_FILENAME)
+    public Stack<GameStatus> LoadProgress(string fileName = DEF_FILENAME)
     {
-        if (!this.FileExists())
+        if (!this.IsFileExists())
         {
             // File doesn't exists.
-            throw new FileLoadException();
+            throw new FileNotFoundException();
         }
-                
+
         Stack<GameStatus> logs = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
-        
+
         return logs;
     }
-    
+
     public static Stack<T> ConvertToObject<T>(string filePath) where T : new()
     {
         Stack<T> objects = new Stack<T>();
@@ -225,7 +236,13 @@ public class FileManager
             }
         }
     }
-    
+
+    public string[] LoadTXT(string fileName)
+    {
+        return File.ReadAllLines(fileName.Contains(".txt") ? fileName : fileName
+    + ".txt");
+    }
+
     /// <summary>
     /// check if the property is simple type. (nested)
     /// </summary>

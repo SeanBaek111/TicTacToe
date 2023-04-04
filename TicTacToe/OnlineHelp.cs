@@ -1,8 +1,10 @@
 ﻿using System;
+
 namespace TicTacToe
 {
-	public class OnlineHelp
-	{
+    public class OnlineHelp
+    {
+        const string DEF_HELPNAME = "help.txt";
 
         public static OnlineHelp _instance = new OnlineHelp();
 
@@ -15,29 +17,34 @@ namespace TicTacToe
         {
         }
 
-        public void ShowNumericTTTHelp()
+        /// <summary>
+        /// Show game mode help, if no parametes is inputted, show general help
+        /// </summary>
+        public void ShowHelp(Enum? helpType)
         {
-            Console.Clear();
-            Console.WriteLine("ShowNumericTTTHelp 1");
-            Console.WriteLine("ShowNumericTTTHelp 2");
-            Console.WriteLine("ShowNumericTTTHelp 3");
+            string fileName = String.Empty;
+
+            if (helpType is not null)
+            {
+                fileName = helpType.ToString();
+            }
+            else
+            {
+                fileName = DEF_HELPNAME;
+            }
+
+            this.Display(fileName);
         }
 
-        public void ShowWildTTTHelp()
+        private void Display(string fileName)
         {
+            string[] helpContext = FileManager.Instance.LoadTXT(fileName + ".txt");
             Console.Clear();
-            Console.WriteLine("ShowWildTTTHelp 1");
-            Console.WriteLine("ShowWildTTTHelp 2");
-            Console.WriteLine("ShowWildTTTHelp 3");
-        }
-
-        public void ShowHelp()
-        {
-            Console.Clear();
-            Console.WriteLine("ShowHelp 1");
-            Console.WriteLine("ShowHelp 2");
-            Console.WriteLine("ShowHelp 3");
+            helpContext.All(a =>
+            {
+                Console.WriteLine(a);
+                return true;
+            });
         }
     }
 }
-

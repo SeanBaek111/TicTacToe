@@ -1,0 +1,98 @@
+
+╔════════════════╗
+║    Wild TTT    ║
+╚════════════════╝
+
+Like the classic Tic-Tac-Toe game, two players take turns placing an X or an O piece on
+a 3x3 board. However, in this game players can choose to place either X or O on each move.
+The first player who creates a line of three X's in a row or three O's in a row,
+horizontally, vertically, or diagonally) wins the game.
+
+╔═══════════════╗
+║  How to Play  ║
+╚═══════════════╝
+
+The input for the player is (Position Number).
+Position = Number on the Square Board.
+Piece = X or O
+
+╔═══════════════╗
+║    Example    ║
+╚═══════════════╝
+
+Human_Player: (Position Piece) >>> 3 O
+
+╔══════════════════════════════════════════════════════════════╗
+║Human_Player chose position 3 with piece O                    ║
+║**Square Number**	    **GameBoard**                      ║
+║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
+║│     │     │     │        │     │     │     │                ║
+║│  1  │  2  │  3  │        │  -  │  -  │  O  │                ║
+║├─────┼─────┼─────┤        ├─────┼─────┼─────┤                ║
+║│     │     │     │        │     │     │     │                ║
+║│  4  │  5  │  6  │        │  -  │  -  │  -  │                ║
+║├─────┼─────┼─────┤        ├─────┼─────┼─────┤                ║
+║│     │     │     │        │     │     │     │                ║
+║│  7  │  8  │  9  │        │  -  │  -  │  -  │                ║
+║└─────┴─────┴─────┘        └─────┴─────┴─────┘                ║
+╚══════════════════════════════════════════════════════════════╝ ;
+
+On the board you can see that the piece the player has inputted is on the 3 Square with a O.
+
+╔══════════════╗
+║  How to Win  ║
+╚══════════════╝
+
+The first player who creates a line of three X's in a row or three O's in a row,
+horizontally, vertically, or diagonally) wins the game.
+
+╔═══════════════╗
+║    Example    ║
+╚═══════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║Monte_Carlo_Computer_Player chose position 6 with piece O    ║
+║**Square Number**	    **GameBoard**                      ║
+║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
+║│     │     │     │        │     │     │     │                ║
+║│  1  │  2  │  3  │        │  X  │  -  │  O  │                ║
+║├─────┼─────┼─────┤        ├─────┼─────┼─────┤                ║
+║│     │     │     │        │     │     │     │                ║
+║│  4  │  5  │  6  │        │  O  │  X  │  O  │                ║
+║├─────┼─────┼─────┤        ├─────┼─────┼─────┤                ║
+║│     │     │     │        │     │     │     │                ║
+║│  7  │  8  │  9  │        │  -  │  -  │  -  │                ║
+║└─────┴─────┴─────┘        └─────┴─────┴─────┘                ║
+╚══════════════════════════════════════════════════════════════╝
+
+In this scenario, if the user inputs (9 X) or (9 O) they will win the game.
+
+╔═══════════════╗
+║    Example    ║
+╚═══════════════╝
+
+Human_Player: (Position Piece) >>> 9 O
+
+╔══════════════════════════════════════════════════════════════╗
+║Human_Player chose position 9 with number O                  ║
+║**Square Number**	    **GameBoard**                      ║
+║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
+║│     │     │     │        │     │     │     │                ║
+║│  1  │  2  │  3  │        │  X  │  -  │  O  │                ║
+║├─────┼─────┼─────┤        ├─────┼─────┼─────┤                ║
+║│     │     │     │        │     │     │     │                ║
+║│  4  │  5  │  6  │        │  O  │  X  │  O  │                ║
+║├─────┼─────┼─────┤        ├─────┼─────┼─────┤                ║
+║│     │     │     │        │     │     │     │                ║
+║│  7  │  8  │  9  │        │  -  │  -  │  O  │                ║
+║└─────┴─────┴─────┘        └─────┴─────┴─────┘                ║
+║Winner is Human Player                                        ║
+║Game Finished                                                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔═══════════════╗
+║     #Tips     ║
+╚═══════════════╝
+
+At any point in the game you can undo and redo moves if you aren't happy with the decision you made. You may also save a game and reload it if you need to quit the game if something comes up.");
+*Warning* The game will only save the state the game was in, so undo and redo won't be available when you load.
