@@ -115,6 +115,24 @@ namespace TicTacToe
              WaitForUserInputBeforeExiting();
          }*/
 
+        private void ShowHelp()
+        {
+
+            if(gameBoard is NumericTicTacToeBoard)
+            {
+                OnlineHelp.GetInstance().ShowNumericTTTHelp();
+
+            }
+            else if (gameBoard is WildTicTacToeBoard)
+            {
+                OnlineHelp.GetInstance().ShowWildTTTHelp();
+
+            }
+
+            WaitForUserInputBeforeExiting();
+             
+        }
+
         
         public void Play(GameStatus gameStatus = null)
         {
@@ -138,9 +156,14 @@ namespace TicTacToe
 
             while (true)
             {
-               
 
-                if (command == Command.Save)
+
+                if (command == Command.Help)
+                {
+                    // Show help menu  
+                    ShowHelp(); 
+                }
+                else if (command == Command.Save)
                 {
                     // Save game
                     if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
@@ -220,6 +243,8 @@ namespace TicTacToe
                     if( currentPlayer is HumanPlayer)
                     {
                         command = currentPlayer.MakeMovement(gameBoard);
+                      //   Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
+
                     }
                     else
                     { 
@@ -238,8 +263,10 @@ namespace TicTacToe
                 else
                 {
                     currentPlayer = GetCurrentPlayer();
-                    command = currentPlayer.MakeMovement(gameBoard); 
-                } 
+                    command = currentPlayer.MakeMovement(gameBoard);
+                    
+                }
+                
             }
 
           //  DisplayGameOverMessage();
@@ -248,6 +275,8 @@ namespace TicTacToe
 
         private void DisplayCurrentBoard()
         {
+            if( gameBoard.LastPosition != 0)
+                Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
             gameBoard.DisplayBoard();
         }
 
@@ -300,6 +329,7 @@ namespace TicTacToe
         {
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
+            Console.Clear();
         }
 
         private bool IsWin()
