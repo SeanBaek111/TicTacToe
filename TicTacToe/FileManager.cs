@@ -42,11 +42,6 @@ public class FileManager
         return new FileInfo(fileName).Length == 0;
     }
 
-    public string[] LoadFileContext(string fileName = DEF_HELPNAME)
-    {
-        return File.ReadAllLines(fileName);
-    }
-
     /// <summary>
     /// Create a save file.
     /// </summary>
@@ -238,7 +233,8 @@ public class FileManager
 
     public string[] LoadTXT(string fileName)
     {
-        return File.ReadAllLines(fileName);
+        return File.ReadAllLines(fileName.Contains(".txt") ? fileName : fileName
+    + ".txt");
     }
 
     /// <summary>
