@@ -11,6 +11,12 @@ namespace TicTacToe;
 
 public static class Extensions
 {
+    private static void mySleep(int milisec)
+    {
+        if (milisec <= 0)
+            return;
+        new AutoResetEvent(false).WaitOne(milisec, false);
+    }
     /// <summary>
     /// Set the text position at the very center of the terminal.
     /// </summary>
@@ -24,7 +30,7 @@ public static class Extensions
         foreach (var i in value.Replace(Environment.NewLine, ""))
         {
             Console.Write(i);
-            Thread.Sleep(ms);
+            mySleep(ms);
         }
         Console.WriteLine(Environment.NewLine);
     }
