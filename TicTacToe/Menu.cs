@@ -53,10 +53,13 @@ namespace TicTacToe
                 ("[" + (i + 1) + "] " + listMenu[i]).PrintCenter(20);
             }
         }
-        public int GetUserAnswer()
+        public int GetUserAnswer(bool clear = true)
         {
             int nSelection = 0;
-            Console.Clear();
+            
+            if (clear)
+                Console.Clear();
+            
             ShowMenu();
             Console.Write("\n>>> ");
             Int32.TryParse(Console.ReadLine(), out nSelection);

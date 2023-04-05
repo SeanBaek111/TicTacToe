@@ -25,6 +25,7 @@ namespace TicTacToe
         {
             Player player = null;
 
+
             foreach (Player p in players)
             {
                 if (p.IsPlayerTurn())
