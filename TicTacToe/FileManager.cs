@@ -59,30 +59,10 @@ public class FileManager
         }
         catch (IOException e)
         {
-            Menu menu = new Menu();
-            menu.SetQuestions("Save file detected... override?");
-            EnumExtension.Query<ConfirmationEnum>().All(a =>
-            {
-                menu.AddMenuEnum(a);
-                return true;
-            });
-            switch (menu.GetUserAnswer())
-            {
-                // YES
-                case 1:
-                    File.WriteAllText(fileName, string.Empty);
-                    break;
-                // NO
-                case 2:
-                    return false;
-                // QUIT
-                case 3:
-                    Environment.Exit(0);
-                    break;
-
-                default:
-                    break;
-            };
+            if (GameMenu.GetInstance().OverrideConfirm())
+                File.WriteAllText(fileName, string.Empty);
+            else
+                return false;
         }
         return true;
     }
