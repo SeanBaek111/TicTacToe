@@ -18,7 +18,8 @@ public static class Extensions
     {
         int position = (Console.WindowWidth - value.Length) / 2;
 
-        Console.SetCursorPosition(position, Console.CursorTop);
+        if (position > 0)
+            Console.SetCursorPosition(position, Console.CursorTop);
 
         foreach (var i in value.Replace(Environment.NewLine, ""))
         {

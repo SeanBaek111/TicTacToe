@@ -119,7 +119,7 @@ namespace TicTacToe
         {
             OnlineHelp.GetInstance().ShowHelp(gameBoard.GetMode());
 
-            WaitForUserInputBeforeExiting();
+            // WaitForUserInputBeforeExiting();
         }
 
 
@@ -128,7 +128,7 @@ namespace TicTacToe
             History.GetInstance().Init();
             Console.WriteLine("Game started");
             DisplayCurrentBoard();
-           
+
             if (gameStatus != null)
             {
                 currentPlayer = gameStatus.CurrentPlayer;
@@ -140,7 +140,7 @@ namespace TicTacToe
                 UpdateBoardAndHistory();
             }
 
-           
+
 
             Command command = currentPlayer.MakeMovement(gameBoard);
 
@@ -260,7 +260,7 @@ namespace TicTacToe
             }
 
             //  DisplayGameOverMessage();
-            WaitForUserInputBeforeExiting();
+            // WaitForUserInputBeforeExiting();
         }
 
         private void DisplayCurrentBoard()
