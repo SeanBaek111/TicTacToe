@@ -15,7 +15,7 @@ namespace TicTacToe
         public abstract void GameTypeMenu();
         public abstract void HelpMenu(string className);
         public abstract bool LoadMenu();
-        
+
         List<string> listMenu = new List<string>();
         private string question = "";
         private List<string> questions = new();
@@ -73,6 +73,9 @@ namespace TicTacToe
             return nSelection;
         }
 
+        /// <summary>
+        /// Resets Menu
+        /// </summary>
         public void ResetMenu()
         {
             this.listMenu.Clear();

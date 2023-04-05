@@ -12,6 +12,7 @@ public class GameMenu : Menu
     BoardTypeEnum sBoard;
     Player[] players;
     int nSelection;
+    Game game;
 
     const string DEF_SPLASH = "Splash.txt";
 
@@ -109,7 +110,7 @@ public class GameMenu : Menu
         {
             default:
                 this.sPlayers = this.nSelection.ToEnum<GameTypeEnum>();
-                Game game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
+                game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
                 game.Play();
                 break;
             case 3:
@@ -176,6 +177,39 @@ public class GameMenu : Menu
                     break;
             }
 
+        }
+    }
+
+    public void EndGameMenu(PlayerTypeEnum winner)
+    {
+        base.ResetMenu();
+        base.SetQuestions("Game Over");
+        base.SetQuestions($"{winner.ToStringExt()} wins");
+
+        base.AddMenuEnum(Command.Restart);
+        base.AddMenuEnum(Command.Help);
+        base.AddMenuEnum(Command.Undo);
+        base.AddMenuEnum(Command.Quit);
+
+        nSelection = base.GetUserAnswer();
+        switch (nSelection)
+        {
+            case 1:
+                // return same mode new game
+                game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
+                game.Play();
+                break;
+            case 2:
+                // return Help Menu
+                this.HelpMenu(nameof(this.GameModeMenu));
+                break;
+            case 3:
+                // perform undo
+                History.GetInstance().Undo(game.GetBoard());
+                break;
+            case 4:
+                Environment.Exit(0);
+                break;
         }
     }
 
