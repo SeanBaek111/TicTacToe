@@ -83,7 +83,7 @@ public class FileManager
 
         //LoadProgress(fileName);
 
-        Stack<GameStatus> logs2 = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
+        Stack<GameStatus> logs2 = (Stack<GameStatus>)Extensions.LoadFromBin(fileName);
         // Return true or false based on how file are saved.
         return saveResult;
     }
@@ -99,7 +99,7 @@ public class FileManager
             throw new FileNotFoundException();
         }
 
-        Stack<GameStatus> logs = (Stack<GameStatus>)EnumExtension.LoadFromBin(fileName);
+        Stack<GameStatus> logs = (Stack<GameStatus>)Extensions.LoadFromBin(fileName);
 
         return logs;
     }

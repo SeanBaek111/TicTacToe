@@ -23,7 +23,7 @@ public static class Enums
         Human_VS_Computer = 1,
         Human_VS_Human = 2,
     }
-    
+
     public enum GameModeEnum
     {
         Wild_Tic_Tac_Toe = 1,
@@ -51,6 +51,7 @@ public static class Enums
         Redo,
         Quit,
         None,
-        Invalid
+        Invalid,
+        About,
     }
 }

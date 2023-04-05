@@ -57,12 +57,13 @@ public class GameMenu : Menu
         base.SetQuestions("Select an option");
 
         // Loop all the possible options from typeof(GameModeEnum)
-        EnumExtension.Query<GameModeEnum>().All(a =>
+        Extensions.Query<GameModeEnum>().All(a =>
         {
             base.AddMenuEnum(a);
             return true;
         });
         base.AddMenuEnum(Command.Help);
+        base.AddMenuEnum(Command.About);
         base.AddMenuEnum(ConfirmationEnum.Quit);
 
         this.nSelection = base.GetUserAnswer();
@@ -80,6 +81,9 @@ public class GameMenu : Menu
                 this.HelpMenu(nameof(this.GameModeMenu));
                 break;
             case 4:
+                this.SplashScreen();
+                break;
+            case 5:
                 Environment.Exit(0);
                 break;
         }
@@ -92,7 +96,7 @@ public class GameMenu : Menu
         base.SetQuestionEnum(sGame);
         base.SetQuestions("Who is playing?");
 
-        EnumExtension.Query<GameTypeEnum>().All(a =>
+        Extensions.Query<GameTypeEnum>().All(a =>
         {
             this.AddMenuEnum(a);
             return true;
@@ -122,7 +126,7 @@ public class GameMenu : Menu
     {
         base.ResetMenu();
         base.SetQuestions("Help Message");
-        EnumExtension.Query<GameModeEnum>().All(a =>
+        Extensions.Query<GameModeEnum>().All(a =>
         {
             base.AddMenuEnum(a);
             return true;
@@ -181,7 +185,7 @@ public class GameMenu : Menu
         base.SetQuestions("Save file detected... override?");
         while (true)
         {
-            EnumExtension.Query<ConfirmationEnum>().All(a =>
+            Extensions.Query<ConfirmationEnum>().All(a =>
             {
                 base.AddMenuEnum(a);
                 return true;
@@ -202,7 +206,7 @@ public class GameMenu : Menu
             }
         }
     }
-    
+
     private void OverrideSaveFile()
     {
         base.ResetMenu();
