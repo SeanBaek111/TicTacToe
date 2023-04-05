@@ -63,6 +63,7 @@ public class GameMenu : Menu
             return true;
         });
         base.AddMenuEnum(Command.Help);
+        base.AddMenuEnum(Command.About);
         base.AddMenuEnum(ConfirmationEnum.Quit);
 
         this.nSelection = base.GetUserAnswer();
@@ -80,6 +81,9 @@ public class GameMenu : Menu
                 this.HelpMenu(nameof(this.GameModeMenu));
                 break;
             case 4:
+                this.SplashScreen();
+                break;
+            case 5:
                 Environment.Exit(0);
                 break;
         }
