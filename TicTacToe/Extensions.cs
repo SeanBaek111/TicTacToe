@@ -16,14 +16,16 @@ public static class EnumExtension
     /// </summary>
     public static void PrintCenter(this string value, int ms = 0)
     {
-        Console.SetCursorPosition((Console.WindowWidth - value.Length) / 2, Console.CursorTop);
+        int position = (Console.WindowWidth - value.Length) / 2;
+
+        Console.SetCursorPosition(position, Console.CursorTop);
+
         foreach (var i in value.Replace(Environment.NewLine, ""))
         {
             Console.Write(i);
             Thread.Sleep(ms);
         }
         Console.WriteLine(Environment.NewLine);
-        //Console.WriteLine(value);
     }
 
     public static void WriteLineCenter(string format, params object[] args)
