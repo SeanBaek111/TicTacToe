@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    public class Menu
+    public abstract class Menu
     {
+
+        public abstract void SplashScreen(string fileName);
+        public abstract void StartGameMenu();
+        public abstract void GameModeMenu();
+        public abstract void GameTypeMenu();
+        public abstract void HelpMenu(string className);
+        public abstract bool LoadMenu();
+        
         List<string> listMenu = new List<string>();
         private string question = "";
         private List<string> questions = new();
@@ -65,5 +73,10 @@ namespace TicTacToe
             return nSelection;
         }
 
+        public void ResetMenu()
+        {
+            this.listMenu.Clear();
+            this.questions.Clear();
+        }
     }
 }

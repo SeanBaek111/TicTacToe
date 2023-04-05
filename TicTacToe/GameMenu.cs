@@ -4,7 +4,7 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe;
 
-public class GameMenu
+public class GameMenu : Menu
 {
     // Defines Variables.
     GameModeEnum sGame;
@@ -14,8 +14,6 @@ public class GameMenu
     int nSelection;
 
     const string DEF_SPLASH = "Splash.txt";
-
-    Menu menu = new();
 
     public static GameMenu Instance = new();
 
@@ -28,7 +26,7 @@ public class GameMenu
     {
     }
 
-    public void SplashScreen(string fileName = DEF_SPLASH)
+    public override void SplashScreen(string fileName = DEF_SPLASH)
     {
         FileManager.Instance.LoadFile(fileName);
         string[] lines = FileManager.Instance.LoadFileContent(fileName);
@@ -41,7 +39,7 @@ public class GameMenu
         this.StartGameMenu();
     }
 
-    public void StartGameMenu()
+    public override void StartGameMenu()
     {
         FileManager fm = FileManager.Instance;
         // Determind if the save file is exists and have content in it.
@@ -52,22 +50,22 @@ public class GameMenu
         this.GameModeMenu();
     }
 
-    public void GameModeMenu()
+    public override void GameModeMenu()
     {
-        this.menu = new();
-        this.menu.SetQuestions("Welcome to TTT");
-        this.menu.SetQuestions("Select an option");
+        base.ResetMenu();
+        base.SetQuestions("Welcome to TTT");
+        base.SetQuestions("Select an option");
 
         // Loop all the possible options from typeof(GameModeEnum)
         EnumExtension.Query<GameModeEnum>().All(a =>
         {
-            menu.AddMenuEnum(a);
+            base.AddMenuEnum(a);
             return true;
         });
-        this.menu.AddMenuEnum(Command.Help);
-        this.menu.AddMenuEnum(ConfirmationEnum.Quit);
+        base.AddMenuEnum(Command.Help);
+        base.AddMenuEnum(ConfirmationEnum.Quit);
 
-        this.nSelection = menu.GetUserAnswer();
+        this.nSelection = base.GetUserAnswer();
         switch (this.nSelection)
         {
             default:
@@ -88,21 +86,21 @@ public class GameMenu
     }
 
 
-    public void GameTypeMenu()
+    public override void GameTypeMenu()
     {
-        this.menu = new();
-        this.menu.SetQuestionEnum(sGame);
-        this.menu.SetQuestions("Who is playing?");
+        base.ResetMenu();
+        base.SetQuestionEnum(sGame);
+        base.SetQuestions("Who is playing?");
 
         EnumExtension.Query<GameTypeEnum>().All(a =>
         {
-            this.menu.AddMenuEnum(a);
+            this.AddMenuEnum(a);
             return true;
         });
-        this.menu.AddMenuEnum(Command.Help);
-        this.menu.AddMenuEnum(NavigationEnum.Back);
+        base.AddMenuEnum(Command.Help);
+        base.AddMenuEnum(NavigationEnum.Back);
 
-        this.nSelection = this.menu.GetUserAnswer();
+        this.nSelection = base.GetUserAnswer();
         switch (this.nSelection)
         {
             default:
@@ -120,17 +118,17 @@ public class GameMenu
         }
     }
 
-    public void HelpMenu(string className)
+    public override void HelpMenu(string className)
     {
-        this.menu = new();
-        this.menu.SetQuestions("Help Message");
+        base.ResetMenu();
+        base.SetQuestions("Help Message");
         EnumExtension.Query<GameModeEnum>().All(a =>
         {
-            this.menu.AddMenu(a.ToStringExt());
+            base.AddMenuEnum(a);
             return true;
         });
-        this.menu.AddMenuEnum(NavigationEnum.Back);
-        this.nSelection = menu.GetUserAnswer();
+        base.AddMenuEnum(NavigationEnum.Back);
+        this.nSelection = base.GetUserAnswer();
         switch (this.nSelection)
         {
             default:
@@ -149,49 +147,86 @@ public class GameMenu
         }
     }
 
-    public bool LoadMenu()
+    public override bool LoadMenu()
     {
-        this.menu = new();
+        base.ResetMenu();
         while (true)
         {
-            this.menu.SetQuestions("Save file detected!");
-            this.menu.SetQuestions("Load game?");
+            base.SetQuestions("Save file detected!");
+            base.SetQuestions("Load game?");
             foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
             {
-                this.menu.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
+                base.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
             }
 
-            switch (this.menu.GetUserAnswer())
+            switch (base.GetUserAnswer())
             {
                 case 1:
                     this.LoadGame();
                     break;
                 case 2:
-                    Menu confirmWipe = new();
-                    confirmWipe.SetQuestions("Are you sure?");
-                    confirmWipe.SetQuestions("If you choose to start a new game,");
-                    confirmWipe.SetQuestions("Save file will be wiped and");
-                    confirmWipe.SetQuestions("YOU WILL LOST ALL YOUR PROGRESS.");
-                    foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
-                    {
-                        confirmWipe.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
-                    }
-                    int confirmWipeAnswer = confirmWipe.GetUserAnswer();
-
-                    if (confirmWipeAnswer == 1)
-                    {
-                        this.LoadGame();
-                    }
-                    else if (confirmWipeAnswer == 2)
-                    {
-                        this.GameModeMenu();
-                    }
+                    this.OverrideSaveFile();
                     break;
                 case 3:
                     Environment.Exit(0);
                     break;
             }
 
+        }
+    }
+
+    public bool OverrideConfirm()
+    {
+        base.ResetMenu();
+        base.SetQuestions("Save file detected... override?");
+        while (true)
+        {
+            EnumExtension.Query<ConfirmationEnum>().All(a =>
+            {
+                base.AddMenuEnum(a);
+                return true;
+            });
+            switch (base.GetUserAnswer())
+            {
+                // YES
+                case 1:
+                    return true;
+                    break;
+                // NO
+                case 2:
+                    return false;
+                // QUIT
+                case 3:
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+    }
+    
+    private void OverrideSaveFile()
+    {
+        base.ResetMenu();
+        base.SetQuestions("Save file detected... are you sure?");
+        base.SetQuestions("If you choose to start a new game,");
+        base.SetQuestions("Save file will be wiped and");
+        base.SetQuestions("YOU WILL LOST ALL YOUR PROGRESS.");
+        foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
+        {
+            base.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
+        }
+        int confirmWipeAnswer = base.GetUserAnswer();
+
+        switch (confirmWipeAnswer)
+        {
+            case 1:
+                this.LoadGame();
+                break;
+            case 2:
+                this.GameModeMenu();
+                break;
+            default:
+                Environment.Exit(0);
+                break;
         }
     }
 
