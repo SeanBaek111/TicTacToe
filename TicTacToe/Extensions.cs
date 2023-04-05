@@ -25,6 +25,14 @@ public static class EnumExtension
         Console.WriteLine(Environment.NewLine);
         //Console.WriteLine(value);
     }
+
+    public static void WriteLineCenter(string format, params object[] args)
+    {
+        string value = string.Format(format, args);
+        int padding = (Console.WindowWidth - value.Length) / 2;
+        Console.WriteLine("{0," + padding + "}{1}", "", value);
+    }
+
     /// <summary>
     /// Extension method to return an formatted string of type T for the given enum.
     /// </summary>

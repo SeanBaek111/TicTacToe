@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
-using static TicTacToe.Enums;
+using static TicTacToe.Enums; 
+using static TicTacToe.EnumExtension;
 
 namespace TicTacToe
 {
@@ -36,29 +37,20 @@ namespace TicTacToe
 
         public override void DisplayBoard()
         {
-            //  Console.Clear();
-            /* Console.WriteLine("┌─────┬─────┬─────┐");
-             Console.WriteLine("│     │     │     │");
-             Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[0,0], gameBoard[0, 1], gameBoard[0, 2]);
-             Console.WriteLine("├─────┼─────┼─────┤ ");
-             Console.WriteLine("│     │     │     │");
-             Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
-             Console.WriteLine("├─────┼─────┼─────┤ ");
-             Console.WriteLine("│     │     │     │");
-             Console.WriteLine("│  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
-             Console.WriteLine("└─────┴─────┴─────┘");*/
-
-            Console.WriteLine(" **Square Number**         ");
-            Console.WriteLine("┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐");
-            Console.WriteLine("│     │     │     │        │     │     │     │");
-            Console.WriteLine("│  1  │  2  │  3  │        │  {0}  │  {1}  │  {2}  │", gameBoard[0, 0], gameBoard[0, 1], gameBoard[0, 2]);
-            Console.WriteLine("├─────┼─────┼─────┤        ├─────┼─────┼─────┤ ");
-            Console.WriteLine("│     │     │     │        │     │     │     │");
-            Console.WriteLine("│  4  │  5  │  6  │        │  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
-            Console.WriteLine("├─────┼─────┼─────┤        ├─────┼─────┼─────┤ ");
-            Console.WriteLine("│     │     │     │        │     │     │     │");
-            Console.WriteLine("│  7  │  8  │  9  │        │  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
-            Console.WriteLine("└─────┴─────┴─────┘        └─────┴─────┴─────┘");
+            WriteLineCenter(Environment.NewLine);
+            WriteLineCenter("**Square Number**                             ");
+            WriteLineCenter("┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐");
+            WriteLineCenter("│     │     │     │        │     │     │     │");
+            WriteLineCenter("│  1  │  2  │  3  │        │  {0}  │  {1}  │  {2}  │", gameBoard[0, 0], gameBoard[0, 1], gameBoard[0, 2]);
+            WriteLineCenter("├─────┼─────┼─────┤        ├─────┼─────┼─────┤");
+            WriteLineCenter("│     │     │     │        │     │     │     │");
+            WriteLineCenter("│  4  │  5  │  6  │        │  {0}  │  {1}  │  {2}  │", gameBoard[1, 0], gameBoard[1, 1], gameBoard[1, 2]);
+            WriteLineCenter("├─────┼─────┼─────┤        ├─────┼─────┼─────┤");
+            WriteLineCenter("│     │     │     │        │     │     │     │");
+            WriteLineCenter("│  7  │  8  │  9  │        │  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
+            WriteLineCenter("└─────┴─────┴─────┘        └─────┴─────┴─────┘");
+            WriteLineCenter(Environment.NewLine);
+            WriteLineCenter(Environment.NewLine);
         }
 
         public override bool IsValidMove(string[] arrInput)
