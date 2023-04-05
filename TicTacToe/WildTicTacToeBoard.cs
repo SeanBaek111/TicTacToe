@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
-using static TicTacToe.Enums; 
-using static TicTacToe.EnumExtension;
+using static TicTacToe.Enums;
+using static TicTacToe.Extensions;
 
 namespace TicTacToe
 {
