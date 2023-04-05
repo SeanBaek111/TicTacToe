@@ -14,7 +14,7 @@ public static class EnumExtension
     /// <summary>
     /// Set the text position at the very center of the terminal.
     /// </summary>
-    public static void PrintCenter(this string value, int ms = 50)
+    public static void PrintCenter(this string value, int ms = 0)
     {
         Console.SetCursorPosition((Console.WindowWidth - value.Length) / 2, Console.CursorTop);
         foreach (var i in value.Replace(Environment.NewLine, ""))

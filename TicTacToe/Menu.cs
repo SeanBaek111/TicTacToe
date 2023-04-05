@@ -37,7 +37,7 @@ namespace TicTacToe
         {
             foreach (string i in questions)
             {
-                i.PrintCenter();
+                i.PrintCenter(10);
             }
             Console.WriteLine(Environment.NewLine);
             for (int i = 0; i < listMenu.Count; i++)

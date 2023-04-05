@@ -29,6 +29,11 @@ public class FileManager
 
     }
 
+    public FileManager GetInstance()
+    {
+        return Instance;
+    }
+
     /// <summary>
     /// Check if the file is exists.
     /// </summary>
@@ -41,11 +46,6 @@ public class FileManager
     public bool IsFileEmpty(string fileName = DEF_FILENAME)
     {
         return new FileInfo(fileName).Length == 0;
-    }
-
-    public string[] LoadFileContext(string fileName = DEF_HELPNAME)
-    {
-        return File.ReadAllLines(fileName);
     }
 
     /// <summary>
@@ -237,10 +237,25 @@ public class FileManager
         }
     }
 
-    public string[] LoadTXT(string fileName)
+    public void LoadFile(string path)
     {
+        string resourcePath = "TicTacToe." + path;
+        Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
+
+        StreamReader reader = new StreamReader(resourceStream);
+
+        string outputPath = path;
+        using (StreamWriter writer = new StreamWriter(outputPath))
+        {
+            writer.Write(reader.ReadToEnd());
+        }
+    }
+
+    public string[] LoadFileContent(string fileName)
+    {
+        //return File.ReadAllLines(fileName);
         return File.ReadAllLines(fileName.Contains(".txt") ?
-                                 fileName : fileName + ".txt");
+            fileName : fileName + ".txt");
     }
 
     /// <summary>

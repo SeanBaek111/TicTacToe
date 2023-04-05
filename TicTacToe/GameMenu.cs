@@ -30,13 +30,12 @@ public class GameMenu
 
     public void SplashScreen(string fileName = DEF_SPLASH)
     {
-        Console.Clear();
-        string[] lines = FileManager.Instance.LoadTXT(fileName);
-        lines.All(a =>
+        FileManager.Instance.LoadFile(fileName);
+        string[] lines = FileManager.Instance.LoadFileContent(fileName);
+        foreach (string i in lines)
         {
-            a.PrintCenter(1);
-            return true;
-        });
+            i.PrintCenter(1);
+        }
         "Press Any Key To Continue...".PrintCenter();
         Console.ReadKey();
         this.StartGameMenu();

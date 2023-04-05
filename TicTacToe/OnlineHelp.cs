@@ -6,6 +6,7 @@ namespace TicTacToe
     public class OnlineHelp
     {
         const string DEF_HELPNAME = "help.txt";
+        private const string DEF_HELP_PREFIX = "Help.";
 
         public static OnlineHelp _instance = new OnlineHelp();
 
@@ -17,19 +18,9 @@ namespace TicTacToe
 
         private void LoadHelpFiles(string name)
         {
-            string resourcePath = "TicTacToe.Help." + name;
+            string resourcePath = DEF_HELP_PREFIX + name;
 
-            Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
-
-
-            StreamReader reader = new StreamReader(resourceStream);
-
-            string outputPath = name;
-            using (StreamWriter writer = new StreamWriter(outputPath))
-            {
-                writer.Write(reader.ReadToEnd());
-            }
-
+            FileManager.Instance.LoadFile(resourcePath);
         }
 
         private OnlineHelp()
@@ -47,7 +38,7 @@ namespace TicTacToe
 
             if (helpType is not null)
             {
-                fileName = helpType.ToString();
+                fileName = DEF_HELP_PREFIX + helpType.ToString();
             }
             else
             {
@@ -59,13 +50,13 @@ namespace TicTacToe
 
         private void Display(string fileName)
         {
-            string[] helpContext = FileManager.Instance.LoadTXT(fileName + ".txt");
             Console.Clear();
-            helpContext.All(a =>
+            string[] lines = FileManager.Instance.LoadFileContent(fileName);
+
+            foreach (string i in lines)
             {
-                Console.WriteLine(a);
-                return true;
-            });
+                i.PrintCenter();
+            }
             "Press Any Key To Continue...".PrintCenter(10);
             Console.ReadKey();
         }
