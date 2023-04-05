@@ -51,7 +51,7 @@ horizontally, vertically, or diagonally) wins the game.
 ╚═══════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║Monte_Carlo_Computer_Player chose position 6 with piece O    ║
+║Monte_Carlo_Computer_Player chose position 6 with piece O     ║
 ║**Square Number**	    **GameBoard**                      ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
@@ -74,7 +74,7 @@ In this scenario, if the user inputs (9 X) or (9 O) they will win the game.
 Human_Player: (Position Piece) >>> 9 O
 
 ╔══════════════════════════════════════════════════════════════╗
-║Human_Player chose position 9 with number O                  ║
+║Human_Player chose position 9 with number O                   ║
 ║**Square Number**	    **GameBoard**                      ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║

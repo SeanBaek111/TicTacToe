@@ -13,4 +13,21 @@
     <Content Include="*.txt" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Help\" />
+    <None Remove="Help\Numeric_Tic_Tac_Toe.txt" />
+    <None Remove="Help\Wild_Tic_Tac_Toe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Help\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Wild_Tic_Tac_Toe.txt" />
+    <EmbeddedResource Include="Help\Numeric_Tic_Tac_Toe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Program.cs">
+      <LogicalName>Help.Wild_Tic_Tac_Toe.txt</LogicalName>
+    </Compile>
+  </ItemGroup>
 </Project>
