@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TicTacToe;
 
-public static class EnumExtension
+public static class Extensions
 {
     /// <summary>
     /// Set the text position at the very center of the terminal.
