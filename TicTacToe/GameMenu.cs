@@ -182,6 +182,9 @@ public class GameMenu : Menu
 
     public void EndGameMenu(PlayerTypeEnum winner)
     {
+        // Display board at EndGame
+        Board currentBoard = game.GetBoard();
+        currentBoard.DisplayBoard();
         base.ResetMenu();
         base.SetQuestions("Game Over");
         base.SetQuestions($"{winner.ToStringExt()} wins");
@@ -191,7 +194,7 @@ public class GameMenu : Menu
         base.AddMenuEnum(Command.Undo);
         base.AddMenuEnum(Command.Quit);
 
-        nSelection = base.GetUserAnswer();
+        nSelection = base.GetUserAnswer(false);
         switch (nSelection)
         {
             case 1:
@@ -205,7 +208,7 @@ public class GameMenu : Menu
                 break;
             case 3:
                 // perform undo
-                History.GetInstance().Undo(game.GetBoard());
+                History.GetInstance().Undo(currentBoard);
                 break;
             case 4:
                 Environment.Exit(0);
