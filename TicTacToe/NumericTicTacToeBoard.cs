@@ -8,19 +8,23 @@ namespace TicTacToe
     public class NumericTicTacToeBoard : Board
     {
         const int BOARD_SIZE = 3;
+        const int BOARD_ROWS = 3;
+        const int BOARD_COLS = 3;
 
         public List<char> listAvailablePieces { get; set; }
         public NumericTicTacToeBoard() : base()
         {
-            base.gameBoard = new char[BOARD_SIZE, BOARD_SIZE];
-            for (int i = 0; i < BOARD_SIZE; i++)
+            base.gameBoard = new char[BOARD_ROWS, BOARD_COLS];
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     gameBoard[i, j] = '-';
                 }
             }
-            base.pieces = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            //base.pieces = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            base.pieces = Enumerable.Range(1, BOARD_ROWS * BOARD_COLS)
+                .Select(s => (char)s).ToArray();
 
             listAvailablePieces = new List<char>(base.pieces);
         }
@@ -63,8 +67,8 @@ namespace TicTacToe
         {
             input--;
 
-            row = input / BOARD_SIZE;
-            col = input % BOARD_SIZE;
+            row = input / BOARD_ROWS;
+            col = input % BOARD_COLS;
         }
         protected bool IsValidPiece(char piece, bool isFirst)
         {
@@ -105,9 +109,9 @@ namespace TicTacToe
                 return false;
             }
 
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     if (gameBoard[i, j] == cPiece)
                     {
@@ -117,7 +121,7 @@ namespace TicTacToe
             }
 
 
-            if (row >= BOARD_SIZE || col >= BOARD_SIZE || row < 0 || col < 0)
+            if (row >= BOARD_ROWS || col >= BOARD_COLS || row < 0 || col < 0)
             {
                 return false;
             }
@@ -157,9 +161,9 @@ namespace TicTacToe
                 return false;
             }
 
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     if (gameBoard[i, j] == cPiece)
                     {
@@ -169,7 +173,7 @@ namespace TicTacToe
             }
 
 
-            if (row >= BOARD_SIZE || col >= BOARD_SIZE || row < 0 || col < 0)
+            if (row >= BOARD_ROWS || col >= BOARD_COLS || row < 0 || col < 0)
             {
                 return false;
             }
@@ -223,7 +227,7 @@ namespace TicTacToe
             gameBoard[row, col] = piece;
             listAvailablePieces.Remove(piece);
             LastPlacedPiece = piece; // Store the last placed piece
-            LastPosition = row * BOARD_SIZE + col + 1;
+            LastPosition = row * BOARD_ROWS + col + 1;
         }
 
         //       
@@ -272,9 +276,9 @@ namespace TicTacToe
         // check if the board is full
         public override bool IsQuit()
         {
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     if (gameBoard[i, j] == '-')
                     {
@@ -334,18 +338,18 @@ namespace TicTacToe
         {
             StringBuilder sStatus = new StringBuilder();
 
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BOARD_ROWS; i++)
             {
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BOARD_COLS; j++)
                 {
                     sStatus.Append(gameBoard[i, j]);
 
-                    if (j < BOARD_SIZE - 1)
+                    if (j < BOARD_COLS - 1)
                     {
                         sStatus.Append(".");
                     }
                 }
-                if (i < BOARD_SIZE - 1)
+                if (i < BOARD_ROWS - 1)
                 {
                     sStatus.Append(".");
                 }

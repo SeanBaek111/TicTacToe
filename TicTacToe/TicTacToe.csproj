@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="30.0.1" />
+    <!-- CopyToOutputDirectory = { Always, PreserveNewest, Never } -->
+    <Content Include="*.txt" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>

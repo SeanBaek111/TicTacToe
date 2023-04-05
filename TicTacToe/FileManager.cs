@@ -60,7 +60,7 @@ public class FileManager
         catch (IOException e)
         {
             Menu menu = new Menu();
-            menu.SetQuestion("Save file detected... override?");
+            menu.SetQuestions("Save file detected... override?");
             EnumExtension.Query<ConfirmationEnum>().All(a =>
             {
                 menu.AddMenuEnum(a);
@@ -239,8 +239,8 @@ public class FileManager
 
     public string[] LoadTXT(string fileName)
     {
-        return File.ReadAllLines(fileName.Contains(".txt") ? fileName : fileName
-    + ".txt");
+        return File.ReadAllLines(fileName.Contains(".txt") ?
+                                 fileName : fileName + ".txt");
     }
 
     /// <summary>

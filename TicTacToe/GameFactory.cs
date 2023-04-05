@@ -24,7 +24,7 @@ namespace TicTacToe
             switch (name)
             {
                 case GameModeEnum.Numeric_Tic_Tac_Toe:
-                    Data.GetInstance().GameMode = GameModeEnum.Numeric_Tic_Tac_Toe; 
+                    Data.GetInstance().GameMode = GameModeEnum.Numeric_Tic_Tac_Toe;
                     game = new NumericTTT();
                     game.SetBoard(new NumericTicTacToeBoard());
                     break;
@@ -55,8 +55,8 @@ namespace TicTacToe
                 Data.GetInstance().GameType = GameTypeEnum.Human_VS_Computer;
                 Data.GetInstance().PlayerTypeEnum = PlayerTypeEnum.Monte_Carlo_Computer_Player;
                 listPlayer = new Player[2];
-                 listPlayer[0] = new HumanPlayer();
-              //listPlayer[1] = new ComputerPlayer();
+                listPlayer[0] = new HumanPlayer();
+                //listPlayer[1] = new ComputerPlayer();
                 listPlayer[1] = new MonteCarloComputerPlayer();
 
                 listPlayer[0].SetIsFirstTurn(true);
@@ -72,9 +72,8 @@ namespace TicTacToe
             listPlayer[0].SetTurn(true);
             listPlayer[1].SetTurn(false);
             game.SetPlayers(listPlayer);
-             
 
-            
+
 
             return game;
 
@@ -82,7 +81,7 @@ namespace TicTacToe
 
         public Game LoadGame()
         {
-            Game game = null; 
+            Game game = null;
 
             Stack<GameStatus> gameStatuses = FileManager.Instance.LoadProgress();
 
@@ -94,16 +93,16 @@ namespace TicTacToe
 
             GameStatus gameStatus = gameStatuses.Peek();
             Data.GetInstance().GameStatus = gameStatus;
-        
+
 
             switch (gameStatus.GameMode)
             {
                 case GameModeEnum.Numeric_Tic_Tac_Toe:
-                    game = new NumericTTT();   
+                    game = new NumericTTT();
                     break;
                 case GameModeEnum.Wild_Tic_Tac_Toe:
-                    game = new WildTTT(); 
-                   
+                    game = new WildTTT();
+
                     break;
                 default:
                     throw new Exception($"Game mode: {""} is not exists.");
@@ -111,12 +110,11 @@ namespace TicTacToe
 
             game.SetBoard(gameStatus.Board);
 
-            Data.GetInstance().GameMode =  gameStatus.GameMode;
-            Data.GetInstance().GameType =  gameStatus.GameType;
+            Data.GetInstance().GameMode = gameStatus.GameMode;
+            Data.GetInstance().GameType = gameStatus.GameType;
             Data.GetInstance().CurrentPlayer = gameStatus.CurrentPlayer;
 
             game.SetPlayers(gameStatus.Players);
-
 
             return game;
         }

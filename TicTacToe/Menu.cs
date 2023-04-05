@@ -10,6 +10,7 @@ namespace TicTacToe
     {
         List<string> listMenu = new List<string>();
         private string question = "";
+        private List<string> questions = new();
         public Menu(string question)
         {
             this.question = question;
@@ -21,7 +22,8 @@ namespace TicTacToe
         }
 
         public void SetQuestion(string question) { this.question += question + "\n"; }
-        public void SetQuestionEnum(Enum question) { this.question += question.ToStringExt() + "\n"; }
+        public void SetQuestions(string question) { this.questions.Add(question); }
+        public void SetQuestionEnum(Enum question) { this.questions.Add(question.ToStringExt()); }
         public void AddMenu(string menu)
         {
             listMenu.Add(menu);
@@ -33,25 +35,27 @@ namespace TicTacToe
 
         private void ShowMenu()
         {
-            Console.WriteLine(question);
+            foreach (string i in questions)
+            {
+                i.PrintCenter();
+            }
             Console.WriteLine(Environment.NewLine);
             for (int i = 0; i < listMenu.Count; i++)
             {
-                Console.WriteLine(i + 1 + ". " + listMenu[i]);
+                ("[" + (i + 1) + "] " + listMenu[i]).PrintCenter(20);
             }
         }
-
         public int GetUserAnswer()
         {
             int nSelection = 0;
-
+            Console.Clear();
             ShowMenu();
             Console.Write("\n>>> ");
             Int32.TryParse(Console.ReadLine(), out nSelection);
 
             while (nSelection < 1 || nSelection > listMenu.Count)
             {
-                Console.WriteLine("Select a valid number\n");
+                ("Select a valid number\n").PrintCenter();
                 ShowMenu();
                 Console.Write("\n>>> ");
                 Int32.TryParse(Console.ReadLine(), out nSelection);
@@ -60,5 +64,6 @@ namespace TicTacToe
 
             return nSelection;
         }
+
     }
 }

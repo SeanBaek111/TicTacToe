@@ -66,6 +66,8 @@ namespace TicTacToe
                 Console.WriteLine(a);
                 return true;
             });
+            "Press Any Key To Continue...".PrintCenter(10);
+            Console.ReadKey();
         }
     }
 }
