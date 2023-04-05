@@ -17,19 +17,9 @@ namespace TicTacToe
 
         private void LoadHelpFiles(string name)
         {
-            string resourcePath = "TicTacToe.Help." + name;
+            string resourcePath = "Help." + name;
 
-            Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
-
-
-            StreamReader reader = new StreamReader(resourceStream);
-
-            string outputPath = name;
-            using (StreamWriter writer = new StreamWriter(outputPath))
-            {
-                writer.Write(reader.ReadToEnd());
-            }
-
+            FileManager.Instance.LoadTXT(resourcePath);
         }
 
         private OnlineHelp()
@@ -59,13 +49,8 @@ namespace TicTacToe
 
         private void Display(string fileName)
         {
-            string[] helpContext = FileManager.Instance.LoadTXT(fileName + ".txt");
             Console.Clear();
-            helpContext.All(a =>
-            {
-                Console.WriteLine(a);
-                return true;
-            });
+            FileManager.Instance.LoadTXT(fileName);
             "Press Any Key To Continue...".PrintCenter(10);
             Console.ReadKey();
         }

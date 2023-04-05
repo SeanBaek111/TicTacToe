@@ -17,6 +17,7 @@
     <None Remove="Help\" />
     <None Remove="Help\Numeric_Tic_Tac_Toe.txt" />
     <None Remove="Help\Wild_Tic_Tac_Toe.txt" />
+    <None Remove="Splash.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Help\" />
@@ -24,6 +25,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Help\Wild_Tic_Tac_Toe.txt" />
     <EmbeddedResource Include="Help\Numeric_Tic_Tac_Toe.txt" />
+    <EmbeddedResource Include="Splash.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Program.cs">

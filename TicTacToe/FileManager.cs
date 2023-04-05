@@ -237,10 +237,18 @@ public class FileManager
         }
     }
 
-    public string[] LoadTXT(string fileName)
+    public void LoadTXT(string path)
     {
-        return File.ReadAllLines(fileName.Contains(".txt") ?
-                                 fileName : fileName + ".txt");
+        string root = "TicTacToe." + path;
+        Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(root);
+
+        StreamReader reader = new StreamReader(resourceStream);
+
+        string outputPath = path;
+        using (StreamWriter writer = new StreamWriter(outputPath))
+        {
+            writer.Write(reader.ReadToEnd());
+        }
     }
 
     /// <summary>
