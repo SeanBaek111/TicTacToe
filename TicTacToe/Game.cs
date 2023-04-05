@@ -13,10 +13,9 @@ namespace TicTacToe
         Player latestPlayer;
         Board gameBoard;
 
-
-
         private int historyCount;
         const int MAX_TURN = 9;
+
         public Game()
         {
             historyCount = 0;
@@ -139,15 +138,10 @@ namespace TicTacToe
                 currentPlayer = GetCurrentPlayer();
                 UpdateBoardAndHistory();
             }
-
-
-
             Command command = currentPlayer.MakeMovement(gameBoard);
 
             while (true)
             {
-
-
                 if (command == Command.Help)
                 {
                     // Show help menu  
@@ -216,11 +210,14 @@ namespace TicTacToe
                     if (IsWin())
                     {
                         winPlayer = currentPlayer;
+                        GameMenu.GetInstance().EndGameMenu(currentPlayer.GetName());
                     }
-
-                    SwapPlayer();
-                    currentPlayer = GetCurrentPlayer();
-                    UpdateBoardAndHistory();
+                    else
+                    {
+                        SwapPlayer();
+                        currentPlayer = GetCurrentPlayer();
+                        UpdateBoardAndHistory();
+                    }
                 }
 
                 DisplayCurrentBoard();
@@ -371,6 +368,10 @@ namespace TicTacToe
         public void SetBoard(Board board)
         {
             this.gameBoard = board;
+        }
+        public Board GetBoard()
+        {
+            return gameBoard;
         }
         internal void SetPlayers(Player[] players)
         {

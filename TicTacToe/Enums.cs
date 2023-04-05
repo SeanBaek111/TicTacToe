@@ -53,5 +53,6 @@ public static class Enums
         None,
         Invalid,
         About,
+        Restart,
     }
 }

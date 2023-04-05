@@ -50,7 +50,6 @@ namespace TicTacToe
             WriteLineCenter("│  7  │  8  │  9  │        │  {0}  │  {1}  │  {2}  │", gameBoard[2, 0], gameBoard[2, 1], gameBoard[2, 2]);
             WriteLineCenter("└─────┴─────┴─────┘        └─────┴─────┴─────┘");
             WriteLineCenter(Environment.NewLine);
-            WriteLineCenter(Environment.NewLine);
         }
 
         public override bool IsValidMove(string[] arrInput)
