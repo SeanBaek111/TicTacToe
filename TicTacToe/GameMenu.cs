@@ -180,7 +180,7 @@ public class GameMenu : Menu
         }
     }
 
-    public void EndGameMenu(PlayerTypeEnum winner)
+    public void EndGameMenu()
     {
         // Check if Game is null ( load game )
         if (game is null)
@@ -197,11 +197,9 @@ public class GameMenu : Menu
         currentBoard.DisplayBoard();
         base.ResetMenu();
         base.SetQuestions("Game Over");
-        base.SetQuestions($"{winner.ToStringExt()} wins");
-
         base.AddMenuEnum(Command.Restart);
+        base.AddMenuEnum(Command.Load);
         base.AddMenuEnum(Command.Help);
-        base.AddMenuEnum(Command.Undo);
         base.AddMenuEnum(Command.Quit);
 
         nSelection = base.GetUserAnswer(false);
@@ -214,14 +212,11 @@ public class GameMenu : Menu
                 break;
             case 2:
                 // return Help Menu
-                this.HelpMenu(nameof(this.GameModeMenu));
+                this.LoadGame();
                 break;
             case 3:
-                // perform undo
-                if (History.GetInstance().Undo(currentBoard))
-                {
-                    game.SwapPlayer();
-                };
+                // return Help Menu
+                this.HelpMenu(nameof(this.GameModeMenu));
                 break;
             case 4:
                 Environment.Exit(0);

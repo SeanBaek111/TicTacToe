@@ -210,14 +210,10 @@ namespace TicTacToe
                     if (IsWin())
                     {
                         winPlayer = currentPlayer;
-                        GameMenu.GetInstance().EndGameMenu(currentPlayer.GetName());
                     }
-                    else
-                    {
-                        SwapPlayer();
-                        currentPlayer = GetCurrentPlayer();
-                        UpdateBoardAndHistory();
-                    }
+                    SwapPlayer();
+                    currentPlayer = GetCurrentPlayer();
+                    UpdateBoardAndHistory();
                 }
 
                 DisplayCurrentBoard();
@@ -229,9 +225,9 @@ namespace TicTacToe
 
                     if (currentPlayer is HumanPlayer)
                     {
+                        // Display EndGame menu 
                         command = currentPlayer.MakeMovement(gameBoard);
-                        //   Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
-
+                        // Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
                     }
                     else
                     {
@@ -245,7 +241,6 @@ namespace TicTacToe
                         // Environment.Exit(0);
                         break;
                     }
-
                 }
                 else
                 {
@@ -258,8 +253,14 @@ namespace TicTacToe
 
             //  DisplayGameOverMessage();
             // WaitForUserInputBeforeExiting();
+            this.DisplayEndGameMenu();
         }
 
+        private void DisplayEndGameMenu()
+        {
+            GameMenu.GetInstance().EndGameMenu();
+        }
+        
         private void DisplayCurrentBoard()
         {
             if (latestPlayer != null && gameBoard.LastPosition != 0)

@@ -47,6 +47,7 @@ public static class Enums
     {
         Help,
         Save,
+        Load,
         Undo,
         Redo,
         Quit,
