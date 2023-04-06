@@ -80,7 +80,6 @@ namespace TicTacToe
             {
                 // Save the current state to the Redo stack
                 redoStack.Push(gameHistory.Pop());
-                redoStack.Push(gameHistory.Pop());
                 // Get the previous state
                 GameStatus previousState = gameHistory.Peek();
 
