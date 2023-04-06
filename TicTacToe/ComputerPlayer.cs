@@ -14,6 +14,12 @@ namespace TicTacToe
         {
             base.name = name;
         }
+
+        public override Command MakeFinalDecision()
+        {
+            throw new NotImplementedException();
+        }
+
         public override Command MakeMovement(Board board)
         {
             // 1 2 3 4 5 6 7 8 9  

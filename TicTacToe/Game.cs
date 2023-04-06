@@ -209,10 +209,15 @@ namespace TicTacToe
                     // Quit
                     return;
                 }
-                else if (command == Command.Invalid)
+                else if (command == Command.InvalidMove)
                 {
                     Console.Clear();
                     Console.WriteLine("Invalid Move");
+                }
+                else if (command == Command.InvalidInput)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid Input");
                 }
                 else
                 {
@@ -245,7 +250,8 @@ namespace TicTacToe
 
                     if (currentPlayer is   HumanPlayer)
                     {
-                        command = currentPlayer.MakeMovement(gameBoard);
+                        command = currentPlayer.MakeFinalDecision();
+                        //command = currentPlayer.MakeMovement(gameBoard);
                         //   Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
 
                     }

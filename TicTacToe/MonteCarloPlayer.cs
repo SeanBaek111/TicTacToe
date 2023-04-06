@@ -125,5 +125,10 @@ namespace TicTacToe
                 return 0;
             }
         }
+
+        public override Command MakeFinalDecision()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

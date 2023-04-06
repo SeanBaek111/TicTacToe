@@ -14,6 +14,28 @@ namespace TicTacToe
         {
             base.name = name;
         }
+
+        public override Command MakeFinalDecision()
+        { 
+            
+                Console.WriteLine("Help: H, Undo: U, Save game: S, Quit game: Q");
+                Console.Write($"{name}: >>> ");
+
+                string sInput = Console.ReadLine();
+                string[] arrInput = sInput.Split(' ');
+                Console.Clear();
+
+                if (arrInput.Length == 1)
+                {
+                    return ParseCommand(arrInput[0]);
+                }
+                else 
+                {
+                    return Command.InvalidInput;
+                }
+            
+           
+        }
         public override Command MakeMovement(Board board)
         {
             while (true)
@@ -73,7 +95,7 @@ namespace TicTacToe
                     return Command.Quit;
                 default:
                     Console.WriteLine("Invalid command. Please enter a valid command (S: Save, U: Undo, R: Redo, Q: Quit).");
-                    return Command.Invalid;
+                    return Command.InvalidInput;
             }
         }
     }

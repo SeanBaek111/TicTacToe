@@ -52,8 +52,9 @@ public static class Enums
         Redo,
         Quit,
         None,
-        Invalid,
+        InvalidMove,
         About,
         Restart,
+        InvalidInput
     }
 }

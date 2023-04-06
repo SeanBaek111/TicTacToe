@@ -12,6 +12,8 @@ namespace TicTacToe
         public bool bTurn { get; set; }
         public PlayerTypeEnum name { get; set; }
         public abstract Command MakeMovement(Board board);
+        public abstract Command MakeFinalDecision();
+        
 
         public Player() { }
         public void SetTurn(bool turn)
