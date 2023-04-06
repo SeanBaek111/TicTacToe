@@ -13,7 +13,7 @@ public class FileManager
     /// <summary>
     /// It's the default file manager.
     /// </summary>
-    const string DEF_FILENAME = "save.csv";
+    const string DEF_FILENAME = "save.bin";
     const string DEF_HELPNAME = "help.txt";
 
     /// <summary

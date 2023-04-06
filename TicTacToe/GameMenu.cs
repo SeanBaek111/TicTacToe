@@ -44,7 +44,7 @@ public class GameMenu : Menu
     {
         FileManager fm = FileManager.Instance;
         // Determind if the save file is exists and have content in it.
-        if (fm.IsFileExists() && fm.IsFileEmpty())
+        if (fm.IsFileExists() && !fm.IsFileEmpty())
         {
             this.LoadMenu();
         }
