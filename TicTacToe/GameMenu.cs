@@ -260,10 +260,10 @@ public class GameMenu : Menu
         switch (confirmWipeAnswer)
         {
             case 1:
-                this.LoadGame();
+                this.GameModeMenu();
                 break;
             case 2:
-                this.GameModeMenu();
+                this.LoadGame();
                 break;
             default:
                 Environment.Exit(0);
