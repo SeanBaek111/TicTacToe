@@ -1,4 +1,6 @@
 ﻿using System;
+using static TicTacToe.Enums;
+
 namespace TicTacToe
 {
     public class NumericTTT : Game
@@ -7,6 +9,23 @@ namespace TicTacToe
         public NumericTTT()
         {
             name = "Numeric TicTacToe";
+        }
+
+        protected override Command MakeMovement()
+        {
+            return currentPlayer.MakeMovement(gameBoard);
+        }
+
+        protected override Command MakeFinalDecision()
+        {
+            if (currentPlayer is HumanPlayer)
+            {
+                return currentPlayer.MakeFinalDecision();
+            }
+            else
+            {
+                return Command.Quit;
+            }
         }
     }
 }

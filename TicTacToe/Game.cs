@@ -5,18 +5,19 @@ using static TicTacToe.Enums;
 
 namespace TicTacToe
 {
-    public class Game
+    public abstract class Game
     {
         Player[] players;
-        Player currentPlayer;
+        protected Player currentPlayer;
         Player winPlayer;
         Player latestPlayer;
-        Board gameBoard;
-
-
+        protected Board gameBoard; 
 
         private int historyCount;
-        const int MAX_TURN = 9;
+
+        protected abstract Command MakeMovement();
+        protected virtual Command MakeFinalDecision() { return Command.InvalidInput; }
+
         public Game()
         {
             historyCount = 0;
@@ -96,7 +97,8 @@ namespace TicTacToe
             currentPlayer = GetCurrentPlayer();
             UpdateBoardAndHistory();
         }
-        public void Play(GameStatus gameStatus = null)
+
+        private void InitializeGame(GameStatus gameStatus = null)
         {
             History.GetInstance().Init();
             Console.WriteLine("Game started");
@@ -111,9 +113,39 @@ namespace TicTacToe
             {
                 currentPlayer = GetCurrentPlayer();
                 UpdateBoardAndHistory();
-            } 
+            }
+        } 
+        private void UpdateBoardAndHistory(GameStatus status = null)
+        {
+            GameStatus gameStatus = null;
 
-            Command command = currentPlayer.MakeMovement(gameBoard);
+            if (gameStatus == null)
+            {
+                gameStatus = new GameStatus(currentPlayer, gameBoard.GetCurrentStatus());
+                gameStatus.GameMode = Data.GetInstance().GameMode;
+                gameStatus.GameType = Data.GetInstance().GameType;
+                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum;
+            }
+            else
+            {
+                gameStatus = status;
+                gameStatus.GameMode = Data.GetInstance().GameStatus.GameMode;
+                gameStatus.GameType = Data.GetInstance().GameStatus.GameType;
+                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum;
+            }
+
+            gameStatus.Board = gameBoard;
+            gameStatus.Players = players;
+            gameStatus.SetLastPiece(gameBoard.LastPlacedPiece);
+            gameStatus.SetAvailablePieces(gameBoard.GetAvailablePieces());
+            historyCount = AddHistory(gameStatus);
+        }
+
+        public void Play(GameStatus gameStatus = null)
+        {
+            InitializeGame(gameStatus);
+             
+            Command command = MakeMovement();
 
             while (true)
             {
@@ -130,7 +162,7 @@ namespace TicTacToe
                     currentPlayer = GetCurrentPlayer(); 
                     if (currentPlayer is  HumanPlayer)
                     {
-                        command = currentPlayer.MakeFinalDecision(); 
+                        command = MakeFinalDecision();
                     }
                     else
                     {
@@ -193,31 +225,7 @@ namespace TicTacToe
             gameBoard.DisplayBoard();
         }
 
-        private void UpdateBoardAndHistory(GameStatus status = null)
-        {
-            GameStatus gameStatus = null;
-
-            if (gameStatus == null)
-            {
-                gameStatus = new GameStatus(currentPlayer, gameBoard.GetCurrentStatus());
-                gameStatus.GameMode = Data.GetInstance().GameMode;
-                gameStatus.GameType = Data.GetInstance().GameType;
-                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum;
-            }
-            else
-            {
-                gameStatus = status;
-                gameStatus.GameMode = Data.GetInstance().GameStatus.GameMode;
-                gameStatus.GameType = Data.GetInstance().GameStatus.GameType;
-                gameStatus.PlayerTypeEnum = Data.GetInstance().PlayerTypeEnum;
-            }
-
-            gameStatus.Board = gameBoard;
-            gameStatus.Players = players;
-            gameStatus.SetLastPiece(gameBoard.LastPlacedPiece);
-            gameStatus.SetAvailablePieces(gameBoard.GetAvailablePieces());
-            historyCount = AddHistory(gameStatus);
-        }
+    
 
         private bool IsGameOver()
         {
