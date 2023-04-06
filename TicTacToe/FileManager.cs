@@ -104,6 +104,11 @@ public class FileManager
         return logs;
     }
 
+    public void WipeSaveFile(string fileName = DEF_FILENAME)
+    {
+        File.WriteAllText(fileName, String.Empty);
+    }
+
     public static Stack<T> ConvertToObject<T>(string filePath) where T : new()
     {
         Stack<T> objects = new Stack<T>();

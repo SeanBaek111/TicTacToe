@@ -244,6 +244,7 @@ public class GameMenu : Menu
             {
                 // YES
                 case 1:
+                    FileManager.Instance.WipeSaveFile();
                     return true;
                     break;
                 // NO
