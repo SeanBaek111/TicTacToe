@@ -11,7 +11,7 @@ namespace TicTacToe
 
         public abstract void SplashScreen(string fileName);
         public abstract void StartGameMenu(bool noticed);
-        public abstract void GameModeMenu();
+        public abstract bool GameModeMenu();
         public abstract void GameTypeMenu();
         public abstract void HelpMenu(string className);
         public abstract bool LoadMenu();
@@ -67,6 +67,7 @@ namespace TicTacToe
 
             while (nSelection < 1 || nSelection > listMenu.Count)
             {
+                Console.Clear();
                 ("Select a valid number\n").PrintCenter();
                 ShowMenu();
                 Console.Write("\n>>> ");

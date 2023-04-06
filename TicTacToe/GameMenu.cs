@@ -56,11 +56,16 @@ public class GameMenu : Menu
             base.SetQuestions("No save file found");
             base.GetUserNotice();
         }
-        this.GameModeMenu();
+
+        if( this.GameModeMenu() )
+        {
+            StartGameMenu(noticed);
+        }
     }
 
-    public override void GameModeMenu()
+    public override bool GameModeMenu()
     {
+        bool bRes = true;
         base.ResetMenu();
         base.SetQuestions("Welcome to TTT");
         base.SetQuestions("Select an option");
@@ -93,9 +98,11 @@ public class GameMenu : Menu
                 this.SplashScreen();
                 break;
             case 5:
-                Environment.Exit(0);
+                bRes = false;
                 break;
         }
+
+        return bRes;
     }
 
 
@@ -162,9 +169,10 @@ public class GameMenu : Menu
 
     public override bool LoadMenu()
     {
-        base.ResetMenu();
+       
         while (true)
         {
+            base.ResetMenu();
             base.SetQuestions("Save file detected!");
             base.SetQuestions("Load game?");
             foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))

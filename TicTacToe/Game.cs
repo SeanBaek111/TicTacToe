@@ -13,9 +13,10 @@ namespace TicTacToe
         Player latestPlayer;
         Board gameBoard;
 
+
+
         private int historyCount;
         const int MAX_TURN = 9;
-
         public Game()
         {
             historyCount = 0;
@@ -24,7 +25,6 @@ namespace TicTacToe
         private Player GetCurrentPlayer()
         {
             Player player = null;
-
 
             foreach (Player p in players)
             {
@@ -139,10 +139,15 @@ namespace TicTacToe
                 currentPlayer = GetCurrentPlayer();
                 UpdateBoardAndHistory();
             }
+
+
+
             Command command = currentPlayer.MakeMovement(gameBoard);
 
             while (true)
             {
+
+
                 if (command == Command.Help)
                 {
                     // Show help menu  
@@ -159,7 +164,7 @@ namespace TicTacToe
                 else if (command == Command.Undo)
                 {
                     // Undo  
-                    if (historyCount >= 2)
+                    if (historyCount > 2)
                     {
                         Console.WriteLine("Undo");
 
@@ -169,8 +174,11 @@ namespace TicTacToe
                         {
                             if (History.GetInstance().Undo(gameBoard))
                             {
+
                                 SwapPlayer();
                             }
+                            else
+                                break;
                         }
                     }
                     else
@@ -192,12 +200,14 @@ namespace TicTacToe
                         {
                             SwapPlayer();
                         }
+                        else
+                            break;
                     }
                 }
                 else if (command == Command.Quit)
                 {
                     // Quit
-                    Environment.Exit(0);
+                    return;
                 }
                 else if (command == Command.Invalid)
                 {
@@ -211,6 +221,11 @@ namespace TicTacToe
                     {
                         winPlayer = currentPlayer;
                     }
+                    else
+                    {
+                        winPlayer = null;
+                    }
+
                     SwapPlayer();
                     currentPlayer = GetCurrentPlayer();
                     UpdateBoardAndHistory();
@@ -220,14 +235,19 @@ namespace TicTacToe
 
                 if (IsGameOver())
                 {
+                    if (currentPlayer is not HumanPlayer)
+                    {
+                       // Console.Clear();
+                    }
+                     
                     DisplayGameOverMessage();
                     currentPlayer = GetCurrentPlayer();
 
-                    if (currentPlayer is HumanPlayer)
+                    if (currentPlayer is   HumanPlayer)
                     {
-                        // Display EndGame menu 
                         command = currentPlayer.MakeMovement(gameBoard);
-                        // Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
+                        //   Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
+
                     }
                     else
                     {
@@ -239,8 +259,10 @@ namespace TicTacToe
                     {
                         // Quit
                         // Environment.Exit(0);
-                        break;
+                        return;
+
                     }
+
                 }
                 else
                 {
@@ -253,14 +275,8 @@ namespace TicTacToe
 
             //  DisplayGameOverMessage();
             // WaitForUserInputBeforeExiting();
-            this.DisplayEndGameMenu();
         }
 
-        private void DisplayEndGameMenu()
-        {
-            GameMenu.GetInstance().EndGameMenu();
-        }
-        
         private void DisplayCurrentBoard()
         {
             if (latestPlayer != null && gameBoard.LastPosition != 0)
@@ -344,7 +360,7 @@ namespace TicTacToe
             return bRes;
         }
 
-        public void SwapPlayer()
+        private void SwapPlayer()
         {
             for (int i = 0; i < players.Length; i++)
             {
@@ -390,4 +406,3 @@ namespace TicTacToe
 
     }
 }
-

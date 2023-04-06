@@ -83,7 +83,7 @@ public class FileManager
 
         //LoadProgress(fileName);
 
-        Stack<GameStatus> logs2 = (Stack<GameStatus>)Extensions.LoadFromBin(fileName);
+        
         // Return true or false based on how file are saved.
         return saveResult;
     }

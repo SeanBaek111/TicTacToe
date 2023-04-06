@@ -255,7 +255,8 @@ public static class Extensions
         }
         catch (SystemException e)
         {
-            throw e;
+           // throw e;
+            Console.WriteLine(e.Message);
         }
         return obj;
     }
