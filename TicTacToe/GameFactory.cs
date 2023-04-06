@@ -6,11 +6,17 @@ namespace TicTacToe
 {
     public class GameFactory
     {
+        private Game game;
         public static GameFactory _instance = new GameFactory();
 
         public static GameFactory GetInstance()
         {
             return _instance;
+        }
+
+        public Game GetGame()
+        {
+            return game;
         }
 
         private GameFactory()
@@ -20,7 +26,6 @@ namespace TicTacToe
 
         public Game CreateGame(GameModeEnum name, GameTypeEnum players, BoardTypeEnum board)
         {
-            Game game;
             Player[] listPlayer;
             switch (name)
             {
@@ -72,17 +77,17 @@ namespace TicTacToe
 
             listPlayer[0].SetTurn(true);
             listPlayer[1].SetTurn(false);
-            game.SetPlayers(listPlayer);
+            this.game.SetPlayers(listPlayer);
 
 
 
-            return game;
+            return this.game;
 
         }
 
         public Game LoadGame()
         {
-            Game game = null;
+            this.game = null;
 
             Stack<GameStatus> gameStatuses = FileManager.Instance.LoadProgress();
 
@@ -115,9 +120,9 @@ namespace TicTacToe
             Data.GetInstance().GameType = gameStatus.GameType;
             Data.GetInstance().CurrentPlayer = gameStatus.CurrentPlayer;
 
-            game.SetPlayers(gameStatus.Players);
+                this.game.SetPlayers(gameStatus.Players);
 
-            return game;
+            return this.game;
         }
     }
 }

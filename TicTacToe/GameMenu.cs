@@ -182,6 +182,16 @@ public class GameMenu : Menu
 
     public void EndGameMenu(PlayerTypeEnum winner)
     {
+        // Check if Game is null ( load game )
+        if (game is null)
+        {
+            game = GameFactory.GetInstance().GetGame();
+            Data data = Data.GetInstance();
+            sGame = data.GameMode;
+            sPlayers = data.GameType;
+            // Prefixed 
+            sBoard = BoardTypeEnum.Tic_Tac_Toe_Board;     
+        }
         // Display board at EndGame
         Board currentBoard = game.GetBoard();
         currentBoard.DisplayBoard();
