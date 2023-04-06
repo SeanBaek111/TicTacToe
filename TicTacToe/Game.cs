@@ -169,7 +169,6 @@ namespace TicTacToe
                         {
                             if (History.GetInstance().Undo(gameBoard))
                             {
-
                                 SwapPlayer();
                             }
                         }
@@ -344,7 +343,7 @@ namespace TicTacToe
             return bRes;
         }
 
-        private void SwapPlayer()
+        public void SwapPlayer()
         {
             for (int i = 0; i < players.Length; i++)
             {

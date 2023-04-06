@@ -218,7 +218,10 @@ public class GameMenu : Menu
                 break;
             case 3:
                 // perform undo
-                History.GetInstance().Undo(currentBoard);
+                if (History.GetInstance().Undo(currentBoard))
+                {
+                    game.SwapPlayer();
+                };
                 break;
             case 4:
                 Environment.Exit(0);
