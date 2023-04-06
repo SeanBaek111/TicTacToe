@@ -16,7 +16,7 @@ namespace TicTacToe
         private int historyCount;
 
         protected abstract Command MakeMovement();
-        protected virtual Command MakeFinalDecision() { return Command.InvalidInput; }
+        protected virtual Command MakeFinalDecision() { return Command.Quit; }
 
         public Game()
         {
