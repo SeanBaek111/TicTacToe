@@ -44,7 +44,7 @@ public class GameMenu : Menu
     {
         FileManager fm = FileManager.Instance;
         // Determind if the save file is exists and have content in it.
-        if (fm.IsFileExists() && !fm.IsFileEmpty())
+        if (fm.IsFileExists() ^ fm.IsFileEmpty())
         {
             this.LoadMenu();
         }
@@ -164,7 +164,9 @@ public class GameMenu : Menu
                 base.AddMenuEnum(name.ToEnum<ConfirmationEnum>());
             }
 
-            switch (base.GetUserAnswer())
+            int selection = base.GetUserAnswer();
+
+            switch (selection)
             {
                 case 1:
                     this.LoadGame();
@@ -176,7 +178,6 @@ public class GameMenu : Menu
                     Environment.Exit(0);
                     break;
             }
-
         }
     }
 
@@ -194,11 +195,15 @@ public class GameMenu : Menu
         }
         // Display board at EndGame
         Board currentBoard = game.GetBoard();
+        FileManager fm = FileManager.Instance;
         currentBoard.DisplayBoard();
         base.ResetMenu();
         base.SetQuestions("Game Over");
         base.AddMenuEnum(Command.Restart);
-        base.AddMenuEnum(Command.Load);
+        if (fm.IsFileExists() ^ fm.IsFileEmpty())
+        {
+            base.AddMenuEnum(Command.Load);
+        }
         base.AddMenuEnum(Command.Help);
         base.AddMenuEnum(Command.Quit);
 
