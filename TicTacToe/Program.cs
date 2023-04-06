@@ -7,8 +7,13 @@ namespace TicTacToe;
 public class Program
 {
 
-    public static void Main()
+    static void GameThread()
     {
         GameMenu.GetInstance().StartGameMenu();
+    }
+    public static void Main()
+    {
+        Thread tr = new Thread(GameThread);
+        tr.Start();
     }
 }
