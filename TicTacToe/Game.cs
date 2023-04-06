@@ -24,96 +24,13 @@ namespace TicTacToe
 
         private Player GetCurrentPlayer()
         {
-            Player player = null;
-
-            foreach (Player p in players)
-            {
-                if (p.IsPlayerTurn())
-                {
-                    player = p;
-                    break;
-                }
-            }
-            //    Console.WriteLine("Current Player : " + player.GetName().ToStringExt());
-            return player;
+            return players.FirstOrDefault(p => p.IsPlayerTurn());
         }
 
         private bool IsHumanVsHuman()
         {
             return players.All(p => p is HumanPlayer);
-        }
-
-        /* public void Play()
-         {
-             Console.WriteLine("Game started");
-             DisplayCurrentBoard();
-             UpdateBoardAndHistory();
-             while (!IsGameOver())
-             {
-                 currentPlayer = GetCurrentPlayer();
-                 Command command = currentPlayer.MakeMovement(gameBoard);
-
-
-                 if (command == Command.Save)
-                 {
-                     // Save game
-                     if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
-                     {
-                         Console.WriteLine("File Saved");
-                     }
-                 }
-                 else if (command == Command.Undo)
-                 {
-                     // Undo 
-                     // if it's Human vs Human mode -> Undo only 1 step
-                     // else Undo 2 steps
-
-                     int steps = IsHumanVsHuman() ? 1 : 2;
-                     Console.WriteLine("Undo");
-                     for (int i = 0; i < steps; i++)
-                     {
-                         if (History.GetInstance().Undo(gameBoard))
-                         {
-
-                             SwapPlayer();
-                         }
-                     }
-                 }
-                 else if (command == Command.Redo)
-                 {
-                     // Redo
-                     // if it's Human vs Human mode -> Redo only 1 step
-                     // else Redo 2 steps
-
-                     int steps = IsHumanVsHuman() ? 1 : 2;
-                     Console.WriteLine("Redo");
-                     for (int i = 0; i < steps; i++)
-                     {
-                         if(History.GetInstance().Redo(gameBoard))
-                         { 
-                             SwapPlayer();
-                         } 
-                     } 
-                 }
-                 else if (command == Command.Quit)
-                 {
-                     // Quit
-                     Environment.Exit(0);
-                 }
-                 else
-                 {
-                     UpdateBoardAndHistory();
-
-                     SwapPlayer();
-                 }
-
-                 DisplayCurrentBoard();
-
-             }
-
-             DisplayGameOverMessage();
-             WaitForUserInputBeforeExiting();
-         }*/
+        } 
 
         private void ShowHelp()
         {
@@ -122,7 +39,63 @@ namespace TicTacToe
             // WaitForUserInputBeforeExiting();
         }
 
+        private bool ProcessGameCommand(Command command)
+        {
+            bool bRes = true;
+            switch (command)
+            {
+                case Command.Help:
+                    ShowHelp();
+                    break;
+                case Command.Save:
+                    SaveGame();
+                    break;
+                case Command.Undo:
+                    Undo();
+                    break;
+                case Command.Redo:
+                    Redo();
+                    break;
+                case Command.Quit:
+                    bRes = false; break;
+                case Command.InvalidMove:
+                    Console.Clear();
+                    Console.WriteLine("Invalid Move");
+                    break;
+                case Command.InvalidInput:
+                    Console.Clear();
+                    Console.WriteLine("Invalid Input");
+                    break;
+                default:
+                    UpdateGameState();
+                    break;
+            }
+            return bRes;
+        }
+        private void SaveGame()
+        {
+            if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
+            {
+                Console.WriteLine("File Saved");
+            }
+        }
 
+        private void UpdateGameState()
+        {
+            latestPlayer = currentPlayer;
+            if (IsWin())
+            {
+                winPlayer = currentPlayer;
+            }
+            else
+            {
+                winPlayer = null;
+            }
+
+            SwapPlayer();
+            currentPlayer = GetCurrentPlayer();
+            UpdateBoardAndHistory();
+        }
         public void Play(GameStatus gameStatus = null)
         {
             History.GetInstance().Init();
@@ -138,150 +111,80 @@ namespace TicTacToe
             {
                 currentPlayer = GetCurrentPlayer();
                 UpdateBoardAndHistory();
-            }
-
-
+            } 
 
             Command command = currentPlayer.MakeMovement(gameBoard);
 
             while (true)
             {
-
-
-                if (command == Command.Help)
+                if (ProcessGameCommand(command) == false)
                 {
-                    // Show help menu  
-                    ShowHelp();
-                }
-                else if (command == Command.Save)
-                {
-                    // Save game
-                    if (FileManager.Instance.SaveProgress(History.GetInstance().GetLastStack()))
-                    {
-                        Console.WriteLine("File Saved");
-                    }
-                }
-                else if (command == Command.Undo)
-                {
-                    // Undo  
-                    if (historyCount > 2)
-                    {
-                        Console.WriteLine("Undo");
-
-                        int steps = 2;
-
-                        for (int i = 0; i < steps; i++)
-                        {
-                            if (History.GetInstance().Undo(gameBoard))
-                            {
-
-                                SwapPlayer();
-                            }
-                            else
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Undo is not available");
-                    }
-
-                }
-                else if (command == Command.Redo)
-                {
-                    // Redo 
-                    Console.WriteLine("Redo");
-
-                    int steps = 2;
-
-                    for (int i = 0; i < steps; i++)
-                    {
-                        if (History.GetInstance().Redo(gameBoard))
-                        {
-                            SwapPlayer();
-                        }
-                        else
-                            break;
-                    }
-                }
-                else if (command == Command.Quit)
-                {
-                    // Quit
                     return;
                 }
-                else if (command == Command.InvalidMove)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Invalid Move");
-                }
-                else if (command == Command.InvalidInput)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Invalid Input");
-                }
-                else
-                {
-                    latestPlayer = currentPlayer;
-                    if (IsWin())
-                    {
-                        winPlayer = currentPlayer;
-                    }
-                    else
-                    {
-                        winPlayer = null;
-                    }
-
-                    SwapPlayer();
-                    currentPlayer = GetCurrentPlayer();
-                    UpdateBoardAndHistory();
-                }
-
+   
                 DisplayCurrentBoard();
 
                 if (IsGameOver())
-                {
-                    if (currentPlayer is not HumanPlayer)
-                    {
-                       // Console.Clear();
-                    }
-                     
+                { 
                     DisplayGameOverMessage();
-                    currentPlayer = GetCurrentPlayer();
-
-                    if (currentPlayer is   HumanPlayer)
+                    currentPlayer = GetCurrentPlayer(); 
+                    if (currentPlayer is  HumanPlayer)
                     {
-                        command = currentPlayer.MakeFinalDecision();
-                        //command = currentPlayer.MakeMovement(gameBoard);
-                        //   Console.WriteLine($"{currentPlayer.GetName()} chose position {gameBoard.LastPosition} with piece {gameBoard.LastPlacedPiece}");
-
+                        command = currentPlayer.MakeFinalDecision(); 
                     }
                     else
                     {
-                        command = Command.Quit;
-                    }
-
-
-                    if (command == Command.Quit)
-                    {
-                        // Quit
-                        // Environment.Exit(0);
                         return;
-
-                    }
-
+                    } 
                 }
                 else
                 {
                     currentPlayer = GetCurrentPlayer();
-                    command = currentPlayer.MakeMovement(gameBoard);
-
+                    command = currentPlayer.MakeMovement(gameBoard); 
                 }
 
-            }
-
-            //  DisplayGameOverMessage();
-            // WaitForUserInputBeforeExiting();
+            } 
         }
+
+        private void Undo()
+        {
+            if (historyCount > 2)
+            {
+                Console.WriteLine("Undo");
+                int steps = 2;
+
+                for (int i = 0; i < steps; i++)
+                {
+                    if (History.GetInstance().Undo(gameBoard))
+                    {
+                        SwapPlayer();
+                    }
+                    else
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Undo is not available");
+            }
+        }
+
+        private void Redo()
+        {
+            Console.WriteLine("Redo");
+            int steps = 2;
+
+            for (int i = 0; i < steps; i++)
+            {
+                if (History.GetInstance().Redo(gameBoard))
+                {
+                    SwapPlayer();
+                }
+                else
+                    break;
+            }
+        }
+
 
         private void DisplayCurrentBoard()
         {
