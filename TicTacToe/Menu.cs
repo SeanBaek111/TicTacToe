@@ -10,7 +10,7 @@ namespace TicTacToe
     {
 
         public abstract void SplashScreen(string fileName);
-        public abstract void StartGameMenu();
+        public abstract void StartGameMenu(bool noticed);
         public abstract void GameModeMenu();
         public abstract void GameTypeMenu();
         public abstract void HelpMenu(string className);
@@ -45,12 +45,13 @@ namespace TicTacToe
         {
             foreach (string i in questions)
             {
-                i.PrintCenter(10);
+                //i.PrintCenter(10);
+                Extensions.WriteLineCenter(i);
             }
             Console.WriteLine(Environment.NewLine);
             for (int i = 0; i < listMenu.Count; i++)
             {
-                ("[" + (i + 1) + "] " + listMenu[i]).PrintCenter(20);
+                ("[" + (i + 1) + "] " + listMenu[i]).PrintCenter(10);
             }
         }
         public int GetUserAnswer(bool clear = true)
@@ -74,6 +75,13 @@ namespace TicTacToe
             Console.Clear();
 
             return nSelection;
+        }
+
+        public void GetUserNotice()
+        {
+            ShowMenu();
+            "Press Any Key To Continue...".PrintCenter();
+            Console.ReadKey();
         }
 
         /// <summary>

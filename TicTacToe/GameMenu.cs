@@ -31,22 +31,30 @@ public class GameMenu : Menu
     {
         FileManager.Instance.LoadFile(fileName);
         string[] lines = FileManager.Instance.LoadFileContent(fileName);
+        
+        base.ResetMenu();
         foreach (string i in lines)
         {
-            i.PrintCenter(1);
+            base.SetQuestions(i);
         }
-        "Press Any Key To Continue...".PrintCenter();
-        Console.ReadKey();
-        this.StartGameMenu();
+        base.GetUserNotice();
+        this.StartGameMenu(true);
     }
 
-    public override void StartGameMenu()
+    public override void StartGameMenu(bool noticed = false)
     {
         FileManager fm = FileManager.Instance;
         // Determind if the save file is exists and have content in it.
         if (fm.IsFileExists() ^ fm.IsFileEmpty())
         {
             this.LoadMenu();
+        }
+        else if (!noticed)
+        {
+            base.ResetMenu();
+            base.SetQuestions("Welcome to TTT");
+            base.SetQuestions("No save file found");
+            base.GetUserNotice();
         }
         this.GameModeMenu();
     }
@@ -196,36 +204,48 @@ public class GameMenu : Menu
         // Display board at EndGame
         Board currentBoard = game.GetBoard();
         FileManager fm = FileManager.Instance;
-        currentBoard.DisplayBoard();
+        bool isLoadable = fm.IsFileExists() ^ fm.IsFileEmpty();
         base.ResetMenu();
         base.SetQuestions("Game Over");
         base.AddMenuEnum(Command.Restart);
-        if (fm.IsFileExists() ^ fm.IsFileEmpty())
+        if (isLoadable)
         {
             base.AddMenuEnum(Command.Load);
+        }
+        else
+        {
+            base.AddMenu("Load [X]");
         }
         base.AddMenuEnum(Command.Help);
         base.AddMenuEnum(Command.Quit);
 
-        nSelection = base.GetUserAnswer(false);
-        switch (nSelection)
+        bool isValid = false;
+        while (!isValid)
         {
-            case 1:
-                // return same mode new game
-                game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
-                game.Play();
-                break;
-            case 2:
-                // return Help Menu
-                this.LoadGame();
-                break;
-            case 3:
-                // return Help Menu
-                this.HelpMenu(nameof(this.GameModeMenu));
-                break;
-            case 4:
-                Environment.Exit(0);
-                break;
+            currentBoard.DisplayBoard();
+            nSelection = base.GetUserAnswer(false);
+            switch (nSelection)
+            {
+                case 1:
+                    // return same mode new game
+                    game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
+                    game.Play();
+                    isValid = true;
+                    break;
+                case 2:
+                    // return Help Menu
+                    if (isLoadable)
+                        this.LoadGame();
+                    break;
+                case 3:
+                    // return Help Menu
+                    this.HelpMenu(nameof(this.GameModeMenu));
+                    isValid = true;
+                    break;
+                case 4:
+                    Environment.Exit(0);
+                    break;
+            }
         }
     }
 
