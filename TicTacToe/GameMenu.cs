@@ -190,7 +190,7 @@ public class GameMenu : Menu
             sGame = data.GameMode;
             sPlayers = data.GameType;
             // Prefixed 
-            sBoard = BoardTypeEnum.Tic_Tac_Toe_Board;     
+            sBoard = BoardTypeEnum.Tic_Tac_Toe_Board;
         }
         // Display board at EndGame
         Board currentBoard = game.GetBoard();
@@ -274,6 +274,7 @@ public class GameMenu : Menu
         switch (confirmWipeAnswer)
         {
             case 1:
+                FileManager.Instance.WipeSaveFile();
                 this.GameModeMenu();
                 break;
             case 2:
