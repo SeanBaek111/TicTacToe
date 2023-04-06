@@ -159,7 +159,7 @@ namespace TicTacToe
                 else if (command == Command.Undo)
                 {
                     // Undo  
-                    if (historyCount > 2)
+                    if (historyCount >= 2)
                     {
                         Console.WriteLine("Undo");
 
