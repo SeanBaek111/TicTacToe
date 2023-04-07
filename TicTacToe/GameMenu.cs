@@ -291,8 +291,8 @@ public class GameMenu : Menu
         base.ResetMenu();
         base.SetQuestions("Save file detected... are you sure?");
         base.SetQuestions("If you choose to start a new game,");
-        base.SetQuestions("Save file will be wiped and");
-        base.SetQuestions("YOU WILL LOST ALL YOUR PROGRESS.");
+        base.SetQuestions("Your save file will be wiped and");
+        base.SetQuestions("YOU WILL LOSE ALL OF YOUR PROGRESS!!!");
         foreach (string name in Enum.GetNames(typeof(ConfirmationEnum)))
         {
             base.AddMenuEnum(name.ToEnum<ConfirmationEnum>());

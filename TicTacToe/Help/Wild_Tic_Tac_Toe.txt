@@ -24,7 +24,7 @@ Human_Player: (Position Piece) >>> 3 O
 
 ╔══════════════════════════════════════════════════════════════╗
 ║Human_Player chose position 3 with piece O                    ║
-║**Square Number**	    **GameBoard**                      ║
+║**Square Number**	    **GameBoard**                          ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
 ║│  1  │  2  │  3  │        │  -  │  -  │  O  │                ║
@@ -35,7 +35,7 @@ Human_Player: (Position Piece) >>> 3 O
 ║│     │     │     │        │     │     │     │                ║
 ║│  7  │  8  │  9  │        │  -  │  -  │  -  │                ║
 ║└─────┴─────┴─────┘        └─────┴─────┴─────┘                ║
-╚══════════════════════════════════════════════════════════════╝ ;
+╚══════════════════════════════════════════════════════════════╝
 
 On the board you can see that the piece the player has inputted is on the 3 Square with a O.
 
@@ -52,7 +52,7 @@ horizontally, vertically, or diagonally) wins the game.
 
 ╔══════════════════════════════════════════════════════════════╗
 ║Monte_Carlo_Computer_Player chose position 6 with piece O     ║
-║**Square Number**	    **GameBoard**                      ║
+║**Square Number**	    **GameBoard**                          ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
 ║│  1  │  2  │  3  │        │  X  │  -  │  O  │                ║
@@ -75,7 +75,7 @@ Human_Player: (Position Piece) >>> 9 O
 
 ╔══════════════════════════════════════════════════════════════╗
 ║Human_Player chose position 9 with number O                   ║
-║**Square Number**	    **GameBoard**                      ║
+║**Square Number**	    **GameBoard**                          ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
 ║│  1  │  2  │  3  │        │  X  │  -  │  O  │                ║

@@ -23,7 +23,7 @@ Human_Player: (Position Piece) >>> 3 1
 
 ╔══════════════════════════════════════════════════════════════╗
 ║Human_Player chose position 3 with number 1                   ║
-║**Square Number**	    **GameBoard**                      ║
+║**Square Number**	    **GameBoard**                          ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
 ║│  1  │  2  │  3  │        │  -  │  -  │  1  │                ║
@@ -34,7 +34,7 @@ Human_Player: (Position Piece) >>> 3 1
 ║│     │     │     │        │     │     │     │                ║
 ║│  7  │  8  │  9  │        │  -  │  -  │  -  │                ║
 ║└─────┴─────┴─────┘        └─────┴─────┴─────┘                ║
-╚══════════════════════════════════════════════════════════════╝ ;
+╚══════════════════════════════════════════════════════════════╝
 
 On the board you can see that the piece the player has inputted is on the 3 Square with a 1.
 ╔══════════════╗
@@ -49,7 +49,7 @@ The player who first puts down 15 points in a line(sum of a horizontal, vertical
 
 ╔══════════════════════════════════════════════════════════════╗
 ║Monte_Carlo_Computer_Player chose position 2 with number 8    ║
-║**Square Number**	    **GameBoard**                      ║
+║**Square Number**	    **GameBoard**                          ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
 ║│  1  │  2  │  3  │        │  3  │  8  │  -  │                ║
@@ -72,7 +72,7 @@ Human_Player: (Position Piece) >>> 7 5
 
 ╔══════════════════════════════════════════════════════════════╗
 ║Human_Player chose position 7  with number 5                  ║
-║**Square Number**	    **GameBoard**                      ║
+║**Square Number**	    **GameBoard**                          ║
 ║┌─────┬─────┬─────┐        ┌─────┬─────┬─────┐                ║
 ║│     │     │     │        │     │     │     │                ║
 ║│  1  │  2  │  3  │        │  3  │  8  │  -  │                ║
