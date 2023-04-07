@@ -166,6 +166,7 @@ namespace TicTacToe
                     }
                     else
                     {
+                        WaitForUserInputBeforeExiting();
                         return;
                     } 
                 }
