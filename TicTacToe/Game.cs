@@ -160,15 +160,9 @@ namespace TicTacToe
                 { 
                     DisplayGameOverMessage();
                     currentPlayer = GetCurrentPlayer(); 
-                    if (currentPlayer is  HumanPlayer)
-                    {
-                        command = MakeFinalDecision();
-                    }
-                    else
-                    {
-                        WaitForUserInputBeforeExiting();
-                        return;
-                    } 
+                   
+                    command = MakeFinalDecision();
+                   
                 }
                 else
                 {

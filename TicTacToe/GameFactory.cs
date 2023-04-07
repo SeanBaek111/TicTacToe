@@ -91,7 +91,7 @@ namespace TicTacToe
 
             Stack<GameStatus> gameStatuses = FileManager.Instance.LoadProgress();
 
-            if (gameStatuses.Count < 1)
+            if (gameStatuses == null || (gameStatuses != null && gameStatuses.Count < 1))
             {
                 Console.WriteLine("There's no saved game.");
                 return game;

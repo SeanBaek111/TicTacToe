@@ -13,7 +13,27 @@ namespace TicTacToe
         public PlayerTypeEnum name { get; set; }
         public abstract Command MakeMovement(Board board);
         public abstract Command MakeFinalDecision();
-        
+
+
+        public virtual Command ParseCommand(string input)
+        {
+            switch (input.ToUpper())
+            {
+                case "H":
+                    return Command.Help;
+                case "S":
+                    return Command.Save;
+                case "U":
+                    return Command.Undo;
+                case "R":
+                    return Command.Redo;
+                case "Q":
+                    return Command.Quit;
+                default:
+                    Console.WriteLine("Invalid command. Please enter a valid command (S: Save, U: Undo, R: Redo, Q: Quit).");
+                    return Command.InvalidInput;
+            }
+        }
 
         public Player() { }
         public void SetTurn(bool turn)

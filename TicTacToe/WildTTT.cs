@@ -19,14 +19,7 @@ namespace TicTacToe
 
         protected override Command MakeFinalDecision()
         {
-            if (currentPlayer is HumanPlayer)
-            {
-                return currentPlayer.MakeFinalDecision();
-            }
-            else
-            {
-                return Command.Quit;
-            }
+            return currentPlayer.MakeFinalDecision();
         }
     }
 }

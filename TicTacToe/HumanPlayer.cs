@@ -47,7 +47,7 @@ namespace TicTacToe
                 Console.WriteLine("Help: H, Undo: U, Redo: R, Save game: S, Quit game: Q");
                 Console.Write($"{name}: (Position Piece) >>> ");
 
-                string sInput = Console.ReadLine();
+                string sInput = Console.ReadLine().ToUpper();
                 string[] arrInput = sInput.Split(' ');
 
                 Console.Clear();
@@ -79,25 +79,6 @@ namespace TicTacToe
             return Command.None;
         }
 
-        private Command ParseCommand(string input)
-        {
-            switch (input.ToUpper())
-            {
-                case "H":
-                    return Command.Help;
-                case "S":
-                    return Command.Save;
-                case "U":
-                    return Command.Undo;
-                case "R":
-                    return Command.Redo;
-                case "Q":
-                    return Command.Quit;
-                default:
-                    Console.WriteLine("Invalid command. Please enter a valid command (S: Save, U: Undo, R: Redo, Q: Quit).");
-                    return Command.InvalidInput;
-            }
-        }
     }
 }
 
