@@ -17,7 +17,21 @@ namespace TicTacToe
 
         public override Command MakeFinalDecision()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Help: H, Undo: U, Save game: S, Quit game: Q");
+            Console.Write($"{name}: >>> ");
+
+            string sInput = Console.ReadLine();
+            string[] arrInput = sInput.Split(' ');
+            Console.Clear();
+
+            if (arrInput.Length == 1)
+            {
+                return ParseCommand(arrInput[0]);
+            }
+            else
+            {
+                return Command.InvalidInput;
+            }
         }
 
         public override Command MakeMovement(Board board)
