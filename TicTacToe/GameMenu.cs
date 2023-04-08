@@ -45,7 +45,7 @@ public class GameMenu : Menu
     {
         FileManager fm = FileManager.Instance;
         // Determind if the save file is exists and have content in it.
-        if (fm.IsFileExists() ^ fm.IsFileEmpty())
+        if (fm.IsFileExists() && !fm.IsFileEmpty())
         {
             this.LoadMenu();
         }
@@ -198,67 +198,7 @@ public class GameMenu : Menu
             }
         }
     }
-
-    public void EndGameMenu()
-    {
-        // Check if Game is null ( load game )
-        if (game is null)
-        {
-            game = GameFactory.GetInstance().GetGame();
-            Data data = Data.GetInstance();
-            sGame = data.GameMode;
-            sPlayers = data.GameType;
-            // Prefixed 
-            sBoard = BoardTypeEnum.Tic_Tac_Toe_Board;
-        }
-        // Display board at EndGame
-        Board currentBoard = game.GetBoard();
-        FileManager fm = FileManager.Instance;
-        bool isLoadable = fm.IsFileExists() ^ fm.IsFileEmpty();
-        base.ResetMenu();
-        base.SetQuestions("Game Over");
-        base.AddMenuEnum(Command.Restart);
-        if (isLoadable)
-        {
-            base.AddMenuEnum(Command.Load);
-        }
-        else
-        {
-            base.AddMenu("Load [X]");
-        }
-        base.AddMenuEnum(Command.Help);
-        base.AddMenuEnum(Command.Quit);
-
-        bool isValid = false;
-        while (!isValid)
-        {
-            currentBoard.DisplayBoard();
-            nSelection = base.GetUserAnswer(false);
-            switch (nSelection)
-            {
-                case 1:
-                    // return same mode new game
-                    game = GameFactory.GetInstance().CreateGame(sGame, sPlayers, sBoard);
-                    game.Play();
-                    isValid = true;
-                    break;
-                case 2:
-                    // return Help Menu
-                    if (isLoadable)
-                        this.LoadGame();
-                    break;
-                case 3:
-                    // return Help Menu
-                    this.HelpMenu(nameof(this.GameModeMenu));
-                    isValid = true;
-                    break;
-                case 4:
-                    Environment.Exit(0);
-                    break;
-            }
-        }
-    }
-
+    
     public bool OverrideConfirm()
     {
         base.ResetMenu();
