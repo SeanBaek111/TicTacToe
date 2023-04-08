@@ -17,7 +17,7 @@ namespace TicTacToe
 
         public override Command MakeFinalDecision()
         {
-            return currentPlayer.MakeFinalDecision();
+            throw new NotImplementedException();
         }
 
         public override Command MakeMovement(Board board)

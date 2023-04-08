@@ -155,6 +155,8 @@ public class GameMenu : Menu
                 GameModeEnum gameMode = this.nSelection.ToEnum<GameModeEnum>();
                 OnlineHelp.GetInstance().ShowHelp(gameMode);
                 break;
+            case 3:
+                break;
         }
         switch (className)
         {
