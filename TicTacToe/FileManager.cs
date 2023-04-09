@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using System.Xml.Linq;
-using CsvHelper;
 using static TicTacToe.Enums;
 
 namespace TicTacToe;
@@ -73,16 +72,9 @@ public class FileManager
     public bool SaveProgress(Stack<GameStatus> logs, string fileName = DEF_FILENAME)
     {
         // Use local method to create a save file.
-        bool create = this.CreateSaveFile(fileName);
+       this.CreateSaveFile(fileName);
 
-        // Use extenion method to save the progress to file.
-        bool saveResult = logs.SaveToCsv<GameStatus>(fileName);
-
-
-        saveResult = logs.SaveToBin<GameStatus>(fileName);
-
-        //LoadProgress(fileName);
-
+        bool saveResult = logs.SaveToBin<GameStatus>(fileName);
         
         // Return true or false based on how file are saved.
         return saveResult;

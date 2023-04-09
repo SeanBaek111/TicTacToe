@@ -1,10 +1,7 @@
-using CsvHelper.Configuration;
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
-using CsvHelper;
-using CsvHelper.TypeConversion;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TicTacToe;
@@ -98,121 +95,6 @@ public static class Extensions
 
         newList.Reverse();
         return newList;
-    }
-
-    /// <summary>
-    /// Save the Stack data into a CSV file.
-    /// </summary>
-    public static bool SaveToCsv<T>(this Stack<T> gameData, string path)
-    {
-        try
-        {
-            // Convert stack to list.
-            List<T> bs = gameData.ConvertToList<T>();
-
-            // Define general type
-            Type type = typeof(T);
-            // Get the properties of general type
-            PropertyInfo[] properties = type.GetProperties();
-
-            using (StreamWriter writer = new StreamWriter(path))
-            {
-                // Write header row
-                List<string> header = new List<string>();
-                // loop through all the properties.
-                foreach (PropertyInfo property in properties)
-                {
-                    if (property.PropertyType.IsSubclassOf(typeof(Player)))
-                    {
-                        //
-                        int a = 0;
-                        a++;
-                    }
-                    else if (property.PropertyType.IsSubclassOf(typeof(Player)))
-                    {
-
-                        int a = 0;
-                        a++;
-                    }
-                    // Check if the property are nest-class
-                    if (IsSimpleType(property.PropertyType))
-                    {
-                        header.Add(property.Name);
-                    }
-                    else
-                    {
-                        // add the header with nest-class prefix
-                        PropertyInfo[] subProperties = property.PropertyType.GetProperties();
-                        foreach (PropertyInfo subProperty in subProperties)
-                        {
-                            header.Add(property.Name + "_" + subProperty.Name);
-                        }
-                    }
-                }
-
-                writer.WriteLine(string.Join(",", header));
-
-                // Write data rows
-                foreach (T obj in bs)
-                {
-                    // Define empty string list.
-                    List<string> values = new List<string>();
-                    // Loop through all the properties
-                    foreach (PropertyInfo property in properties)
-                    {
-                        // Check if the property are nest-class
-                        if (IsSimpleType(property.PropertyType))
-                        {
-                            object value = property.GetValue(obj);
-                            if (value != null)
-                            {
-                                values.Add(value.ToString());
-                            }
-                            else
-                            {
-                                values.Add("");
-                            }
-                        }
-                        else
-                        {
-                            object subObject = property.GetValue(obj);
-                            if (subObject != null)
-                            {
-                                PropertyInfo[] subProperties = property.PropertyType.GetProperties();
-                                foreach (PropertyInfo subProperty in subProperties)
-                                {
-                                    object subValue = subProperty.GetValue(subObject);
-                                    if (subValue != null)
-                                    {
-                                        values.Add(subValue.ToString());
-                                    }
-                                    else
-                                    {
-                                        values.Add("");
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                PropertyInfo[] subProperties = property.PropertyType.GetProperties();
-                                foreach (PropertyInfo subProperty in subProperties)
-                                {
-                                    values.Add("");
-                                }
-                            }
-                        }
-                    }
-
-                    writer.WriteLine(string.Join(",", values));
-                }
-                return true;
-            }
-        }
-        // Well, incase something went wrong.
-        catch (Exception e)
-        {
-            throw e;
-        }
     }
 
     /// <summary>
