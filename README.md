@@ -5,8 +5,9 @@ This framework provides an extensible solution for many different two-player boa
 
 ## Class Diagram
 The final class diagram has expanded functions and modified relationships while staying consistent with the original design.
+<p align="center">
 <img width="569" alt="image" src="https://github.com/SeanBaek111/TicTacToe/assets/33170173/2cdae57c-56c7-43a0-ba96-1568b8b93e2a">
-
+</p>
 
 ## Numerical Tic-Tac-Toe
 
